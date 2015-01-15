@@ -19,3 +19,4 @@
 * Lines should be no longer than 80 columns long
 * Includes should be added to "stdafx.h" to improve performance as opposed to adding them to the .cc files
 * Don't include anything in .h files
+* Comment all of your shit. Comments for classes, comment for class variables, comments for every function, and comments when you're not doing anything completely obvious.
