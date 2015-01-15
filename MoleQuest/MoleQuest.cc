@@ -17,8 +17,7 @@
 #include "stdafx.h"
 #include "Game.h"
 
-int main()
-{
+int main() {
   /* Start the game */
   Game::Start();
 

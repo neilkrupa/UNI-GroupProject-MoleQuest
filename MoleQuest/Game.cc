@@ -6,8 +6,7 @@
 #include "stdafx.h"
 #include "Game.h"
 
-void Game::Start()
-{
+void Game::Start() {
   // If the game state is kUninitialised then return as the game has already
   // been set up before
   if (game_state_ != kUninitialised)
@@ -27,18 +26,15 @@ void Game::Start()
   Exit();
 }
 
-void Game::Exit()
-{
+void Game::Exit() {
 
 }
 
-bool Game::IsExiting()
-{
+bool Game::IsExiting() {
   return game_state_ == Game::kExiting;
 }
 
-void Game::GameLoop()
-{
+void Game::GameLoop() {
   sf::Event event;
 
   // Get the last event. The while loop will make it wait for an event to occur
