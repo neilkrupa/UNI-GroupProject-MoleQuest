@@ -45,20 +45,20 @@ void Game::GameLoop()
   while (main_window_.pollEvent(event)) {
     // Handle the event based upon what state the game is currently in
     switch (game_state_) {
-     case kPlaying: {
-       main_window_.clear(sf::Color(255, 0, 0));
-       main_window_.display();
+      case kPlaying: {
+        main_window_.clear(sf::Color(255, 0, 0));
+        main_window_.display();
 
-       if (event.type == sf::Event::Closed)
-         game_state_ = Game::kExiting;
+        if (event.type == sf::Event::Closed)
+          game_state_ = Game::kExiting;
 
         break;
       }
-     case kShowingSplash: {}
+      case kShowingSplash: {}
      
-     case kPaused: {}
+      case kPaused: {}
 
-     case kShowingMenu: {}
+      case kShowingMenu: {}
     }
 	}
 }
