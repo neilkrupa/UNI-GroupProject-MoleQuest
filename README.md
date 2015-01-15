@@ -3,6 +3,8 @@
 * Download and Install Visual Studio 2013. Make sure it is the 2013 version. It doesn't matter if you use Express or Professional 
 * Download SFML (http://www.sfml-dev.org/files/SFML-2.2-windows-vc12-64-bit.zip)
 * Follow this tutorial to setup SFML and Visual Studio (http://www.sfml-dev.org/tutorials/2.2/start-vc.php)
+* Ignore the part about making the SFML libraries static
+* Remember to copy-paste sfml-graphics-d-2.dll sfml-system-d-2.dll sfml-window-d-2.dll into the folder where the .exe gets made by Visual Studio
 * Clone the source code of this repository 
 * Open the MoleQuest.sln with Visual Studio
 
@@ -15,4 +17,4 @@
 * Every .h should have include guards (http://google-styleguide.googlecode.com/svn/trunk/cppguide.html#The__define_Guard)
 * Lines should be no longer than 80 columns long
 * Includes should be added to "stdafx.h" to improve performance as opposed to adding them to the .cc files
-* Don't include anything in .h files 
+* Don't include anything in .h files
