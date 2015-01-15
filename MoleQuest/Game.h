@@ -20,7 +20,7 @@ private:
   static void Exit();
 
   // Returns true if the game state is set to kExiting
-  static bool IsExiting();
+  inline static bool IsExiting() { return game_state_ == Game::kExiting; }
 
   // The main loop of the game. Will continously poll events and then
   // proceed to deal with the events based on the current game state.

@@ -30,10 +30,6 @@ void Game::Exit() {
 
 }
 
-bool Game::IsExiting() {
-  return game_state_ == Game::kExiting;
-}
-
 void Game::GameLoop() {
   sf::Event event;
 
