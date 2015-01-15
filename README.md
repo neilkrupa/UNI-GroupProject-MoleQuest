@@ -5,6 +5,7 @@
 * Follow this tutorial to setup SFML and Visual Studio (http://www.sfml-dev.org/tutorials/2.2/start-vc.php)
 * Ignore the part about making the SFML libraries static
 * Remember to copy-paste sfml-graphics-d-2.dll sfml-system-d-2.dll sfml-window-d-2.dll into the folder where the .exe gets made by Visual Studio
+* You will need to change the build type from Win32 to x64 in Visual Studio
 * Clone the source code of this repository 
 * Open the MoleQuest.sln with Visual Studio
 
