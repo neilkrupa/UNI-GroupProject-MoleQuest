@@ -60,7 +60,7 @@ void Game::GameLoop()
 
       case kShowingMenu: {}
     }
-	}
+  }
 }
 
 // Initialise some variables 
