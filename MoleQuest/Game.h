@@ -8,14 +8,20 @@
 #define GAME_H_
 
 class Game {
-public:
+ public:
   // Creates a window, adds initial game objects to the object manager and
   // finally calls the game loop continously whilst the game state isn't
   // set to kExiting. The game state MUST be set to kUninitialised 
   // otherwise this function will just return without doing anything.
   static void Start();
 
-private:
+ private:
+  // Will call the Show() function in MainMenu.cc to display the main menu
+  // and proceed to continously listen for mouse clicks on any of the main
+  // menu buttons. If a button is clicked, it will change the game state 
+  // to the appropriate state
+  static void ShowMenu();
+
   // Will clean up any resources, kill the window and exit the program
   static void Exit();
 
@@ -29,8 +35,8 @@ private:
   static void GameLoop();
 
   // An enumeration to hold all possible states the game can be in
-  enum GameState { kUninitialised, kShowingSplash, kPaused, kShowingMenu, 
-                    kPlaying, kExiting };
+  enum GameState { kUninitialised, kPaused, kShowingMenu, kPlaying, kExiting,
+                   kShowingSettings };
 
   // A static reference to hold the current state of the game
   static GameState game_state_;

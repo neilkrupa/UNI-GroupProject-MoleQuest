@@ -5,6 +5,7 @@
 
 #include "stdafx.h"
 #include "Game.h"
+#include "MainMenu.h"
 
 void Game::Start() {
   // If the game state is kUninitialised then return as the game has already
@@ -15,8 +16,8 @@ void Game::Start() {
   // Create the main window
   main_window_.create(sf::VideoMode(1024, 768, 32), "Mole Quest");
 
-  // Set the game state to kPlaying
-  game_state_ = Game::kPlaying;
+  // Set the game to show the main menu
+  game_state_ = kShowingMenu;
 
   // Continously call the game loop
   while (!IsExiting())
@@ -27,7 +28,7 @@ void Game::Start() {
 }
 
 void Game::Exit() {
-
+  main_window_.close();
 }
 
 void Game::GameLoop() {
@@ -42,15 +43,43 @@ void Game::GameLoop() {
         main_window_.display();
 
         if (event.type == sf::Event::Closed)
-          game_state_ = Game::kExiting;
+          game_state_ = kExiting;
 
         break;
       }
-      case kShowingSplash: {}
      
-      case kPaused: {}
+      case kPaused: {
+        break;
+      }
 
-      case kShowingMenu: {}
+      case kShowingMenu: {
+        ShowMenu();
+        break;
+      }
+
+      case kShowingSettings: {
+        break;
+      }
+    }
+  }
+}
+
+void Game::ShowMenu() {
+  MainMenu main_menu;
+  MainMenu::Result result = main_menu.Show(main_window_);
+
+  switch (result) {
+    case MainMenu::kExit: {
+      game_state_ = kExiting;
+      break;
+    }
+    case MainMenu::kPlay: {
+      game_state_ = kPlaying;
+      break;
+    }
+    case MainMenu::kSettings: {
+      game_state_ = kShowingSettings;
+      break;
     }
   }
 }

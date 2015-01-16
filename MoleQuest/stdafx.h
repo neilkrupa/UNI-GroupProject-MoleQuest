@@ -7,8 +7,7 @@
 
 #include "targetver.h"
 
-#include <stdio.h>
-#include <tchar.h>
+#include <list>
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>

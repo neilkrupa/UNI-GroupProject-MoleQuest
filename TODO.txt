@@ -1,6 +1,4 @@
-- SplashScreen.cc and Splashscreen.h (needs some graphics)
-- MainMenu.cc and MainMenu.h (needs some graphics)
-- GameObject.cc GameObject.h (will be the base class for all objects in the game)
+- Commenting for MainMenu.cc and MainMenu.h
 - GameObjectManager.cc GameObjectManager.h (will hold a reference to all the objects in the game)
 - Player.cc Player.h (should extend GameObject)
 
