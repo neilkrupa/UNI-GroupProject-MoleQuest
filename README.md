@@ -18,6 +18,6 @@
 * Every .h should have include guards (http://google-styleguide.googlecode.com/svn/trunk/cppguide.html#The__define_Guard)
 * Use include guards and not #pragma once to maintain good portability 
 * Lines should be no longer than 80 columns long
-* Includes should be added to "stdafx.h" to improve performance as opposed to adding them to the .cc files
-* Don't include anything in .h files
+* Includes of external libs (e.g. SFML/Window.hpp) should be added to "stdafx.h" to improve performance as opposed to adding them to the .cc files
+* Include as much as you can in .cc files instead of in .h files to improve compiling performance
 * Comment all of your shit. Comments for classes, comment for class variables, comments for every function, and comments when you're not doing anything completely obvious.
