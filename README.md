@@ -9,6 +9,8 @@
 * Clone the source code of this repository 
 * Open the MoleQuest.sln with Visual Studio
 
+(You may be able to just open MoleQuest.sln and all the settings shown in the SFML tutorial will be done for you, I'm not sure)
+
 ### Contribution guidelines ###
 
 * Follow the Google C++ Code Style http://google-styleguide.googlecode.com/svn/trunk/cppguide.html
