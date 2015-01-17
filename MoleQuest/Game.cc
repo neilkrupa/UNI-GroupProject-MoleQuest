@@ -1,4 +1,4 @@
-//  Game.cpp
+//  Game.cc
 //  This file is part of MoleQuest
 //
 //  For purpose, see Game.h
@@ -8,7 +8,7 @@
 #include "MainMenu.h"
 
 void Game::Start() {
-  // If the game state is kUninitialised then return as the game has already
+  // If the game state isn't kUninitialised then return as the game has already
   // been set up before
   if (game_state_ != kUninitialised)
     return;
@@ -32,34 +32,32 @@ void Game::Exit() {
 }
 
 void Game::GameLoop() {
-  sf::Event event;
+  switch (game_state_) {
+    case kShowingMenu: {
+      ShowMenu();
+      break;
+    }
 
-  // Get the last event. The while loop will make it wait for an event to occur
-  while (main_window_.pollEvent(event)) {
-    // Handle the event based upon what state the game is currently in
-    switch (game_state_) {
-      case kPlaying: {
+    case kShowingSettings: {
+      break;
+    }
+
+    case kPaused: {
+      break;
+    }
+
+    case kPlaying: {
+      sf::Event event;
+
+      while (main_window_.pollEvent(event)) {
         main_window_.clear(sf::Color(255, 0, 0));
         main_window_.display();
 
         if (event.type == sf::Event::Closed)
           game_state_ = kExiting;
-
-        break;
-      }
-     
-      case kPaused: {
-        break;
       }
 
-      case kShowingMenu: {
-        ShowMenu();
-        break;
-      }
-
-      case kShowingSettings: {
-        break;
-      }
+      break;
     }
   }
 }

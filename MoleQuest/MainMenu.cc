@@ -1,10 +1,15 @@
+//  MainMenu.cc
+//  This file is part of MoleQuest
+//
+//  For purpose, see MainMenu.h
+
 #include "stdafx.h"
 #include "MainMenu.h"
 #include <windows.h>
 
+// TODO(Mark): Refactor this function. Don't need to get the
+// image and set regions every time, do it in constructor.
 MainMenu::Result MainMenu::Show(sf::RenderWindow &window) {
-  
-
   // Load the main menu image
   sf::Texture texture;
   texture.loadFromFile("images/mainmenu.png");
@@ -23,7 +28,7 @@ MainMenu::Result MainMenu::Show(sf::RenderWindow &window) {
   settings.rect.left = 391;
   settings.rect.width = 234;
   settings.rect.height = 80;
-  play.result = kSettings;
+  settings.result = kSettings;
 
   MenuItem exit;
   exit.rect.top = 574;
@@ -41,6 +46,8 @@ MainMenu::Result MainMenu::Show(sf::RenderWindow &window) {
   window.draw(sprite);
   window.display();
 
+  // Now drop into an event loop waiting for the user to click
+  // a button on the image that is now displayed
   return GetMenuResponse(window);
 }
 
@@ -55,6 +62,7 @@ MainMenu::Result MainMenu::HandleClick(int x, int y) {
 
     // Check if mouse click was within the bounds of a given menu item
     if (menuItemRect.contains(sf::Vector2<int>(x, y)))
+      // Return the result stored for that button
       return itr->result;
   }
 
@@ -64,6 +72,8 @@ MainMenu::Result MainMenu::HandleClick(int x, int y) {
 MainMenu::Result MainMenu::GetMenuResponse(sf::RenderWindow &window) {
   sf::Event event;
 
+  // Continously poll for events waiting for the user to click on a
+  // button or close the program
   while (true) {
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::MouseButtonPressed)
@@ -72,5 +82,10 @@ MainMenu::Result MainMenu::GetMenuResponse(sf::RenderWindow &window) {
       if (event.type == sf::Event::Closed)
         return kExit;
     }
+
+    // Sleep one millisecond to reduce cpu usage a lot. Sleeping doesn't
+    // really matter here as its just a menu screen and we don't need to
+    // go as fast as possible 
+    Sleep(1);
   }
 }

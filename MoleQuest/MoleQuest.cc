@@ -1,4 +1,4 @@
-//  MoleQuest.cpp
+//  MoleQuest.cc
 //  This file is part of MoleQuest
 //
 //  Main file of the project. Will tell the game to start and nothing more.

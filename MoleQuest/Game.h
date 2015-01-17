@@ -1,8 +1,10 @@
 // Game.h
 // This file is part of MoleQuest
 //
-// Handles the game loop and starting and stopping the game. Also holds a
-// reference to the main window as well as the current game state.
+// Handles the game loop and starting and stopping the game. Also invokes
+// other parts of the game such as the main menu and settings menu based
+// on the given game state. Holds a reference to the main window and the
+// game state.
 
 #ifndef GAME_H_
 #define GAME_H_
