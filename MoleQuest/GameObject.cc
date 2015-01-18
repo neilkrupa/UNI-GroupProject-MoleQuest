@@ -25,3 +25,12 @@ void GameObject::SetPosition(float x, float y) {
   if (is_loaded_)
     sprite_.setPosition(x, y);
 }
+
+sf::Vector2f GameObject::GetPosition() const {
+  if (is_loaded_)
+    return sprite_.getPosition();
+
+  return sf::Vector2f();
+}
+
+void GameObject::Update(float elapsed_time) {}

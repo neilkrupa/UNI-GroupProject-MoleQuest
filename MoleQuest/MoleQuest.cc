@@ -18,7 +18,6 @@
 #include "Game.h"
 
 int main() {
-  /* Start the game */
   Game::Start();
 
   return 0;

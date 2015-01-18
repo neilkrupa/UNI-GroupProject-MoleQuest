@@ -1,5 +1,4 @@
-- Commenting for MainMenu.cc and MainMenu.h
-- GameObjectManager.cc GameObjectManager.h (will hold a reference to all the objects in the game)
 - Player.cc Player.h (should extend GameObject)
-
-
+- Add commenting for GameObjectManager
+- Add commenting to GameObject
+- Sound engine

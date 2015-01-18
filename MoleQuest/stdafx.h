@@ -8,6 +8,7 @@
 #include "targetver.h"
 
 #include <list>
+#include <algorithm>
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>

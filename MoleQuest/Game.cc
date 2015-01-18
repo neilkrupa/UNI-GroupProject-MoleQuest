@@ -8,22 +8,19 @@
 #include "MainMenu.h"
 
 void Game::Start() {
-  // If the game state isn't kUninitialised then return as the game has already
-  // been set up before
+  // If the game state isn't kUninitialised then return so that nothing weird
+  // happens from reinitialising the game
   if (game_state_ != kUninitialised)
     return;
 
-  // Create the main window
   main_window_.create(sf::VideoMode(1024, 768, 32), "Mole Quest");
 
-  // Set the game to show the main menu
   game_state_ = kShowingMenu;
 
-  // Continously call the game loop
+  last_time_ = clock_.getElapsedTime();
   while (!IsExiting())
     GameLoop();
 
-  // Call Exit() to clean up all resources and exit the program
   Exit();
 }
 
@@ -32,6 +29,9 @@ void Game::Exit() {
 }
 
 void Game::GameLoop() {
+  sf::Time current_time = clock_.getElapsedTime();
+  int elapsed_time = current_time.asMilliseconds - last_time_.asMilliseconds;
+
   switch (game_state_) {
     case kShowingMenu: {
       ShowMenu();
@@ -47,19 +47,19 @@ void Game::GameLoop() {
     }
 
     case kPlaying: {
-      sf::Event event;
+      main_window_.clear(sf::Color(0, 0, 0));
 
-      while (main_window_.pollEvent(event)) {
-        main_window_.clear(sf::Color(255, 0, 0));
-        main_window_.display();
+      game_object_manager_.UpdateAll(elapsed_time);
 
-        if (event.type == sf::Event::Closed)
-          game_state_ = kExiting;
-      }
+      game_object_manager_.DrawAll(main_window_);
+
+      main_window_.display();
 
       break;
     }
   }
+
+  last_time_ = current_time;
 }
 
 void Game::ShowMenu() {
@@ -82,6 +82,9 @@ void Game::ShowMenu() {
   }
 }
 
-// Initialise some variables 
-Game::GameState Game::game_state_ = kUninitialised;
+Game::GameState Game::game_state_;
 sf::RenderWindow Game::main_window_;
+GameObjectManager Game::game_object_manager_;
+
+sf::Clock Game::clock_;
+sf::Time Game::last_time_;
