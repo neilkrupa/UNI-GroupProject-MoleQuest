@@ -34,16 +34,16 @@ int GameObjectManager::GetObjectCount() const {
   return game_objects_.size();
 }
 
-void GameObjectManager::DrawAll(sf::RenderWindow &window) {
+void GameObjectManager::DrawAll(float interp, sf::RenderWindow &window) {
   std::map<std::string, GameObject*>::const_iterator it;
 
   for (it = game_objects_.begin(); it != game_objects_.end(); it++)
-    it->second->Draw(window);
+    it->second->Draw(interp, window);
 }
 
-void GameObjectManager::UpdateAll(float elapsed_time) {
+void GameObjectManager::UpdateAll() {
   std::map<std::string, GameObject*>::const_iterator it;
 
   for (it = game_objects_.begin(); it != game_objects_.end(); it++)
-    it->second->Update(elapsed_time);
+    it->second->Update();
 }

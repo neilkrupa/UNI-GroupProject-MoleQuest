@@ -14,8 +14,8 @@ class GameObjectManager {
 
   int GetObjectCount() const;
 
-  void DrawAll(sf::RenderWindow &window);
-  void UpdateAll(float elapsed_time);
+  void DrawAll(float interp, sf::RenderWindow &window);
+  void UpdateAll();
 
  private:
   std::map<std::string, GameObject*> game_objects_;

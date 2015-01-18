@@ -11,10 +11,16 @@
 
 class MainMenu {
  public:
+  MainMenu();
+
   // An enumeration to hold all the possible actions that can be invoked
   // on the main menu
   enum Result { kPlay, kSettings, kExit, kNothing };
 
+  // Displays the main menu sprite 
+  Result Show(sf::RenderWindow &window);
+
+ private:
   // A struct to hold data about the buttons on the main menu
   struct MenuItem {
    public:
@@ -24,13 +30,6 @@ class MainMenu {
     Result result;
   };
 
-  // Method will create a sprite from the main menu image to be displayed to
-  // the main window. Will also set up clickable regions around the buttons
-  // on the main menu image. Lastly it calls GetMenuResponse() and returns
-  // the result of what the user clicked on.
-  Result Show(sf::RenderWindow &window);
-
- private:
   // Continously polls for window events to see what the user clicks on on 
   // the main menu. Returns the result of HandleClick()
   Result GetMenuResponse(sf::RenderWindow &window);
@@ -42,6 +41,10 @@ class MainMenu {
 
   // A list of all the menu item structs to be used in HandleClick()
   std::list<MenuItem> menu_items_;
+
+  // For displaying the main menu image
+  sf::Texture texture_;
+  sf::Sprite sprite_;
 };
 
 #endif

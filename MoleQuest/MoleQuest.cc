@@ -18,7 +18,9 @@
 #include "Game.h"
 
 int main() {
-  Game::Start();
+  Game game;
+
+  game.GameLoop();
 
   return 0;
 }

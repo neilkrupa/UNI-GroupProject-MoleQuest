@@ -1,4 +1,7 @@
-- Player.cc Player.h (should extend GameObject)
+- Player class (should extend GameObject)
 - Add commenting for GameObjectManager
 - Add commenting to GameObject
 - Sound engine
+- Mapping system
+- Texture manager
+- Improve the timing method in game loop
