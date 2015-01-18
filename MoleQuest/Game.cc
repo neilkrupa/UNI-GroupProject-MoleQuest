@@ -30,7 +30,7 @@ void Game::Exit() {
 
 void Game::GameLoop() {
   sf::Time current_time = clock_.getElapsedTime();
-  int elapsed_time = current_time.asMilliseconds - last_time_.asMilliseconds;
+  int elapsed_time = current_time.asMilliseconds() - last_time_.asMilliseconds();
 
   switch (game_state_) {
     case kShowingMenu: {

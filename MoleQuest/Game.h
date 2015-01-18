@@ -39,7 +39,7 @@ class Game {
   static void GameLoop();
 
   // An enumeration to hold all possible states the game can be in
-  static enum GameState { kUninitialised, kPaused, kShowingMenu, kPlaying, kExiting,
+  enum GameState { kUninitialised, kPaused, kShowingMenu, kPlaying, kExiting,
                    kShowingSettings };
 
   // A static reference to hold the current state of the game
