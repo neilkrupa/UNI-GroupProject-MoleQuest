@@ -10,7 +10,7 @@
 * Build the project to generate the x64/Debug folder
 * Copy-paste sfml-graphics-d-2.dll sfml-system-d-2.dll sfml-window-d-2.dll into the folder where the .exe gets made by Visual Studio (http://a.pomf.se/lbqbqx.PNG)
 
-(You may be able to just open MoleQuest.sln and all the settings shown in the SFML tutorial will be done for you, I'm not sure)
+(You may be able to just open MoleQuest.sln and all the settings except copying over the .dll files will be done for you, I'm not sure)
 
 ### Contribution guidelines ###
 
