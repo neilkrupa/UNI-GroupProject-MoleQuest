@@ -10,6 +10,7 @@ void GameObject::Load(std::string filename) {
     is_loaded_ = true;
     filename_ = filename;
     sprite_.setTexture(texture_);
+    sprite_.scale(8, 8);
   } else {
     is_loaded_ = false;
     filename = "";
@@ -17,7 +18,7 @@ void GameObject::Load(std::string filename) {
 }
 
 void GameObject::Draw(float interp, sf::RenderWindow &renderWindow) {
-  if (is_loaded_)
+  if (is_loaded_) 
     renderWindow.draw(sprite_);
 }
 

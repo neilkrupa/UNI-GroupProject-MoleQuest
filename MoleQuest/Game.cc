@@ -6,10 +6,18 @@
 #include "stdafx.h"
 #include "Game.h"
 #include "MainMenu.h"
+#include "SoundEngine.h"
 
 Game::Game() {
   main_window_.create(sf::VideoMode(1024, 768, 32), "Mole Quest");
+  
   game_state_ = kShowingMenu;
+
+  Player* player = new Player();
+  player->Load("images/player.png");
+  player->SetPosition(1024 / 2, 768 / 2);
+
+  game_object_manager_.Add("player", player);
 }
 
 Game::~Game() {
@@ -18,6 +26,9 @@ Game::~Game() {
 
 void Game::GameLoop() {
   sf::Clock clock;
+
+  SoundEngine sound_engine;
+  sound_engine.PlaySong("mainmenu.wav", true);
 
   double lag = 0.0;
   while (!IsExiting()) {

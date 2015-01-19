@@ -10,6 +10,7 @@
 #define GAME_H_
 
 #include "GameObjectManager.h"
+#include "Player.h"
 
 class Game {
  public:
