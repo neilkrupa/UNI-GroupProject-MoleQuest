@@ -13,11 +13,12 @@ Game::Game() {
   
   game_state_ = kShowingMenu;
 
-  Player* player = new Player();
+  player = new Player();
   player->Load("images/player.png");
   player->SetPosition(1024 / 2, 768 / 2);
 
   game_object_manager_.Add("player", player);
+
 }
 
 Game::~Game() {
@@ -58,10 +59,10 @@ void Game::GameLoop() {
         }
 
         float interp = lag / kMSPerUpdate;
+		player->move(main_window_.getSize().x,main_window_.getSize().y);
         game_object_manager_.DrawAll(interp, main_window_);
-
+	
         main_window_.display();
-
         break;
       }
     }
