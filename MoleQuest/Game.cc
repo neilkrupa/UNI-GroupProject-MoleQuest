@@ -57,7 +57,6 @@ void Game::GameLoop() {
         game_object_manager_.DrawAll(lag, main_window_);
 
         main_window_.display();
-
         break;
       }
     }

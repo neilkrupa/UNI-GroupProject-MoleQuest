@@ -41,7 +41,6 @@ class Game {
 
   // The main game window
   sf::RenderWindow main_window_;
-
   // Object manager to hold all objects and easily manage all of them
   GameObjectManager game_object_manager_;
 
