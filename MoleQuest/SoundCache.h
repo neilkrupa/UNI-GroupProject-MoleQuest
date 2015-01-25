@@ -21,9 +21,4 @@ class SoundCache {
   };
 };
 
-class SoundNotFoundException : public std::runtime_error {
-public:
-  SoundNotFoundException(std::string const& msg) : std::runtime_error(msg) {}
-};
-
 #endif

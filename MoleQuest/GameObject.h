@@ -8,12 +8,12 @@ class GameObject {
 
   virtual void Load(std::string filename);
   virtual void Draw(float interp, sf::RenderWindow &window);
-  virtual void Update();
+  virtual void Update(float lag);
 
-  virtual void SetPosition(float x, float y);
-  virtual sf::Vector2f GetPosition() const;
-
-  inline virtual bool IsLoaded() const { return is_loaded_; }
+  sf::Vector2f GetPosition() const;
+  
+protected:
+  sf::Sprite& GetSprite();
 
  private:
   sf::Sprite sprite_;

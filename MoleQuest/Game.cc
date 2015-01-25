@@ -10,14 +10,13 @@
 
 Game::Game() {
   main_window_.create(sf::VideoMode(1024, 768, 32), "Mole Quest");
+  main_window_.setFramerateLimit(60);
   
-  game_state_ = kShowingMenu;
+  game_state_ = GameState::kShowingMenu;
 
-  Player* player = new Player();
-  player->Load("images/player.png");
-  player->SetPosition(1024 / 2, 768 / 2);
+  player_ = new Player();
 
-  game_object_manager_.Add("player", player);
+  game_object_manager_.Add("player", player_);
 }
 
 Game::~Game() {
@@ -27,38 +26,35 @@ Game::~Game() {
 void Game::GameLoop() {
   sf::Clock clock;
 
-  SoundEngine sound_engine;
-  sound_engine.PlaySong("mainmenu.wav", true);
+  //SoundEngine sound_engine;
+  //sound_engine.PlaySong("mainmenu.wav", true);
 
-  double lag = 0.0;
   while (!IsExiting()) {
     sf::Time elapsed_time = clock.restart();
-    lag += elapsed_time.asMilliseconds();
+    float lag = elapsed_time.asMilliseconds();
 
     switch (game_state_) {
-      case kShowingMenu: {
+      case GameState::kShowingMenu: {
         ShowMenu();
         break;
       }
 
-      case kShowingSettings: {
+      case GameState::kShowingSettings: {
         break;
       }
 
-      case kPaused: {
+      case GameState::kPaused: {
         break;
       }
 
-      case kPlaying: {
+      case GameState::kPlaying: {
         main_window_.clear(sf::Color(0, 0, 0));
 
-        while (lag >= kMSPerUpdate) {
-          game_object_manager_.UpdateAll();
-          lag -= kMSPerUpdate;
-        }
+        ProcessInput();
 
-        float interp = lag / kMSPerUpdate;
-        game_object_manager_.DrawAll(interp, main_window_);
+        game_object_manager_.UpdateAll(lag);
+
+        game_object_manager_.DrawAll(lag, main_window_);
 
         main_window_.display();
 
@@ -68,23 +64,48 @@ void Game::GameLoop() {
   }
 }
 
+void Game::ProcessInput() {
+  if (!main_window_.hasFocus())
+    return;
+
+  int win_w = main_window_.getSize().x;
+  int win_h = main_window_.getSize().y;
+
+  //TODO: Make this bounds checking nicer. No magic numbers like '140'
+
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) 
+    if ((player_->GetPosition().x - player_->GetVelocityX()) > 0)
+      player_->MoveLeft();
+
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    if ((player_->GetPosition().x + player_->GetVelocityX()) < win_w - 140)
+      player_->MoveRight();
+
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    player_->MoveUp();
+
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    if ((player_->GetPosition().y + player_->GetVelocityY()) < win_h - 140)
+      player_->MoveDown();
+}
+
 void Game::ShowMenu() {
   MainMenu main_menu;
   MainMenu::Result result = main_menu.Show(main_window_);
 
   switch (result) {
-    case MainMenu::kExit: {
-      game_state_ = kExiting;
+    case MainMenu::Result::kExit: {
+      game_state_ = GameState::kExiting;
       break;
     }
 
-    case MainMenu::kPlay: {
-      game_state_ = kPlaying;
+    case MainMenu::Result::kPlay: {
+      game_state_ = GameState::kPlaying;
       break;
     }
 
-    case MainMenu::kSettings: {
-      game_state_ = kShowingSettings;
+    case MainMenu::Result::kSettings: {
+      game_state_ = GameState::kShowingSettings;
       break;
     }
   }

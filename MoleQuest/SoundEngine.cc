@@ -16,35 +16,22 @@ void SoundEngine::PlaySound(std::string filename) {
   }
 
   if (channel != -1) {
-    try {
-      current_sounds_[channel] = sound_cache_.GetSound(filename);
-      current_sounds_[channel].play();
-    } catch (SoundNotFoundException& snfe) {
-      // Error handling is for losers
-    }
+    current_sounds_[channel] = sound_cache_.GetSound(filename);
+    current_sounds_[channel].play();
   }
 }
 
 void SoundEngine::PlaySong(std::string filename, bool loop) {
   sf::Music* current_song;
 
-  try {
-    current_song = sound_cache_.GetSong(filename);
-  } catch (SoundNotFoundException& snfe) {
-    // Error handler is still for losers
-    return;
-  }
+  current_song = sound_cache_.GetSong(filename);
 
   /* Stop any song that is currently playing */
   if (current_song_name_ != "") {
-    try {
-      sf::Music* prior_song = sound_cache_.GetSong(current_song_name_);
+    sf::Music* prior_song = sound_cache_.GetSong(current_song_name_);
       
-      if (prior_song->getStatus() != sf::Sound::Stopped)
-        prior_song->stop();
-    } catch (SoundNotFoundException& snfe) {
-      // It's STILL for losers
-    }
+    if (prior_song->getStatus() != sf::Sound::Stopped)
+      prior_song->stop();
   }
 
   current_song_name_ = filename;

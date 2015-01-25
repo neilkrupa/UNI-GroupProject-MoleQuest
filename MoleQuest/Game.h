@@ -27,11 +27,14 @@ class Game {
   // to the appropriate state
   void ShowMenu();
 
+  void ProcessInput();
+
   // Returns true if the game state is set to kExiting
-  inline bool IsExiting() { return game_state_ == Game::kExiting; }
+  inline bool IsExiting() { return game_state_ == Game::GameState::kExiting; }
 
   // An enumeration to hold all possible states the game can be in
-  enum GameState { kPaused, kShowingMenu, kPlaying, kExiting, kShowingSettings };
+  enum class GameState { kPaused, kShowingMenu, kPlaying, kExiting, 
+                         kShowingSettings };
 
   // Hold the current state of the game
   GameState game_state_;
@@ -42,7 +45,7 @@ class Game {
   // Object manager to hold all objects and easily manage all of them
   GameObjectManager game_object_manager_;
 
-  const int kMSPerUpdate = 16;
+  Player* player_;
 };
 
 #endif

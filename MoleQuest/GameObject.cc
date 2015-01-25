@@ -9,8 +9,9 @@ void GameObject::Load(std::string filename) {
   if (texture_.loadFromFile(filename)) {
     is_loaded_ = true;
     filename_ = filename;
+
     sprite_.setTexture(texture_);
-    sprite_.scale(8, 8);
+    sprite_.scale(4, 4);
   } else {
     is_loaded_ = false;
     filename = "";
@@ -22,16 +23,12 @@ void GameObject::Draw(float interp, sf::RenderWindow &renderWindow) {
     renderWindow.draw(sprite_);
 }
 
-void GameObject::SetPosition(float x, float y) {
-  if (is_loaded_)
-    sprite_.setPosition(x, y);
+sf::Sprite& GameObject::GetSprite() {
+  return sprite_;
 }
+
+void GameObject::Update(float lag) {}
 
 sf::Vector2f GameObject::GetPosition() const {
-  if (is_loaded_)
-    return sprite_.getPosition();
-
-  return sf::Vector2f();
+  return sprite_.getPosition();
 }
-
-void GameObject::Update() {}

@@ -20,8 +20,9 @@ sf::Sound SoundCache::GetSound(std::string name) {
 
     if (!sound_buffer->loadFromFile("sounds/" + name)) {
       delete sound_buffer;
-      throw new SoundNotFoundException("Error: " + name + " sound file was not \
-                                        found");
+      // Maybe do something better here for this error?
+      sf::Sound sound;
+      return sound;
     } else {
       sounds_.insert(std::pair<std::string, sf::SoundBuffer*>(name, sound_buffer));
 
@@ -46,8 +47,7 @@ sf::Music* SoundCache::GetSong(std::string name) {
 
     if (!music->openFromFile("sounds/" + name)) {
       delete music;
-      throw new SoundNotFoundException("Error: " + name + " sound file was not \
-                                        found");
+      return nullptr;
     } else {
       music_.insert(std::pair<std::string, sf::Music*>(name, music));
       return music;

@@ -15,7 +15,7 @@ class MainMenu {
 
   // An enumeration to hold all the possible actions that can be invoked
   // on the main menu
-  enum Result { kPlay, kSettings, kExit, kNothing };
+  enum class Result { kPlay, kSettings, kExit, kNothing };
 
   // Displays the main menu sprite 
   Result Show(sf::RenderWindow &window);

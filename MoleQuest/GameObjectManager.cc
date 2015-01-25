@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "GameObjectManager.h"
 
+// TODO(Mark): Look into smart pointers to improve this class
+
 GameObjectManager::GameObjectManager() {}
 
 GameObjectManager::~GameObjectManager() {
@@ -25,7 +27,7 @@ GameObject* GameObjectManager::Get(std::string name) const {
   std::map<std::string, GameObject*>::const_iterator it = game_objects_.find(name);
 
   if (it == game_objects_.end())
-    return NULL;
+    return nullptr;
 
   return it->second;
 }
@@ -35,15 +37,11 @@ int GameObjectManager::GetObjectCount() const {
 }
 
 void GameObjectManager::DrawAll(float interp, sf::RenderWindow &window) {
-  std::map<std::string, GameObject*>::const_iterator it;
-
-  for (it = game_objects_.begin(); it != game_objects_.end(); it++)
-    it->second->Draw(interp, window);
+  for (const auto obj : game_objects_)
+    obj.second->Draw(interp, window);
 }
 
-void GameObjectManager::UpdateAll() {
-  std::map<std::string, GameObject*>::const_iterator it;
-
-  for (it = game_objects_.begin(); it != game_objects_.end(); it++)
-    it->second->Update();
+void GameObjectManager::UpdateAll(float lag) {
+  for (const auto obj : game_objects_)
+    obj.second->Update(lag);
 }
