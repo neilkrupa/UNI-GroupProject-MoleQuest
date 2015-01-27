@@ -1,7 +1,7 @@
-- Player class (should extend GameObject)
-- Add commenting for GameObjectManager
-- Add commenting to GameObject
-- Sound engine
-- Mapping system
-- Texture manager
-- Improve the timing method in game loop
+- Mapping system (Mark)
+- Settings menu (Kieran)
+- Shop menu (Kieran)
+- Allow mapable keybindings (maybe using a hashmap) (Kieran?)
+- Mole AI
+- Add animations for the player (Mark)
+- Projectiles
