@@ -27,7 +27,12 @@ class Game {
   // to the appropriate state
   void ShowMenu();
 
+  void ShowSettings();
+
   void ProcessInput();
+
+  //This is a simple check to make sure that the control is definitly being controlled by the correct button/key
+  bool InputCheck(std::string key);
 
   // Returns true if the game state is set to kExiting
   inline bool IsExiting() { return game_state_ == Game::GameState::kExiting; }
@@ -43,6 +48,23 @@ class Game {
   sf::RenderWindow main_window_;
   // Object manager to hold all objects and easily manage all of them
   GameObjectManager game_object_manager_;
+
+  //Struct to manage different types of input
+  struct Input
+  {
+  public:
+	  std::string type;
+	  sf::Keyboard::Key KeyCode;
+	  sf::Mouse::Button MouseButton;
+  };
+
+ 
+  //This is the map that holds the key controls for the game
+  std::map<std::string, Input> key_map_;
+
+  //This function polls for an input to map a control to and then edits the input struct for that control
+  //accordingly. Its in Game.cc to avoid the awkwardness trying to stikc in SettingsMenu.cc
+  Game::Input Map(Game::Input);
 
   Player* player_;
 };
