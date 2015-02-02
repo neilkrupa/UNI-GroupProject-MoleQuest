@@ -6,7 +6,6 @@
 #include "stdafx.h"
 #include "Game.h"
 #include "MainMenu.h"
-#include "SettingsMenu.h"
 #include "SoundEngine.h"
 
 Game::Game() {
@@ -18,30 +17,6 @@ Game::Game() {
   player_ = new Player();
 
   game_object_manager_.Add("player", player_);
-
-  Input input;
-  input.type = "key";
-  input.KeyCode = sf::Keyboard::W;
-  key_map_["foward"] = input;
-  input.KeyCode = sf::Keyboard::S;
-  key_map_["backwards"] = input;
-  input.KeyCode = sf::Keyboard::A;
-  key_map_["left"] = input;
-  input.KeyCode = sf::Keyboard::D;
-  key_map_["right"] = input;
-
-  input.KeyCode = sf::Keyboard::Q;
-  key_map_["cyclel"] = input;
-  input.KeyCode = sf::Keyboard::E;
-  key_map_["cycler"] = input;
-
-  input.KeyCode = sf::Keyboard::Tab;
-  key_map_["pause"] = input;
-
-  input.type = "mouse";
-  input.MouseButton = sf::Mouse::Right;
-  key_map_["shoot"] = input;
-
 }
 
 Game::~Game() {
@@ -65,11 +40,9 @@ void Game::GameLoop() {
       }
 
       case GameState::kShowingSettings: {
-		main_window_.clear(sf::Color(0, 0, 0));
-		ShowSettings();
         break;
       }
-	  
+
       case GameState::kPaused: {
         break;
       }
@@ -98,40 +71,27 @@ void Game::ProcessInput() {
   int win_h = main_window_.getSize().y;
 
   //TODO: Make this bounds checking nicer. No magic numbers like '140'
-  if (InputCheck("left") == true)
-      if ((player_->GetPosition().x - player_->GetVelocityX()) > 0)
-         player_->MoveLeft();
- 
-  if (InputCheck("right") == true)
+
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) 
+    if ((player_->GetPosition().x - player_->GetVelocityX()) > 0)
+      player_->MoveLeft();
+
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     if ((player_->GetPosition().x + player_->GetVelocityX()) < win_w - 140)
       player_->MoveRight();
 
-  if (InputCheck("foward") == true)
-	if ((player_->GetPosition().y - player_->GetVelocityY()) > 0)
-      player_->MoveUp();
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    player_->MoveUp();
 
-  if (InputCheck("backwards") == true)
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     if ((player_->GetPosition().y + player_->GetVelocityY()) < win_h - 140)
       player_->MoveDown();
-}
-
-bool Game::InputCheck(std::string key){
-	if (key_map_.find(key)->second.type.compare("key") == 0)
-	{
-		if (sf::Keyboard::isKeyPressed(key_map_.find(key)->second.KeyCode))
-			return true;
-
-	}else if (key_map_.find(key)->second.type.compare("mouse") == 0){
-		if (sf::Mouse::isButtonPressed(key_map_.find(key)->second.MouseButton))
-			return true;
-	}
-	return false;
 }
 
 void Game::ShowMenu() {
   MainMenu main_menu;
   MainMenu::Result result = main_menu.Show(main_window_);
-  
+
   switch (result) {
     case MainMenu::Result::kExit: {
       game_state_ = GameState::kExiting;
@@ -148,49 +108,4 @@ void Game::ShowMenu() {
       break;
     }
   }
-
-}
-
-void Game::ShowSettings(){
-	SettingsMenu settings_menu;
-	SettingsMenu::Result result = settings_menu.Show(main_window_);
-
-	switch (result){
-		case SettingsMenu::Result::kMap: {
-			key_map_[settings_menu.tomap] = Map((key_map_.find(settings_menu.tomap)->second));
-			break;
-		}
-
-		case SettingsMenu::Result::kExit: {
-			game_state_ = GameState::kExiting;
-			break;
-		}
-
-		case SettingsMenu::Result::kBack: {
-			game_state_ = GameState::kShowingMenu;
-			break;
-		}
-
-	}
-		
-
-}
-
-Game::Input Game::Map(Game::Input input){
-	sf::Event event;
-	while (true){
-		while (main_window_.pollEvent(event)){
-			if (event.type == sf::Event::KeyPressed)
-			{
-				input.type = "key";
-				input.KeyCode = event.key.code;
-				return input;
-			}
-			else if (event.type == sf::Event::MouseButtonPressed){
-				input.type = "mouse";
-				input.MouseButton = event.mouseButton.button;
-				return input;
-			}
-		}
-	}
 }
