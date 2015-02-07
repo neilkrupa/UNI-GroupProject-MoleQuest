@@ -23,7 +23,7 @@ public:
 
 private:
 	struct SettingsItem {
-	public:
+	 public:
 		sf::Rect<int> rect;
 
 		//This is to identify the control that needs mapping
@@ -41,7 +41,6 @@ private:
 	// will return the 'result' of the button clicked. See MenuItem struct.
 	Result HandleClick(int x, int y);
 	
-
 	// A list of all the menu item structs to be used in HandleClick()
 	std::list<SettingsItem> settings_items_;
 

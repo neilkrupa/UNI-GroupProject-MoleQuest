@@ -20,7 +20,7 @@ Game::Game() {
   game_object_manager_.Add("player", player_);
 
   Input input;
-  input.type = "key";
+  input.type = InputType::kKey;
   input.KeyCode = sf::Keyboard::W;
   key_map_["foward"] = input;
   input.KeyCode = sf::Keyboard::S;
@@ -38,7 +38,7 @@ Game::Game() {
   input.KeyCode = sf::Keyboard::Tab;
   key_map_["pause"] = input;
 
-  input.type = "mouse";
+  input.type = InputType::kMouse;
   input.MouseButton = sf::Mouse::Right;
   key_map_["shoot"] = input;
 
@@ -65,12 +65,12 @@ void Game::GameLoop() {
       }
 
       case GameState::kShowingSettings: {
-		main_window_.clear(sf::Color(0, 0, 0));
-		ShowSettings();
+		    ShowSettings();
         break;
       }
 	  
       case GameState::kPaused: {
+        ShowMenu(); // Temporary - easier to test settings menu like this
         break;
       }
 
@@ -97,34 +97,41 @@ void Game::ProcessInput() {
   int win_w = main_window_.getSize().x;
   int win_h = main_window_.getSize().y;
 
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    game_state_ = Game::GameState::kPaused;
+
   //TODO: Make this bounds checking nicer. No magic numbers like '140'
-  if (InputCheck("left") == true)
-      if ((player_->GetPosition().x - player_->GetVelocityX()) > 0)
-         player_->MoveLeft();
+  // This could all be done better using a map where the map key is the button 
+  // pressed and the value is a function pointer to one of the player 
+  // move functions.
+
+  if (InputCheck("left"))
+    if ((player_->GetPosition().x - player_->GetVelocityX()) > 0)
+      player_->MoveLeft();
  
-  if (InputCheck("right") == true)
+  if (InputCheck("right"))
     if ((player_->GetPosition().x + player_->GetVelocityX()) < win_w - 140)
       player_->MoveRight();
 
-  if (InputCheck("foward") == true)
-	if ((player_->GetPosition().y - player_->GetVelocityY()) > 0)
+  if (InputCheck("foward"))
+	  if ((player_->GetPosition().y - player_->GetVelocityY()) > 0)
       player_->MoveUp();
 
-  if (InputCheck("backwards") == true)
+  if (InputCheck("backwards"))
     if ((player_->GetPosition().y + player_->GetVelocityY()) < win_h - 140)
       player_->MoveDown();
 }
 
-bool Game::InputCheck(std::string key){
-	if (key_map_.find(key)->second.type.compare("key") == 0)
-	{
+bool Game::InputCheck(std::string key) {
+	if (key_map_.find(key)->second.type == InputType::kKey) {
 		if (sf::Keyboard::isKeyPressed(key_map_.find(key)->second.KeyCode))
 			return true;
 
-	}else if (key_map_.find(key)->second.type.compare("mouse") == 0){
+	} else if (key_map_.find(key)->second.type == InputType::kMouse) {
 		if (sf::Mouse::isButtonPressed(key_map_.find(key)->second.MouseButton))
 			return true;
 	}
+
 	return false;
 }
 
@@ -172,22 +179,19 @@ void Game::ShowSettings(){
 		}
 
 	}
-		
-
 }
 
 Game::Input Game::Map(Game::Input input){
 	sf::Event event;
-	while (true){
-		while (main_window_.pollEvent(event)){
-			if (event.type == sf::Event::KeyPressed)
-			{
-				input.type = "key";
+
+	while (true) {
+		while (main_window_.pollEvent(event)) {
+			if (event.type == sf::Event::KeyPressed) {
+        input.type = InputType::kKey;
 				input.KeyCode = event.key.code;
 				return input;
-			}
-			else if (event.type == sf::Event::MouseButtonPressed){
-				input.type = "mouse";
+			} else if (event.type == sf::Event::MouseButtonPressed) {
+        input.type = InputType::kMouse;
 				input.MouseButton = event.mouseButton.button;
 				return input;
 			}

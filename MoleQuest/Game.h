@@ -49,15 +49,15 @@ class Game {
   // Object manager to hold all objects and easily manage all of them
   GameObjectManager game_object_manager_;
 
+  enum InputType { kKey, kMouse };
+
   //Struct to manage different types of input
-  struct Input
-  {
-  public:
-	  std::string type;
+  struct Input {
+   public:
+    InputType type;
 	  sf::Keyboard::Key KeyCode;
 	  sf::Mouse::Button MouseButton;
   };
-
  
   //This is the map that holds the key controls for the game
   std::map<std::string, Input> key_map_;

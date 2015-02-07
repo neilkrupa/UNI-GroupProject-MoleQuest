@@ -64,7 +64,6 @@ SettingsMenu::SettingsMenu() {
 	pause.result = Result::kMap;
 	pause.name = "pause";
 
-
 	SettingsItem back;
 	back.rect.top = 690;
 	back.rect.left = 414;
@@ -82,7 +81,6 @@ SettingsMenu::SettingsMenu() {
 	settings_items_.push_back(cycler);
 	settings_items_.push_back(pause);
 	settings_items_.push_back(back);
-
 }
 
 SettingsMenu::Result SettingsMenu::Show(sf::RenderWindow &window) {
