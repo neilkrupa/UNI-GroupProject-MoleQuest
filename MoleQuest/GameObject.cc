@@ -9,9 +9,7 @@ void GameObject::Load(std::string filename) {
   if (texture_.loadFromFile(filename)) {
     is_loaded_ = true;
     filename_ = filename;
-
     sprite_.setTexture(texture_);
-    sprite_.scale(4, 4);
   } else {
     is_loaded_ = false;
     filename = "";

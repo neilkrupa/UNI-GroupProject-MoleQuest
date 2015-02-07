@@ -65,7 +65,7 @@ void Game::GameLoop() {
       }
 
       case GameState::kShowingSettings: {
-		    ShowSettings();
+        ShowSettings();
         break;
       }
 	  

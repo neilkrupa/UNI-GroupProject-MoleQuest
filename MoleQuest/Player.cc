@@ -4,6 +4,8 @@
 Player::Player() : velocity_x_(0), velocity_y_(0) {
   GetSprite().setPosition(1024 / 2, 600);
   Load("images/player.png");
+  GetSprite().scale(0.5, 0.5);
+  GetSprite().setOrigin(49, 173);
 
   animation_handler_ = new AnimationHandler();
 }
@@ -39,6 +41,14 @@ void Player::Draw(float interp, sf::RenderWindow& window) {
   //GetSprite().setTextureRect(animation_handler_->texture_bounds_);
 
   //TODO(Mark): Player should always face the mouse
+  sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
+  sf::Vector2f player_pos = GetSprite().getPosition();
+
+  // Work out the angle to face towards mouse
+  float angle = atan2(mouse_pos.y - player_pos.y, mouse_pos.x - player_pos.x);
+  angle *= (180 / M_PI);
+
+  GetSprite().setRotation(90 + angle);
 
   window.draw(GetSprite());
 }

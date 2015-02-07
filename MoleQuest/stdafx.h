@@ -5,10 +5,13 @@
 
 #pragma once
 
+#define _USE_MATH_DEFINES
+
 #include "targetver.h"
 
 #include <list>
 #include <algorithm>
+#include <math.h>
 
 #include <SFML/Audio.hpp>
 #include <SFML/Window.hpp>
