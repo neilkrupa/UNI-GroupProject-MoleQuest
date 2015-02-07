@@ -1,7 +1,6 @@
 - Mapping system (Mark)
-- Settings menu (Kieran)
 - Shop menu (Kieran)
-- Allow mapable keybindings (maybe using a hashmap) (Kieran?)
 - Mole AI
 - Add animations for the player (Mark)
 - Projectiles
+- Display set values in the settings menu (Get the font used from Neil and then just follow http://www.sfml-dev.org/tutorials/2.2/graphics-text.php)
