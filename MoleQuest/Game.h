@@ -29,6 +29,8 @@ class Game {
 
   void ShowSettings();
 
+  void ShowShop();
+
   void ProcessInput();
 
   //This is a simple check to make sure that the control is definitly being controlled by the correct button/key
