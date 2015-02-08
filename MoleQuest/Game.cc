@@ -63,7 +63,11 @@ void Game::GameLoop() {
         ShowMenu();
         break;
       }
-
+      
+      case GameState::kShopping: {
+		  ShowShop();
+		  break;
+	  }
       case GameState::kShowingSettings: {
         ShowSettings();
         break;
@@ -197,4 +201,32 @@ Game::Input Game::Map(Game::Input input){
 			}
 		}
 	}
+}
+
+void Game::ShowShop(){
+	Shop shop;
+	shop.UpdateMenu(player_->getHealthLevel(), player_->getSpeedLevel());
+	Shop::Result result = shop.Show(main_window_);
+
+	switch (result) {
+	  case Shop::Result::kExit: {
+		game_state_ = GameState::kExiting;
+		break;
+	  }
+
+	  case Shop::Result::kContinue: {
+		game_state_ = GameState::kPlaying;
+		break;
+	  }
+
+	  case Shop::Result::kBuy: {
+	 	player_->Buy(shop.toBuy);
+		break;
+	  }
+ 
+  	  case Shop::Result::kUpgrade: {
+		player_->Upgrade(shop.toBuy);
+		break;
+	  }
+  }
 }
