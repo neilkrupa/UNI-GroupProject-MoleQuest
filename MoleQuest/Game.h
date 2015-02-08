@@ -41,7 +41,7 @@ class Game {
 
   // An enumeration to hold all possible states the game can be in
   enum class GameState { kPaused, kShowingMenu, kPlaying, kExiting, 
-                         kShowingSettings };
+                         kShowingSettings, kShopping };
 
   // Hold the current state of the game
   GameState game_state_;
