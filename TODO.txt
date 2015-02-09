@@ -1,6 +1,10 @@
 - Mapping system (Mark)
+- Bit mask the maps (Neil)
+- Make spritesheets (Neil)
 - Shop menu (Kieran)
-- Mole AI
+- Mole (Raymond)
+- Mole AI (Raymond)
 - Add animations for the player (Mark)
-- Projectiles
+- Projectiles (Tony)
+- HUD (Kieran)
 - Display set values in the settings menu (Get the font used from Neil and then just follow http://www.sfml-dev.org/tutorials/2.2/graphics-text.php)
