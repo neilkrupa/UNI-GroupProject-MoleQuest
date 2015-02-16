@@ -183,7 +183,7 @@ void Game::ShowMenu() {
 
 }
 
-void Game::ShowSettings(bool paused)
+void Game::ShowSettings(bool paused){
 	SettingsMenu settings_menu;
 	SettingsMenu::Result result = settings_menu.Show(main_window_);
 
