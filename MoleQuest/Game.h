@@ -27,7 +27,7 @@ class Game {
   // to the appropriate state
   void ShowMenu();
 
-  void ShowSettings();
+  void ShowSettings(bool paused);
 
   void ShowShop();
 
@@ -41,7 +41,7 @@ class Game {
 
   // An enumeration to hold all possible states the game can be in
   enum class GameState { kPaused, kShowingMenu, kPlaying, kExiting, 
-                         kShowingSettings, kShopping };
+                         kShowingSettings, kShowingSettingsPaused , kShopping };
 
   // Hold the current state of the game
   GameState game_state_;
