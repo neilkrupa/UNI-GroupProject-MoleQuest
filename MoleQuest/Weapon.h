@@ -1,18 +1,27 @@
 #ifndef WEAPON_H_
 #define WEAPON_H_
 
-#include "GameObject.h"
 
-class Weapon : public GameObject  {
+class Weapon{
 	public:
+		Weapon();
+
 		Weapon(std::string n, int p,float aS, int c, int d, bool s);
 
-		int Purchase();
+		bool Owned();
+
+		void setOwned();
 
 		std::string getName();
 
+		int getPrice();
+
+		int getClip();
+		
+		int getFullClip();
+
 		//Currently, these are just placeholder functions. 
-		void shoot();
+		void fire();
 
 		void reload();
 
@@ -22,6 +31,7 @@ class Weapon : public GameObject  {
 		std::string name;
 		int price;
 		float atkSpe;
+		int fullClip;
 		int clip;
 		int damage;
 
@@ -31,7 +41,8 @@ class Weapon : public GameObject  {
 		//This is indicate whether it has been purchased
 		bool owned;
 
-		//This will be where the texture for the different weapons is held
-		//sf::Texture texture_;
+	
+	
+
 };
 #endif
