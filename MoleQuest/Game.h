@@ -30,6 +30,8 @@ class Game {
   void ShowSettings(bool paused);
 
   void ShowShop();
+  
+  void ShowPause();
 
   void ProcessInput();
 
