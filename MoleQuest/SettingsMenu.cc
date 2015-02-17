@@ -8,32 +8,40 @@ SettingsMenu::SettingsMenu() {
 	sprite_.setTexture(texture_);
 
 	// Add clickable regions around the buttons
+	SettingsItem shoot;
+	shoot.rect.top = 312;
+	shoot.rect.left = 178;
+	shoot.rect.width = 668;
+	shoot.rect.height = 44;
+	shoot.result = Result::kMap;
+	shoot.name = "shoot";
+
 	SettingsItem foward;
-	foward.rect.top = 325;
-	foward.rect.left = 170;
+	foward.rect.top = 353;
+	foward.rect.left = 178;
 	foward.rect.width = 668;
 	foward.rect.height = 44;
 	foward.result = Result::kMap;
 	foward.name = "foward";
 
 	SettingsItem backwards;
-	backwards.rect.top = 370;
-	backwards.rect.left = 170;
+	backwards.rect.top = 397;
+	backwards.rect.left = 178;
 	backwards.rect.width = 668;
 	backwards.rect.height = 44;
 	backwards.result = Result::kMap;
 	backwards.name = "backwards";
 
 	SettingsItem left;
-	left.rect.top = 414;
-	left.rect.left = 170;
+	left.rect.top = 436;
+	left.rect.left = 178;
 	left.rect.width = 668;
 	left.rect.height = 44;
 	left.result = Result::kMap;
 	left.name = "left";
 
 	SettingsItem right;
-	right.rect.top = 458;
+	right.rect.top = 480;
 	right.rect.left = 170;
 	right.rect.width = 668;
 	right.rect.height = 44;
@@ -41,7 +49,7 @@ SettingsMenu::SettingsMenu() {
 	right.name = "right";
 
 	SettingsItem cyclel;
-	cyclel.rect.top = 370;	//TODO: Adjust value when menu image has been updated
+	cyclel.rect.top = 520;	
 	cyclel.rect.left = 170;
 	cyclel.rect.width = 668;
 	cyclel.rect.height = 44;
@@ -49,7 +57,7 @@ SettingsMenu::SettingsMenu() {
 	cyclel.name = "cyclel";
 
 	SettingsItem cycler;
-	cycler.rect.top = 370;	//TODO: Adjust value when menu image has been updated
+	cycler.rect.top = 560;	
 	cycler.rect.left = 170;
 	cycler.rect.width = 668;
 	cycler.rect.height = 44;
@@ -57,15 +65,16 @@ SettingsMenu::SettingsMenu() {
 	cycler.name = "cycler";
 
 	SettingsItem pause;
-	pause.rect.top = 370;	
+	pause.rect.top = 604;	
 	pause.rect.left = 170;
 	pause.rect.width = 668;
 	pause.rect.height = 44;
 	pause.result = Result::kMap;
 	pause.name = "pause";
 
+
 	SettingsItem back;
-	back.rect.top = 690;
+	back.rect.top = 680;
 	back.rect.left = 414;
 	back.rect.width = 179;
 	back.rect.height = 54;

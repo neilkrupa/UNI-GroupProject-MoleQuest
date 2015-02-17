@@ -39,7 +39,7 @@ Game::Game() {
   key_map_["pause"] = input;
 
   input.type = InputType::kMouse;
-  input.MouseButton = sf::Mouse::Right;
+  input.MouseButton = sf::Mouse::Left;
   key_map_["shoot"] = input;
 
 }
@@ -63,11 +63,25 @@ void Game::GameLoop() {
         ShowMenu();
         break;
       }
-
-      case GameState::kShowingSettings: {
-        ShowSettings();
+      
+      case GameState::kShopping: {
+		  ShowShop();
+		  break;
+	  }
+ 
+      case GameState::kShowingSettingsPaused: {
+        ShowSettings(true);
         break;
       }
+
+	  case GameState::kShowingSettings: {
+		  ShowSettings(false);
+		  break;
+	  }
+	  
+      case GameState::kPaused: {
+        ShowPause(); 
+        break;
 	  
       case GameState::kPaused: {
         ShowMenu(); // Temporary - easier to test settings menu like this
@@ -78,6 +92,8 @@ void Game::GameLoop() {
         main_window_.clear(sf::Color(0, 0, 0));
 
         ProcessInput();
+        
+		player_->DrawHUD(main_window_);
 
         UpdateMap();
         game_object_manager_.UpdateAll(lag);
@@ -106,6 +122,15 @@ void Game::ProcessInput() {
   // This could all be done better using a map where the map key is the button 
   // pressed and the value is a function pointer to one of the player 
   // move functions.
+
+   if (InputCheck("cyclel"))
+	player_->Switch(-1);
+
+  if (InputCheck("cycler"))
+	  player_->Switch(1);
+
+  if (InputCheck("shoot"))
+	  player_->Shoot();        //This is a placeholder function that tests the clip value on the HUD
 
   if (InputCheck("left"))
     if ((player_->GetPosition().x - player_->GetVelocityX()) > 0)
@@ -161,45 +186,51 @@ void Game::ShowMenu() {
 
 }
 
-void Game::ShowSettings(){
+void Game::ShowSettings(bool paused){
 	SettingsMenu settings_menu;
 	SettingsMenu::Result result = settings_menu.Show(main_window_);
 
 	switch (result){
-		case SettingsMenu::Result::kMap: {
-			key_map_[settings_menu.tomap] = Map((key_map_.find(settings_menu.tomap)->second));
-			break;
-		}
+      case SettingsMenu::Result::kMap: {
+		key_map_[settings_menu.tomap] = Map((key_map_.find(settings_menu.tomap)->second));
+        break;
+      }
 
-		case SettingsMenu::Result::kExit: {
-			game_state_ = GameState::kExiting;
-			break;
-		}
+      case SettingsMenu::Result::kExit: {
+		game_state_ = GameState::kExiting;
+		break;
+      }
 
-		case SettingsMenu::Result::kBack: {
-			game_state_ = GameState::kShowingMenu;
-			break;
-		}
-
+      case SettingsMenu::Result::kBack: {
+		if (paused == true)
+		  game_state_ = GameState::kPaused;
+		else
+		  game_state_ = GameState::kShowingMenu;
+		break;
+      }
 	}
 }
 
 Game::Input Game::Map(Game::Input input){
-	sf::Event event;
+  sf::Event event;
 
-	while (true) {
-		while (main_window_.pollEvent(event)) {
-			if (event.type == sf::Event::KeyPressed) {
+  while (true) {
+    while (main_window_.pollEvent(event)) {
+
+      if (event.type == sf::Event::KeyPressed) {
         input.type = InputType::kKey;
-				input.KeyCode = event.key.code;
-				return input;
-			} else if (event.type == sf::Event::MouseButtonPressed) {
+        input.KeyCode = event.key.code;
+
+        return input;
+
+      } else if (event.type == sf::Event::MouseButtonPressed) {
         input.type = InputType::kMouse;
-				input.MouseButton = event.mouseButton.button;
-				return input;
-			}
-		}
-	}
+        input.MouseButton = event.mouseButton.button;
+
+        return input;
+      }
+    }
+  }
 }
 
 void Game::UpdateMap() {
@@ -224,4 +255,59 @@ void Game::ChangeLevel() {
   int win_w = main_window_.getSize().x;
   int win_h = main_window_.getSize().y;
   level_sprite_.setTextureRect(sf::IntRect(0, 3500 - win_h, win_w, win_h));
+}
+
+void Game::ShowShop(){
+  Shop shop;
+  shop.UpdateMenu(player_->getHealthLevel(), player_->getSpeedLevel());
+  Shop::Result result = shop.Show(main_window_);
+
+  switch (result) {
+    case Shop::Result::kExit: {
+      game_state_ = GameState::kExiting;
+      break;
+    }
+
+    case Shop::Result::kContinue: {
+      game_state_ = GameState::kPlaying;
+      break;
+	 }
+
+    case Shop::Result::kBuy: {
+      player_->Buy(shop.toBuy);
+      break;
+    }
+ 
+    case Shop::Result::kUpgrade: {
+      player_->Upgrade(shop.toBuy);
+      break;
+    }
+  }
+}
+
+void Game::ShowPause(){
+  Pause pause;
+  Pause::Result result = pause.Show(main_window_);
+
+  switch (result){
+    case Pause::Result::kMenu: {
+      game_state_ = GameState::kShowingMenu;
+      break;
+    }
+
+    case Pause::Result::kSettings: {
+      game_state_ = GameState::kShowingSettingsPaused;
+      break;
+    }
+
+    case Pause::Result::kExit: {
+      game_state_ = GameState::kExiting;
+      break;
+    }
+  
+    case Pause::Result::kPlay: {
+      game_state_ = GameState::kPlaying;
+      break;
+    }
+  }
 }
