@@ -36,13 +36,13 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   stats_.push_back(health);
 
 
-  Weapon potatoGun("potatoGun",0,0.5,0,10,false); 
-  Weapon duelPistols("duelPistols",650,2,12,15,false);
+  Weapon potatoGun("potatoGun", 0, 0.5, 0, 10, false); 
+  Weapon duelPistols("duelPistols", 650, 2, 12, 15, false);
   Weapon pdw("pdw", 1500, 3, 25, 25, false);
   Weapon shotgun("shotgun", 2500, 0.5, 5, 50, true);
-  Weapon smg("smg",4500,5,35,30,false);
-  Weapon assaultRifle("assaultRifle",7000,4,30,45,false);
-  Weapon minigun("minigun",10000,10,50,75,false);
+  Weapon smg("smg",4500, 5, 35, 30, false);
+  Weapon assaultRifle("assaultRifle", 7000, 4, 30, 45, false);
+  Weapon minigun("minigun", 10000, 10, 50, 75, false);
 
   weapons_.push_back(potatoGun);
   weapons_.push_back(duelPistols);
@@ -53,8 +53,7 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   weapons_.push_back(minigun);
 
   potatoGun.setOwned();
-  currWep = potatoGun;
-
+  curr_weapon_ = potatoGun;
 
   //This is the setup for the HUD bars
   hpTex.loadFromFile("images/hpbar/hp1.png");
@@ -118,6 +117,8 @@ void Player::Update(float lag) {
 }
 
 void Player::Draw(float interp, sf::RenderWindow& window) {
+  DrawHUD(window);
+
   //GetSprite().setTextureRect(animation_handler_->texture_bounds_);
 
   sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
@@ -153,22 +154,22 @@ void Player::MoveRight() {
 }
 
 
-void Player::Buy(std::string purchase){
+void Player::Buy(std::string purchase) {
 	std::list<Weapon>::iterator curr;
 	
-	for (curr = weapons_.begin(); curr != weapons_.end(); ++curr){
-		if (curr->getName().compare(purchase) == 0 && curr->getPrice() <= coins){
+	for (curr = weapons_.begin(); curr != weapons_.end(); ++curr) {
+		if (curr->getName().compare(purchase) == 0 && curr->getPrice() <= coins) {
 			if (!(curr->Owned())){
 				curr->setOwned();
 				coins -= curr->getPrice();
 				coinVal.setString(std::to_string(coins));
 				break;
 			}
-		  }	   	
-	  }
+		}	   	
+	}
 }
 
-void Player::Upgrade(std::string upgradable){
+void Player::Upgrade(std::string upgradable) {
 	std::list<Stat>::iterator curr;
 	for (curr = stats_.begin(); curr != stats_.end(); ++curr){	
 		if (curr->name.compare(upgradable) == 0 && curr->cost <= coins && curr->level <= curr->maxlevel){
@@ -185,15 +186,15 @@ void Player::Upgrade(std::string upgradable){
 	}	
 }
 
-void Player::DrawHUD(sf::RenderWindow &main_window_){
+void Player::DrawHUD(sf::RenderWindow &main_window_) {
 	hpBar.setTexture(hpTex);
 	coinBar.setTexture(coinTex);
-	clipVal.setString(std::to_string(currWep.getClip()));
-	maxclipVal.setString(std::to_string(currWep.getFullClip()));
+	clipVal.setString(std::to_string(curr_weapon_.getClip()));
+	maxclipVal.setString(std::to_string(curr_weapon_.getFullClip()));
 
 	//Sets up the ammo bar
 	std::stringstream stream;
-	stream << "images/ammobar/" << currWep.getName() << "Bar.png";
+	stream << "images/ammobar/" << curr_weapon_.getName() << "Bar.png";
 	ammoTex.loadFromFile(stream.str());
 	ammoBar.setTexture(ammoTex);
 
@@ -204,19 +205,19 @@ void Player::DrawHUD(sf::RenderWindow &main_window_){
 	main_window_.draw(ammoBar);
 
 	//This is just due to the difference in the image for the potato gun HUD
-	if (currWep.getName().compare("potatoGun") != 0){
+	if (curr_weapon_.getName().compare("potatoGun") != 0){
 		main_window_.draw(clipVal);
 		main_window_.draw(maxclipVal);
 	}
 		
 }
 
-void Player::Damage(int damage){
+void Player::Damage(int damage) {
 	std::list<Stat>::iterator curr;
 	std::stringstream stream;
 	
-	for (curr = stats_.begin(); curr != stats_.end(); ++curr){
-		if (curr->name.compare("health") == 0 && curr->value - damage >= 0){
+	for (curr = stats_.begin(); curr != stats_.end(); ++curr) {
+		if (curr->name.compare("health") == 0 && curr->value - damage >= 0) {
 			curr->value -= damage;
 			hpVal.setString(std::to_string(curr->value));
 
@@ -232,61 +233,60 @@ void Player::Damage(int damage){
 	
 }
 
-void Player::Collect(int amount){
+void Player::Collect(int amount) {
 	coins += amount;
 	coinVal.setString(std::to_string(coins));
 }
 
-void Player::Switch(int dir){
+void Player::Switch(int dir) {
 	std::list<Weapon>::iterator curr;
 
-	for (curr = weapons_.begin(); curr != weapons_.end(); ++curr){
-		if (curr->getName().compare(currWep.getName()) == 0){
-			if (dir == 1){
+	for (curr = weapons_.begin(); curr != weapons_.end(); ++curr) {
+		if (curr->getName().compare(curr_weapon_.getName()) == 0) {
+
+			if (dir == 1) {
 				curr++;
-				for (curr; curr != weapons_.end(); ++curr)
-				{
-					if (curr->Owned()){
-						currWep = *curr;
+				for (curr; curr != weapons_.end(); ++curr) {
+					if (curr->Owned()) {
+						curr_weapon_ = *curr;
 						break;
 					}
 				}	
-			}
-			else{
-				for (curr; curr != weapons_.begin();)
-				{ 
+			} else {
+				for (curr; curr != weapons_.begin();) { 
 					--curr;
-					if (curr->Owned()){
-						currWep = *curr;
+
+					if (curr->Owned()) {
+						curr_weapon_ = *curr;
 						break;
 					}
 				}	
-				
 			}
+
 			break;
 		}
 	}
 }
 
-void Player::Shoot(){
-	currWep.fire();
+void Player::Shoot() {
+	curr_weapon_.fire();
 }
 
-int Player::getHealthLevel(){
-	std::list<Stat>::iterator curr;
-	for (curr = stats_.begin(); curr != stats_.end(); ++curr){
-		if (curr->name.compare("health") == 0)
-			return curr->level;
-	}
-	return 0;
+int Player::getHealthLevel() {
+  for (const auto obj : stats_) {
+    if (obj.name.compare("health") == 0)
+      return obj.level;
+  }
+
+  return 0;
 }
 
-int Player::getSpeedLevel(){
-	std::list<Stat>::iterator curr;
-	for (curr = stats_.begin(); curr != stats_.end(); ++curr){
-		if (curr->name.compare("speed") == 0)
-			return curr->level;
-	}
+int Player::getSpeedLevel() {
+  for (const auto obj : stats_) {
+    if (obj.name.compare("speed") == 0)
+      return obj.level;
+  }
+
 	return 0;
 }
 

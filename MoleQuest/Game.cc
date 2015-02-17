@@ -7,6 +7,8 @@
 #include "Game.h"
 #include "MainMenu.h"
 #include "SettingsMenu.h"
+#include "Shop.h"
+#include "Pause.h"
 #include "SoundEngine.h"
 
 Game::Game() {
@@ -65,26 +67,22 @@ void Game::GameLoop() {
       }
       
       case GameState::kShopping: {
-		  ShowShop();
-		  break;
-	  }
+        ShowShop();
+        break;
+      }
  
       case GameState::kShowingSettingsPaused: {
         ShowSettings(true);
         break;
       }
 
-	  case GameState::kShowingSettings: {
-		  ShowSettings(false);
-		  break;
-	  }
+	    case GameState::kShowingSettings: {
+		    ShowSettings(false);
+		    break;
+	    }
 	  
       case GameState::kPaused: {
-        ShowPause(); 
-        break;
-	  
-      case GameState::kPaused: {
-        ShowMenu(); // Temporary - easier to test settings menu like this
+        ShowPause();
         break;
       }
 
@@ -93,8 +91,6 @@ void Game::GameLoop() {
 
         ProcessInput();
         
-		player_->DrawHUD(main_window_);
-
         UpdateMap();
         game_object_manager_.UpdateAll(lag);
 

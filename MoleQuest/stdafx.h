@@ -12,6 +12,7 @@
 #include <list>
 #include <algorithm>
 #include <math.h>
+#include <sstream>
 
 #include <SFML/Audio.hpp>
 #include <SFML/Window.hpp>

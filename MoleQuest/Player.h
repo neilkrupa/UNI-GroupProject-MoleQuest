@@ -3,6 +3,7 @@
 
 #include "GameObject.h"
 #include "AnimationHandler.h"
+#include "Weapon.h"
 
 class Player : public GameObject {
  public:
@@ -47,7 +48,7 @@ class Player : public GameObject {
  private:
   AnimationHandler* animation_handler_;
 
-  struct Stat{
+  struct Stat {
     public:
 		std::string name;
 
@@ -87,8 +88,12 @@ class Player : public GameObject {
 
   sf::Font f;
   
+  // Would it not be better to use a map here so you can access the elements
+  // directly rather than searching every time?
   std::list<Weapon> weapons_;
   std::list<Stat> stats_;
+
+  Weapon curr_weapon_;
   
 };
 
