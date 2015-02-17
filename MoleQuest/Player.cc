@@ -40,7 +40,6 @@ void Player::Update(float lag) {
 void Player::Draw(float interp, sf::RenderWindow& window) {
   //GetSprite().setTextureRect(animation_handler_->texture_bounds_);
 
-  //TODO(Mark): Player should always face the mouse
   sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
   sf::Vector2f player_pos = GetSprite().getPosition();
 

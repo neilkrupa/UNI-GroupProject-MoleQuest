@@ -12,7 +12,7 @@
 Game::Game() {
   main_window_.create(sf::VideoMode(1024, 768, 32), "Mole Quest");
   main_window_.setFramerateLimit(60);
-  
+
   game_state_ = GameState::kShowingMenu;
 
   player_ = new Player();
@@ -79,8 +79,10 @@ void Game::GameLoop() {
 
         ProcessInput();
 
+        UpdateMap();
         game_object_manager_.UpdateAll(lag);
 
+        main_window_.draw(level_sprite_);
         game_object_manager_.DrawAll(lag, main_window_);
 
         main_window_.display();
@@ -110,7 +112,7 @@ void Game::ProcessInput() {
       player_->MoveLeft();
  
   if (InputCheck("right"))
-    if ((player_->GetPosition().x + player_->GetVelocityX()) < win_w - 140)
+    if ((player_->GetPosition().x + player_->GetVelocityX()) < win_w)
       player_->MoveRight();
 
   if (InputCheck("foward"))
@@ -118,7 +120,7 @@ void Game::ProcessInput() {
       player_->MoveUp();
 
   if (InputCheck("backwards"))
-    if ((player_->GetPosition().y + player_->GetVelocityY()) < win_h - 140)
+    if ((player_->GetPosition().y + player_->GetVelocityY()) < win_h)
       player_->MoveDown();
 }
 
@@ -146,6 +148,7 @@ void Game::ShowMenu() {
     }
 
     case MainMenu::Result::kPlay: {
+      ChangeLevel();
       game_state_ = GameState::kPlaying;
       break;
     }
@@ -197,4 +200,28 @@ Game::Input Game::Map(Game::Input input){
 			}
 		}
 	}
+}
+
+void Game::UpdateMap() {
+  // Is the player near the top of the map?
+  int top = level_sprite_.getTextureRect().top;
+
+  if (player_->GetPosition().y <= map_move_top_limit_ && top > 0) {
+    int win_w = main_window_.getSize().x;
+    int win_h = main_window_.getSize().y;
+    level_sprite_.setTextureRect(sf::IntRect(0, top - map_move_speed_, win_w, win_h));
+  }
+}
+
+void Game::ChangeLevel() {
+  level_++;
+
+  std::string level_name = "images/map" + std::to_string(level_) + ".png";
+  level_texture_.loadFromFile(level_name);
+  level_sprite_.setTexture(level_texture_);
+
+  // Only show first part of texture
+  int win_w = main_window_.getSize().x;
+  int win_h = main_window_.getSize().y;
+  level_sprite_.setTextureRect(sf::IntRect(0, 3500 - win_h, win_w, win_h));
 }

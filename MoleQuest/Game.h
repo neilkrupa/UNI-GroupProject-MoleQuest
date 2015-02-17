@@ -31,6 +31,12 @@ class Game {
 
   void ProcessInput();
 
+  void ChangeLevel();
+
+  // Checks if the texture rect on the map texture needs to be moved because
+  // the player is near the top
+  void UpdateMap();
+
   //This is a simple check to make sure that the control is definitly being controlled by the correct button/key
   bool InputCheck(std::string key);
 
@@ -67,6 +73,13 @@ class Game {
   Game::Input Map(Game::Input);
 
   Player* player_;
+
+  int level_ = 0;
+  int map_move_speed_ = 2;
+  int map_move_top_limit_ = 300;
+
+  sf::Texture level_texture_;
+  sf::Sprite level_sprite_;
 };
 
 #endif
