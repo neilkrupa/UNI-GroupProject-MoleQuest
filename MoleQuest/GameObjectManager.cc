@@ -33,15 +33,15 @@ GameObject* GameObjectManager::Get(std::string name) const {
 }
 
 int GameObjectManager::GetObjectCount() const {
-  return game_objects_.size();
+  return (int) game_objects_.size();
 }
 
-void GameObjectManager::DrawAll(float interp, sf::RenderWindow &window) {
+void GameObjectManager::DrawAll(int interp, sf::RenderWindow &window) {
   for (const auto obj : game_objects_)
     obj.second->Draw(interp, window);
 }
 
-void GameObjectManager::UpdateAll(float lag) {
+void GameObjectManager::UpdateAll(int lag) {
   for (const auto obj : game_objects_)
     obj.second->Update(lag);
 }

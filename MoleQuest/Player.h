@@ -10,8 +10,8 @@ class Player : public GameObject {
   Player();
   ~Player();
 
-  void Update(float lag);
-  void Draw(float interp, sf::RenderWindow& window);
+  void Update(int lag);
+  void Draw(int interp, sf::RenderWindow& window);
 
   void MoveUp();
   void MoveDown();

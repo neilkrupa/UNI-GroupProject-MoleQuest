@@ -22,7 +22,7 @@ void AnimationHandler::Update(const float last_time) {
   // Has enough time passed to move on to the next frame?
   if ((elapsed_time_ + last_time) / duration > (elapsed_time_ / duration)) {
     // Calculate current frame number
-    int frame = (elapsed_time_ + last_time) / duration;
+    int frame = (int) ((elapsed_time_ + last_time) / duration);
 
     // Frames should wrap from last frame to first frame
     frame %= animations_[current_animation_].GetLength();

@@ -57,7 +57,7 @@ void Game::GameLoop() {
 
   while (!IsExiting()) {
     sf::Time elapsed_time = clock.restart();
-    float lag = elapsed_time.asMilliseconds();
+    int lag = elapsed_time.asMilliseconds();
 
     switch (game_state_) {
       case GameState::kShowingMenu: {

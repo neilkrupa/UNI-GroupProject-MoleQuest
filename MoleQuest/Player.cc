@@ -2,7 +2,7 @@
 #include "Player.h"
 
 Player::Player() : velocity_x_(0), velocity_y_(0) {
-  GetSprite().setPosition(100, 600);
+  GetSprite().setPosition(400, 700);
   Load("images/player.png");
   GetSprite().scale(0.5, 0.5);
   GetSprite().setOrigin(49, 173);
@@ -82,7 +82,7 @@ Player::~Player() {
   delete animation_handler_;
 }
 
-void Player::Update(float lag) {
+void Player::Update(int lag) {
   /* Commment out until there are some animations
   // Update animation time if moving or idling
   if (is_moving_ || animation_handler_->GetAnimationNumber() == 1)
@@ -105,7 +105,7 @@ void Player::Update(float lag) {
   velocity_y_ = 0;
 }
 
-void Player::Draw(float interp, sf::RenderWindow& window) {
+void Player::Draw(int interp, sf::RenderWindow& window) {
   DrawHUD(window);
 
   //GetSprite().setTextureRect(animation_handler_->texture_bounds_);
@@ -115,7 +115,7 @@ void Player::Draw(float interp, sf::RenderWindow& window) {
 
   // Work out the angle to face towards mouse
   float angle = atan2(mouse_pos.y - player_pos.y, mouse_pos.x - player_pos.x);
-  angle *= (180 / M_PI);
+  angle *= (float) (180 / M_PI);
 
   GetSprite().setRotation(90 + angle);
 
@@ -272,9 +272,9 @@ int Player::getSpeedLevel() {
 }
 
 float Player::GetVelocityX() {
-  return 0.3;
+  return 0.3f;
 }
 
 float Player::GetVelocityY() {
-  return 0.3;
+  return 0.3f;
 }

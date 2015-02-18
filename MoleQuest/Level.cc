@@ -20,7 +20,7 @@ void Level::LoadLevel(sf::RenderWindow& window) {
   // Show the lowest part of the level to the player
   int win_w = window.getSize().x;
   int win_h = window.getSize().y;
-  level_sprite_.setTextureRect(sf::IntRect(0, 3500 - win_h, win_w, win_h));
+  level_sprite_.setTextureRect(sf::IntRect(0, level_texture_.getSize().y - win_h, win_w, win_h));
 }
 
 void Level::UpdateLevel(sf::Vector2f player_pos, sf::RenderWindow& window) {
@@ -34,7 +34,7 @@ void Level::UpdateLevel(sf::Vector2f player_pos, sf::RenderWindow& window) {
   if (player_pos.y <= level_move_top_limit_ && top > 0)
     level_sprite_.setTextureRect(sf::IntRect(0, top - level_move_speed_, win_w, win_h));
   
-  else if (player_pos.y >= level_move_bottom_limit_ && bottom < 3500)
+  else if (player_pos.y >= level_move_bottom_limit_ && (unsigned) bottom < level_texture_.getSize().y)
     level_sprite_.setTextureRect(sf::IntRect(0, top + level_move_speed_, win_w, win_h));
 
 }

@@ -16,7 +16,7 @@ void GameObject::Load(std::string filename) {
   }
 }
 
-void GameObject::Draw(float interp, sf::RenderWindow &renderWindow) {
+void GameObject::Draw(int interp, sf::RenderWindow &renderWindow) {
   if (is_loaded_) 
     renderWindow.draw(sprite_);
 }
@@ -25,7 +25,7 @@ sf::Sprite& GameObject::GetSprite() {
   return sprite_;
 }
 
-void GameObject::Update(float lag) {}
+void GameObject::Update(int lag) {}
 
 sf::Vector2f GameObject::GetPosition() const {
   return sprite_.getPosition();

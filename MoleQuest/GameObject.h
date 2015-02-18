@@ -7,8 +7,8 @@ class GameObject {
   virtual ~GameObject();
 
   virtual void Load(std::string filename);
-  virtual void Draw(float interp, sf::RenderWindow &window);
-  virtual void Update(float lag);
+  virtual void Draw(int interp, sf::RenderWindow &window);
+  virtual void Update(int lag);
 
   sf::Vector2f GetPosition() const;
   
