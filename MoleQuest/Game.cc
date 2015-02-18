@@ -43,7 +43,6 @@ Game::Game() {
   input.type = InputType::kMouse;
   input.MouseButton = sf::Mouse::Left;
   key_map_["shoot"] = input;
-
 }
 
 Game::~Game() {
@@ -91,10 +90,10 @@ void Game::GameLoop() {
 
         ProcessInput();
         
-        UpdateMap();
+        map_.UpdateLevel(player_->GetPosition(), main_window_);
         game_object_manager_.UpdateAll(lag);
 
-        main_window_.draw(level_sprite_);
+        map_.DrawLevel(main_window_);
         game_object_manager_.DrawAll(lag, main_window_);
 
         main_window_.display();
@@ -168,7 +167,7 @@ void Game::ShowMenu() {
     }
 
     case MainMenu::Result::kPlay: {
-      ChangeLevel();
+      map_.ChangeLevel(main_window_, 1);
       game_state_ = GameState::kPlaying;
       break;
     }
@@ -227,30 +226,6 @@ Game::Input Game::Map(Game::Input input){
       }
     }
   }
-}
-
-void Game::UpdateMap() {
-  // Is the player near the top of the map?
-  int top = level_sprite_.getTextureRect().top;
-
-  if (player_->GetPosition().y <= map_move_top_limit_ && top > 0) {
-    int win_w = main_window_.getSize().x;
-    int win_h = main_window_.getSize().y;
-    level_sprite_.setTextureRect(sf::IntRect(0, top - map_move_speed_, win_w, win_h));
-  }
-}
-
-void Game::ChangeLevel() {
-  level_++;
-
-  std::string level_name = "images/map" + std::to_string(level_) + ".png";
-  level_texture_.loadFromFile(level_name);
-  level_sprite_.setTexture(level_texture_);
-
-  // Only show first part of texture
-  int win_w = main_window_.getSize().x;
-  int win_h = main_window_.getSize().y;
-  level_sprite_.setTextureRect(sf::IntRect(0, 3500 - win_h, win_w, win_h));
 }
 
 void Game::ShowShop() {

@@ -26,11 +26,11 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   speed_.cost = 150;
   speed_.cost_increase = 75;
 
-  Weapon potatoGun("potatoGun", 0, 0.5, 0, 10, false); 
+  Weapon potatoGun("potatoGun", 0, 0.5, 0, 10, false);
   Weapon duelPistols("duelPistols", 650, 2, 12, 15, false);
   Weapon pdw("pdw", 1500, 3, 25, 25, false);
   Weapon shotgun("shotgun", 2500, 0.5, 5, 50, true);
-  Weapon smg("smg",4500, 5, 35, 30, false);
+  Weapon smg("smg", 4500, 5, 35, 30, false);
   Weapon assaultRifle("assaultRifle", 7000, 4, 30, 45, false);
   Weapon minigun("minigun", 10000, 10, 50, 75, false);
 
@@ -72,7 +72,6 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   maxclipVal.setColor(sf::Color::Black);
   maxclipVal.setCharacterSize(20);
   maxclipVal.setPosition(840, 730);
-
   
   ammoBar.setPosition(800, 655);
 
@@ -143,20 +142,19 @@ void Player::MoveRight() {
   is_moving_ = true;
 }
 
-
 void Player::Buy(std::string purchase) {
-	std::list<Weapon>::iterator curr;
-	
-	for (curr = weapons_.begin(); curr != weapons_.end(); ++curr) {
-		if (curr->getName().compare(purchase) == 0 && curr->getPrice() <= coins) {
-			if (!(curr->Owned())){
-				curr->setOwned();
-				coins -= curr->getPrice();
-				coinVal.setString(std::to_string(coins));
-				break;
-			}
-		}	   	
-	}
+  std::list<Weapon>::iterator curr;
+
+  for (curr = weapons_.begin(); curr != weapons_.end(); ++curr) {
+    if (curr->getName().compare(purchase) == 0 && curr->getPrice() <= coins) {
+      if (!(curr->Owned())){
+        curr->setOwned();
+        coins -= curr->getPrice();
+        coinVal.setString(std::to_string(coins));
+        break;
+      }
+    }
+  }
 }
 
 void Player::Upgrade(std::string upgradeable) {

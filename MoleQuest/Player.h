@@ -87,9 +87,9 @@ class Player : public GameObject {
   sf::Text maxclipVal;
 
   sf::Font f;
-  
+
   std::list<Weapon> weapons_;
-  
+
   Stat health_;
   Stat speed_;
 

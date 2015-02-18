@@ -11,6 +11,7 @@
 
 #include "GameObjectManager.h"
 #include "Player.h"
+#include "Level.h"
 
 class Game {
  public:
@@ -35,12 +36,6 @@ class Game {
 
   void ProcessInput();
 
-  void ChangeLevel();
-
-  // Checks if the texture rect on the map texture needs to be moved because
-  // the player is near the top
-  void UpdateMap();
-
   //This is a simple check to make sure that the control is definitly being controlled by the correct button/key
   bool InputCheck(std::string key);
 
@@ -53,6 +48,9 @@ class Game {
 
   // Hold the current state of the game
   GameState game_state_;
+
+  // The mapping system for the game. Provides functions for changing level and drawing it
+  Level map_;
 
   // The main game window
   sf::RenderWindow main_window_;
@@ -77,13 +75,6 @@ class Game {
   Game::Input Map(Game::Input);
 
   Player* player_;
-
-  int level_ = 0;
-  int map_move_speed_ = 2;
-  int map_move_top_limit_ = 300;
-
-  sf::Texture level_texture_;
-  sf::Sprite level_sprite_;
 };
 
 #endif
