@@ -36,7 +36,7 @@ class Game {
 
   void ProcessInput();
 
-  //This is a simple check to make sure that the control is definitly being controlled by the correct button/key
+  // This is a simple check to make sure that the control is definitly being controlled by the correct button/key
   bool InputCheck(std::string key);
 
   // Returns true if the game state is set to kExiting
@@ -44,7 +44,7 @@ class Game {
 
   // An enumeration to hold all possible states the game can be in
   enum class GameState { kPaused, kShowingMenu, kPlaying, kExiting, 
-                         kShowingSettings, kShowingSettingsPaused , kShopping };
+                         kShowingSettings, kShowingSettingsPaused, kShopping };
 
   // Hold the current state of the game
   GameState game_state_;
@@ -59,7 +59,7 @@ class Game {
 
   enum InputType { kKey, kMouse };
 
-  //Struct to manage different types of input
+  // Struct to manage different types of input
   struct Input {
    public:
     InputType type;
@@ -67,11 +67,11 @@ class Game {
 	  sf::Mouse::Button MouseButton;
   };
  
-  //This is the map that holds the key controls for the game
+  // This is the map that holds the key controls for the game
   std::map<std::string, Input> key_map_;
 
-  //This function polls for an input to map a control to and then edits the input struct for that control
-  //accordingly. Its in Game.cc to avoid the awkwardness trying to stikc in SettingsMenu.cc
+  // This function polls for an input to map a control to and then edits the input struct for that control
+  // accordingly. Its in Game.cc to avoid the awkwardness trying to stikc in SettingsMenu.cc
   Game::Input Map(Game::Input);
 
   Player* player_;

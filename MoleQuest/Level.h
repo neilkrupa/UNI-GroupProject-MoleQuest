@@ -18,7 +18,8 @@ class Level {
   int curr_level_ = 0;
 
   int level_move_speed_ = 2;
-  int level_move_top_limit_ = 300;
+  int level_move_top_limit_ = 200;
+  int level_move_bottom_limit_ = 600;
 
   sf::Texture level_texture_;
   sf::Sprite level_sprite_;
