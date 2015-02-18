@@ -2,39 +2,29 @@
 #include "Player.h"
 
 Player::Player() : velocity_x_(0), velocity_y_(0) {
-  GetSprite().setPosition(1024 / 2, 600);
+  GetSprite().setPosition(100, 600);
   Load("images/player.png");
   GetSprite().scale(0.5, 0.5);
   GetSprite().setOrigin(49, 173);
   
   coins = 0;
-  
-  Stat health;
-  health.name = "health";
-  health.level = 0;
-  health.maxlevel = 4;
-  
-  health.value = 100;
-  health.max = 100;
-  health.amount = 100;
-  
-  health.cost = 150;
-  health.increase = 75;
 
-  Stat speed;
-  speed.name = "speed";
-  speed.level = 0;
-  speed.maxlevel = 4;
-  
-  speed.value = 1;
-  speed.amount = 1;
-  
-  speed.cost = 150;
-  speed.increase = 75;
+  // Initialise the stats
+  health_.curr_level = 0;
+  health_.max_level = 4;
+  health_.curr_value = 100;
+  health_.max_value = 100;
+  health_.level_increase = 100;
+  health_.cost = 150;
+  health_.cost_increase = 75;
 
-  stats_.push_back(speed);
-  stats_.push_back(health);
-
+  speed_.curr_level = 0;
+  speed_.max_level = 4;
+  speed_.curr_value = 1;
+  speed_.max_value = 4;
+  speed_.level_increase = 1;
+  speed_.cost = 150;
+  speed_.cost_increase = 75;
 
   Weapon potatoGun("potatoGun", 0, 0.5, 0, 10, false); 
   Weapon duelPistols("duelPistols", 650, 2, 12, 15, false);
@@ -62,7 +52,7 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   hpVal.setFont(f);
   hpVal.setCharacterSize(20);
   hpVal.setColor(sf::Color::Black);
-  hpVal.setString(std::to_string(health.value));
+  hpVal.setString(std::to_string(health_.curr_value));
   hpVal.setPosition(65, 700);
 
   coinTex.loadFromFile("images/coinbar.png");
@@ -169,21 +159,35 @@ void Player::Buy(std::string purchase) {
 	}
 }
 
-void Player::Upgrade(std::string upgradable) {
-	std::list<Stat>::iterator curr;
-	for (curr = stats_.begin(); curr != stats_.end(); ++curr){	
-		if (curr->name.compare(upgradable) == 0 && curr->cost <= coins && curr->level <= curr->maxlevel){
-			if (curr->level < curr->max){
-				curr->value += curr->amount;
-				curr->max += curr->amount;
-				coins -= curr->cost;
-				curr->cost += curr->increase;
-				curr->level += 1;
-				coinVal.setString(std::to_string(coins));
-			}
-			break;
-		}
-	}	
+void Player::Upgrade(std::string upgradeable) {
+  if (upgradeable == "health") {
+    // Does the player have enough money to upgrade and not already max level?
+    if (health_.cost <= coins && health_.curr_level < health_.max_level) {
+      health_.max_value += health_.level_increase;
+      // Set current health to new max
+      health_.curr_level = health_.max_level;
+
+      coins -= health_.cost;
+
+      health_.cost += health_.cost_increase;
+
+      health_.curr_level += 1;
+    }
+  } else if (upgradeable == "speed") {
+    // Does the player have enough money to upgrade and not already max level?
+    if (speed_.cost <= coins && speed_.curr_level < speed_.max_level) {
+      speed_.max_level += speed_.level_increase;
+      speed_.curr_level = speed_.max_level;
+
+      coins -= speed_.cost;
+
+      speed_.cost += speed_.cost_increase;
+
+      speed_.curr_level += 1;
+    }
+  }
+
+  coinVal.setString(std::to_string(coins));
 }
 
 void Player::DrawHUD(sf::RenderWindow &main_window_) {
@@ -205,32 +209,21 @@ void Player::DrawHUD(sf::RenderWindow &main_window_) {
 	main_window_.draw(ammoBar);
 
 	//This is just due to the difference in the image for the potato gun HUD
-	if (curr_weapon_.getName().compare("potatoGun") != 0){
+	if (curr_weapon_.getName().compare("potatoGun") != 0) {
 		main_window_.draw(clipVal);
 		main_window_.draw(maxclipVal);
 	}
-		
 }
 
 void Player::Damage(int damage) {
-	std::list<Stat>::iterator curr;
-	std::stringstream stream;
-	
-	for (curr = stats_.begin(); curr != stats_.end(); ++curr) {
-		if (curr->name.compare("health") == 0 && curr->value - damage >= 0) {
-			curr->value -= damage;
-			hpVal.setString(std::to_string(curr->value));
+  // Makes sure health never goes below 0
+  health_.curr_level = (health_.curr_level - damage) > 0 ? health_.curr_level - damage : 0;
 
-			if (curr->value <= (curr->max - (curr->max/25)*((curr->max - curr->value) / (curr->max/25)))){
-				stream << "images/hpbar/hp" << ((curr->max - curr->value) / (curr->max / 25)) << ".png";
-				hpTex.loadFromFile(stream.str());
-				hpVal.setString(std::to_string(curr->value));
-				break;
-			}
-		}
-	}
-
-	
+  // Load the new texture
+  std::stringstream stream;
+  stream << "images/hpbar/hp" << ((health_.max_value - health_.curr_value) / (health_.max_value / 25)) << ".png";
+  hpTex.loadFromFile(stream.str());
+  hpVal.setString(std::to_string(health_.curr_value));
 }
 
 void Player::Collect(int amount) {
@@ -273,23 +266,12 @@ void Player::Shoot() {
 }
 
 int Player::getHealthLevel() {
-  for (const auto obj : stats_) {
-    if (obj.name.compare("health") == 0)
-      return obj.level;
-  }
-
-  return 0;
+  return health_.curr_level;
 }
 
 int Player::getSpeedLevel() {
-  for (const auto obj : stats_) {
-    if (obj.name.compare("speed") == 0)
-      return obj.level;
-  }
-
-	return 0;
+  return speed_.curr_level;
 }
-
 
 float Player::GetVelocityX() {
   return 0.3;

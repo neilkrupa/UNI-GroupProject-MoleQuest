@@ -114,19 +114,18 @@ void Game::ProcessInput() {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     game_state_ = Game::GameState::kPaused;
 
-  //TODO: Make this bounds checking nicer. No magic numbers like '140'
   // This could all be done better using a map where the map key is the button 
   // pressed and the value is a function pointer to one of the player 
   // move functions.
 
-   if (InputCheck("cyclel"))
-	player_->Switch(-1);
+  if (InputCheck("cyclel"))
+	  player_->Switch(-1);
 
   if (InputCheck("cycler"))
 	  player_->Switch(1);
 
   if (InputCheck("shoot"))
-	  player_->Shoot();        //This is a placeholder function that tests the clip value on the HUD
+	  player_->Shoot(); //This is a placeholder function that tests the clip value on the HUD
 
   if (InputCheck("left"))
     if ((player_->GetPosition().x - player_->GetVelocityX()) > 0)
@@ -182,28 +181,29 @@ void Game::ShowMenu() {
 
 }
 
-void Game::ShowSettings(bool paused){
+void Game::ShowSettings(bool paused) {
 	SettingsMenu settings_menu;
 	SettingsMenu::Result result = settings_menu.Show(main_window_);
 
-	switch (result){
-      case SettingsMenu::Result::kMap: {
-		key_map_[settings_menu.tomap] = Map((key_map_.find(settings_menu.tomap)->second));
-        break;
-      }
+	switch (result) {
+    case SettingsMenu::Result::kMap: {
+		  key_map_[settings_menu.tomap] = Map((key_map_.find(settings_menu.tomap)->second));
+      break;
+    }
 
-      case SettingsMenu::Result::kExit: {
-		game_state_ = GameState::kExiting;
-		break;
-      }
+    case SettingsMenu::Result::kExit: {
+		  game_state_ = GameState::kExiting;
+		  break;
+    }
 
-      case SettingsMenu::Result::kBack: {
-		if (paused == true)
-		  game_state_ = GameState::kPaused;
-		else
-		  game_state_ = GameState::kShowingMenu;
-		break;
-      }
+    case SettingsMenu::Result::kBack: {
+		  if (paused == true)
+		    game_state_ = GameState::kPaused;
+		  else
+		    game_state_ = GameState::kShowingMenu;
+		  
+      break;
+    }
 	}
 }
 
@@ -253,7 +253,7 @@ void Game::ChangeLevel() {
   level_sprite_.setTextureRect(sf::IntRect(0, 3500 - win_h, win_w, win_h));
 }
 
-void Game::ShowShop(){
+void Game::ShowShop() {
   Shop shop;
   shop.UpdateMenu(player_->getHealthLevel(), player_->getSpeedLevel());
   Shop::Result result = shop.Show(main_window_);
@@ -267,7 +267,7 @@ void Game::ShowShop(){
     case Shop::Result::kContinue: {
       game_state_ = GameState::kPlaying;
       break;
-	 }
+	  }
 
     case Shop::Result::kBuy: {
       player_->Buy(shop.toBuy);
@@ -281,11 +281,11 @@ void Game::ShowShop(){
   }
 }
 
-void Game::ShowPause(){
+void Game::ShowPause() {
   Pause pause;
   Pause::Result result = pause.Show(main_window_);
 
-  switch (result){
+  switch (result) {
     case Pause::Result::kMenu: {
       game_state_ = GameState::kShowingMenu;
       break;

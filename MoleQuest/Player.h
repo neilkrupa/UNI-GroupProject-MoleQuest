@@ -33,7 +33,7 @@ class Player : public GameObject {
   //Like the damage, takes an int to increase the coins amount and update HUD
   void Collect(int amount);
   
-  //This function is called in the game loop to update the HUD each time a change occurs.
+  //This function is called by Draw() to update the HUD each time a change occurs.
   void DrawHUD(sf::RenderWindow &window);
   
   void Buy(std::string purchase);
@@ -49,21 +49,21 @@ class Player : public GameObject {
   AnimationHandler* animation_handler_;
 
   struct Stat {
-    public:
-		std::string name;
-
+   public:
 		//Max and current health
-		int value;
-		int max;
+		int curr_value;
+		int max_value;
 
+    // Cost of upgrading this stat
 		int cost;
+    // Amount the cost will increase per level
+    int cost_increase;
+
 		//Max and current level
-		int level;
-		int maxlevel;
-		//This is the amount the cost will increase per level
-		int increase;
-		//This is the amount each level will increase the value
-		int amount;
+		int curr_level;
+		int max_level;
+		// Amount each level will increase the value
+		int level_increase;
   }; 
 
   int coins;
@@ -88,13 +88,12 @@ class Player : public GameObject {
 
   sf::Font f;
   
-  // Would it not be better to use a map here so you can access the elements
-  // directly rather than searching every time?
   std::list<Weapon> weapons_;
-  std::list<Stat> stats_;
+  
+  Stat health_;
+  Stat speed_;
 
   Weapon curr_weapon_;
-  
 };
 
 #endif
