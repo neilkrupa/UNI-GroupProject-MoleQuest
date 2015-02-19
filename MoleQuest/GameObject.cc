@@ -30,3 +30,11 @@ void GameObject::Update(int lag) {}
 sf::Vector2f GameObject::GetPosition() const {
   return sprite_.getPosition();
 }
+
+void GameObject::SetObjectManagerIndex(int n) {
+  object_manager_index_ = n;
+}
+
+int GameObject::GetObjectManagerIndex() const {
+  return object_manager_index_;
+}

@@ -9,8 +9,6 @@ class Projectile : public GameObject {
   
   void Update(int lag);
   void Draw(int lag, sf::RenderWindow& window);
-
- private:
 };
 
 #endif

@@ -8,7 +8,10 @@ class GameObjectManager {
   GameObjectManager();
   ~GameObjectManager();
 
+  // Adds object to internal object vector
   void Add(GameObject game_object);
+
+  // Removes object from the internal object vector using swap-and-pop
   void Remove(int index);
 
   void DrawAll(int interp, sf::RenderWindow &window);

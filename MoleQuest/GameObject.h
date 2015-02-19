@@ -10,12 +10,22 @@ class GameObject {
   virtual void Draw(int interp, sf::RenderWindow &window);
   virtual void Update(int lag);
 
+  // When object is added to game object manager, the index it was inserted as
+  // is returned. To remove this object from the manager later, store the index
+  // using this function
+  void SetObjectManagerIndex(int n);
+
+  // Get the index this object is stored in the object manager to remove it
+  int GetObjectManagerIndex() const;
+
   sf::Vector2f GetPosition() const;
   
 protected:
   sf::Sprite& GetSprite();
 
  private:
+  int object_manager_index_;
+
   sf::Sprite sprite_;
   sf::Texture texture_;
   std::string filename_;
