@@ -24,19 +24,19 @@ void Level::LoadLevel(sf::RenderWindow& window) {
 }
 
 void Level::UpdateLevel(sf::Vector2f player_pos, sf::RenderWindow& window) {
-  // Is the player near the top of the map?
   int top = level_sprite_.getTextureRect().top;
   int bottom = top + level_sprite_.getTextureRect().height;
 
   int win_w = window.getSize().x;
   int win_h = window.getSize().y;
 
+  // Is the player near the top of the window && not already at top most part of the map?
   if (player_pos.y <= level_move_top_limit_ && top > 0)
     level_sprite_.setTextureRect(sf::IntRect(0, top - level_move_speed_, win_w, win_h));
   
+  // Is the player near the bottom of the window && not already at bottom most part of the map?
   else if (player_pos.y >= level_move_bottom_limit_ && (unsigned) bottom < level_texture_.getSize().y)
     level_sprite_.setTextureRect(sf::IntRect(0, top + level_move_speed_, win_w, win_h));
-
 }
 
 void Level::DrawLevel(sf::RenderWindow& window) {

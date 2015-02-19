@@ -10,6 +10,7 @@
 #include "Shop.h"
 #include "Pause.h"
 #include "SoundEngine.h"
+#include "Projectile.h"
 
 Game::Game() {
   main_window_.create(sf::VideoMode(1024, 768, 32), "Mole Quest");
@@ -123,8 +124,11 @@ void Game::ProcessInput() {
   if (InputCheck("cycler"))
 	  player_->Switch(1);
 
-  if (InputCheck("shoot"))
-	  player_->Shoot(); //This is a placeholder function that tests the clip value on the HUD
+  if (InputCheck("shoot")) {
+    // Create new bullet projectile
+    game_object_manager_.Add("bullet", new Projectile(player_->GetPosition(), sf::Mouse::getPosition()));
+    player_->Shoot(); //This is a placeholder function that tests the clip value on the HUD
+  }
 
   if (InputCheck("left"))
     if ((player_->GetPosition().x - player_->GetVelocityX()) > 0)

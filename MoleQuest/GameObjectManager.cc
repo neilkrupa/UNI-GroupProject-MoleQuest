@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "GameObjectManager.h"
 
-// TODO(Mark): Look into smart pointers to improve this class
+// TODO(Mark): It would be better to use a vector instead of a map to store the game objects
+//             because of the huge increase in performance from contiguous memory.
+//             Store the actual objects themselves in the vector as well, not pointers
+// http://gamedev.stackexchange.com/questions/33888/what-is-the-most-efficient-container-to-store-dynamic-game-objects-in
 
 GameObjectManager::GameObjectManager() {}
 
