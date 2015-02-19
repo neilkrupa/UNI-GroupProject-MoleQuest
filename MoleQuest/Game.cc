@@ -20,8 +20,6 @@ Game::Game() {
 
   player_ = new Player();
 
-  game_object_manager_.Add("player", player_);
-
   Input input;
   input.type = InputType::kKey;
   input.KeyCode = sf::Keyboard::W;
@@ -92,9 +90,11 @@ void Game::GameLoop() {
         ProcessInput();
         
         map_.UpdateLevel(player_->GetPosition(), main_window_);
+        player_->Update(lag);
         game_object_manager_.UpdateAll(lag);
 
         map_.DrawLevel(main_window_);
+        player_->Draw(lag, main_window_);
         game_object_manager_.DrawAll(lag, main_window_);
 
         main_window_.display();
@@ -126,7 +126,7 @@ void Game::ProcessInput() {
 
   if (InputCheck("shoot")) {
     // Create new bullet projectile
-    game_object_manager_.Add("bullet", new Projectile(player_->GetPosition(), sf::Mouse::getPosition()));
+    game_object_manager_.Add(Projectile(player_->GetPosition(), sf::Mouse::getPosition()));
     player_->Shoot(); //This is a placeholder function that tests the clip value on the HUD
   }
 

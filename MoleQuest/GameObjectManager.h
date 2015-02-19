@@ -8,23 +8,14 @@ class GameObjectManager {
   GameObjectManager();
   ~GameObjectManager();
 
-  void Add(std::string name, GameObject* game_object);
-  void Remove(std::string name);
-  GameObject* Get(std::string name) const;
-
-  int GetObjectCount() const;
+  void Add(GameObject game_object);
+  void Remove(int index);
 
   void DrawAll(int interp, sf::RenderWindow &window);
   void UpdateAll(int lag);
 
  private:
-  std::map<std::string, GameObject*> game_objects_;
-
-  struct Deallocator {
-    void operator()(const std::pair<std::string, GameObject*> &p) const {
-      delete p.second;
-    }
-  };
+  std::vector<GameObject> game_objects_;
 };
 
 #endif 
