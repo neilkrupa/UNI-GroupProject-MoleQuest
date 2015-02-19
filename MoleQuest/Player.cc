@@ -42,6 +42,14 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   weapons_.push_back(assaultRifle);
   weapons_.push_back(minigun);
 
+  weapon_indexes_["potatoGun"] = 0;
+  weapon_indexes_["duelPistols"] = 1;
+  weapon_indexes_["pdw"] = 2;
+  weapon_indexes_["shotgun"] = 3;
+  weapon_indexes_["smg"] = 4;
+  weapon_indexes_["assaultRifle"] = 5;
+  weapon_indexes_["minigun"] = 6;
+
   potatoGun.setOwned();
   curr_weapon_ = potatoGun;
 
@@ -143,18 +151,10 @@ void Player::MoveRight() {
 }
 
 void Player::Buy(std::string purchase) {
-  std::list<Weapon>::iterator curr;
-
-  for (curr = weapons_.begin(); curr != weapons_.end(); ++curr) {
-    if (curr->getName().compare(purchase) == 0 && curr->getPrice() <= coins) {
-      if (!(curr->Owned())){
-        curr->setOwned();
-        coins -= curr->getPrice();
-        coinVal.setString(std::to_string(coins));
-        break;
-      }
-    }
-  }
+  Weapon* weapon = &weapons_[weapon_indexes_[purchase]];
+  weapon->setOwned();
+  coins -= weapon->getPrice();
+  coinVal.setString(std::to_string(coins));
 }
 
 void Player::Upgrade(std::string upgradeable) {
@@ -230,33 +230,14 @@ void Player::Collect(int amount) {
 }
 
 void Player::Switch(int dir) {
-	std::list<Weapon>::iterator curr;
+  int curr_weapon_index = weapon_indexes_[curr_weapon_.getName()];
 
-	for (curr = weapons_.begin(); curr != weapons_.end(); ++curr) {
-		if (curr->getName().compare(curr_weapon_.getName()) == 0) {
-
-			if (dir == 1) {
-				curr++;
-				for (curr; curr != weapons_.end(); ++curr) {
-					if (curr->Owned()) {
-						curr_weapon_ = *curr;
-						break;
-					}
-				}	
-			} else {
-				for (curr; curr != weapons_.begin();) { 
-					--curr;
-
-					if (curr->Owned()) {
-						curr_weapon_ = *curr;
-						break;
-					}
-				}	
-			}
-
-			break;
-		}
-	}
+  // Using modulo 7 to wrap weapons around so if on weapon 6, and go right, you get weapon 0
+  if (dir == 1) {
+    curr_weapon_ = weapons_[(curr_weapon_index + 1) % 7];
+  } else if (dir == -1) {
+    curr_weapon_ = weapons_[(curr_weapon_index - 1) % 7];
+  }
 }
 
 void Player::Shoot() {

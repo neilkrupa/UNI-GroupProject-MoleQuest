@@ -88,7 +88,8 @@ class Player : public GameObject {
 
   sf::Font f;
 
-  std::list<Weapon> weapons_;
+  std::map<std::string, int> weapon_indexes_;
+  std::vector<Weapon> weapons_;
 
   Stat health_;
   Stat speed_;
