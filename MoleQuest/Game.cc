@@ -124,7 +124,7 @@ void Game::ProcessInput() {
   if (InputCheck("cycler"))
 	  player_->Switch(1);
 
-  if (InputCheck("shoot")) {
+    if (InputCheck("shoot")) {
     // Create new bullet projectile
     game_object_manager_.Add(Projectile(player_->GetPosition(), sf::Mouse::getPosition()));
     player_->Shoot(); //This is a placeholder function that tests the clip value on the HUD

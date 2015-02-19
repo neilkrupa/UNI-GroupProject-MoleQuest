@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GameObject.h"
 
-GameObject::GameObject() : is_loaded_(false) {}
+GameObject::GameObject() : is_loaded_(false), object_manager_index_(-1) {}
 
 GameObject::~GameObject() {}
 
