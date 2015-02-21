@@ -8,7 +8,7 @@ GameObjectManager::GameObjectManager() {
 }
 
 GameObjectManager::~GameObjectManager() {
-  // Delete all game objects
+  // Delete all game objects - could also use boost pointers instead of doing this
   for (auto obj : game_objects_)
     delete obj;
 
@@ -18,7 +18,7 @@ GameObjectManager::~GameObjectManager() {
 void GameObjectManager::Add(GameObject* game_object) {
   /* If vector is nearly full, add vector_size_ more spaces */
   if (game_objects_.size() >= game_objects_.capacity() - 1)
-    game_objects_.reserve(game_objects_.size() + vector_size_);
+    game_objects_.reserve(game_objects_.capacity() + vector_size_);
 
   game_object->SetObjectManagerIndex(game_objects_.size());
   game_objects_.push_back(game_object);
@@ -30,6 +30,9 @@ void GameObjectManager::Remove(int index) {
     // Put end object in place of the object we are removing, then remove end object
     // This keeps all the objects together in the vector with no spaces
     std::swap(game_objects_[index], game_objects_.back());
+
+    delete game_objects_.back();
+
     game_objects_.pop_back();
 
     // Set the new index for the object that was moved
