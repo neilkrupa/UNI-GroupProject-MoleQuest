@@ -18,6 +18,8 @@ class GameObjectManager {
   void UpdateAll(int lag);
 
  private:
+  int vector_size_ = 100;
+
   std::vector<GameObject*> game_objects_;
 };
 

@@ -4,14 +4,22 @@
 GameObjectManager::GameObjectManager() {
   // Reserve contiguous space for 100 objects. This will be more than enough for the entire game
   // Moles and bullets are removed when they are dead / not visible
-  game_objects_.reserve(100);
+  game_objects_.reserve(vector_size_);
 }
 
 GameObjectManager::~GameObjectManager() {
+  // Delete all game objects
+  for (auto obj : game_objects_)
+    delete obj;
+
   game_objects_.clear();
 }
 
 void GameObjectManager::Add(GameObject* game_object) {
+  /* If vector is nearly full, add vector_size_ more spaces */
+  if (game_objects_.size() >= game_objects_.capacity() - 1)
+    game_objects_.reserve(game_objects_.size() + vector_size_);
+
   game_object->SetObjectManagerIndex(game_objects_.size());
   game_objects_.push_back(game_object);
 }
