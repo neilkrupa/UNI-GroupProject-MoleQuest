@@ -54,6 +54,24 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pause.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cc">
@@ -90,6 +108,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectManager.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pause.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mole.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

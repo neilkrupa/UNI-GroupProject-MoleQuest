@@ -11,6 +11,7 @@
 #include "Pause.h"
 #include "SoundEngine.h"
 #include "Projectile.h"
+#include "Mole.h"
 
 Game::Game() {
   main_window_.create(sf::VideoMode(1024, 768, 32), "Mole Quest");
@@ -19,6 +20,7 @@ Game::Game() {
   game_state_ = GameState::kShowingMenu;
 
   player_ = new Player();
+  game_object_manager_.Add(Mole(player_));
 
   Input input;
   input.type = InputType::kKey;
