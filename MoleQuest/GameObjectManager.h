@@ -9,7 +9,7 @@ class GameObjectManager {
   ~GameObjectManager();
 
   // Adds object to internal object vector
-  void Add(GameObject game_object);
+  void Add(GameObject* game_object);
 
   // Removes object from the internal object vector using swap-and-pop
   void Remove(int index);
@@ -18,7 +18,7 @@ class GameObjectManager {
   void UpdateAll(int lag);
 
  private:
-  std::vector<GameObject> game_objects_;
+  std::vector<GameObject*> game_objects_;
 };
 
 #endif 

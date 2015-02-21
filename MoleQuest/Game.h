@@ -12,6 +12,7 @@
 #include "GameObjectManager.h"
 #include "Player.h"
 #include "Level.h"
+#include "Mole.h"
 
 class Game {
  public:

@@ -20,7 +20,7 @@ Game::Game() {
   game_state_ = GameState::kShowingMenu;
 
   player_ = new Player();
-  game_object_manager_.Add(Mole(player_));
+  game_object_manager_.Add(new Mole(player_));
 
   Input input;
   input.type = InputType::kKey;
@@ -128,7 +128,7 @@ void Game::ProcessInput() {
 
     if (InputCheck("shoot")) {
     // Create new bullet projectile
-    game_object_manager_.Add(Projectile(player_->GetPosition(), sf::Mouse::getPosition()));
+    game_object_manager_.Add(new Projectile(player_->GetPosition(), sf::Mouse::getPosition()));
     player_->Shoot(); //This is a placeholder function that tests the clip value on the HUD
   }
 

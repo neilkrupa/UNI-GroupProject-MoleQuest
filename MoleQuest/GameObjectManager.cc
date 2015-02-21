@@ -11,8 +11,8 @@ GameObjectManager::~GameObjectManager() {
   game_objects_.clear();
 }
 
-void GameObjectManager::Add(GameObject game_object) {
-  game_object.SetObjectManagerIndex(game_objects_.size());
+void GameObjectManager::Add(GameObject* game_object) {
+  game_object->SetObjectManagerIndex(game_objects_.size());
   game_objects_.push_back(game_object);
 }
 
@@ -25,16 +25,16 @@ void GameObjectManager::Remove(int index) {
     game_objects_.pop_back();
 
     // Set the new index for the object that was moved
-    game_objects_[index].SetObjectManagerIndex(index);
+    game_objects_[index]->SetObjectManagerIndex(index);
   }
 }
 
 void GameObjectManager::DrawAll(int interp, sf::RenderWindow& window) {
   for (auto obj : game_objects_)
-    obj.Draw(interp, window);
+    obj->Draw(interp, window);
 }
 
 void GameObjectManager::UpdateAll(int lag) {
   for (auto obj : game_objects_)
-    obj.Update(lag);
+    obj->Update(lag);
 }

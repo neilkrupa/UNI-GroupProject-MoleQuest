@@ -15,12 +15,12 @@ Mole::~Mole() {
 	delete animation_handler_;
 }
 
-void Mole::Update(float lag) {
+void Mole::Update(int lag) {
 	GetSprite().move(velocity_x_ * lag, velocity_y_ * lag);
 	float x = player_->GetPosition().x;
 
-//	printf("position y = %d/n", .GetPosition().y);
+  //printf("position y = %d/n", player_->GetPosition().y);
 }
-void Mole::Draw(float interp, sf::RenderWindow& window) {
+void Mole::Draw(int interp, sf::RenderWindow& window) {
 	window.draw(GetSprite());
 }

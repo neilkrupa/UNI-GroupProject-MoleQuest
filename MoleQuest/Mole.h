@@ -10,8 +10,8 @@ public:
 	Mole(Player* Player_);
 	~Mole();
 	
-  void Update(float lag);
-	void Draw(float interp, sf::RenderWindow& window);
+  void Update(int lag);
+	void Draw(int interp, sf::RenderWindow& window);
 	
   //void Damage(int value);
 	
