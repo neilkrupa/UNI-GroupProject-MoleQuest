@@ -31,7 +31,11 @@ void AnimationHandler::Update(const float last_time) {
     // This is subject to change based on how the textures are laid out in the
     // spritesheets
     sf::IntRect rect = frame_size_;
-    rect.left = (rect.width * frame);
+
+    if (frame == 0)
+      rect.left = (rect.width * frame);
+    else
+      rect.left = frame*5 + (rect.width * frame);
 
     rect.top = rect.height * current_animation_;
     texture_bounds_ = rect;

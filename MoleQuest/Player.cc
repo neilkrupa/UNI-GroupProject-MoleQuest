@@ -2,10 +2,11 @@
 #include "Player.h"
 
 Player::Player() : velocity_x_(0), velocity_y_(0) {
+  Load("images/spritesheet.png");
+
   GetSprite().setPosition(400, 700);
-  Load("images/player.png");
-  GetSprite().scale(0.5, 0.5);
-  GetSprite().setOrigin(49, 173);
+  GetSprite().scale(0.75, 0.75);
+  GetSprite().setOrigin(91 / 2, 103 / 2);
   
   coins = 0;
 
@@ -26,21 +27,13 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   speed_.cost = 150;
   speed_.cost_increase = 75;
 
-  Weapon potatoGun("potatoGun", 0, 0.5, 0, 10, false);
-  Weapon duelPistols("duelPistols", 650, 2, 12, 15, false);
-  Weapon pdw("pdw", 1500, 3, 25, 25, false);
-  Weapon shotgun("shotgun", 2500, 0.5, 5, 50, true);
-  Weapon smg("smg", 4500, 5, 35, 30, false);
-  Weapon assaultRifle("assaultRifle", 7000, 4, 30, 45, false);
-  Weapon minigun("minigun", 10000, 10, 50, 75, false);
-
-  weapons_.push_back(potatoGun);
-  weapons_.push_back(duelPistols);
-  weapons_.push_back(pdw);
-  weapons_.push_back(smg);
-  weapons_.push_back(shotgun);
-  weapons_.push_back(assaultRifle);
-  weapons_.push_back(minigun);
+  weapons_.push_back(Weapon("potatoGun", 0, 0.5, 0, 10, false));
+  weapons_.push_back(Weapon("duelPistols", 650, 2, 12, 15, false));
+  weapons_.push_back(Weapon("pdw", 1500, 3, 25, 25, false));
+  weapons_.push_back(Weapon("shotgun", 2500, 0.5, 5, 50, true));
+  weapons_.push_back(Weapon("smg", 4500, 5, 35, 30, false));
+  weapons_.push_back(Weapon("assaultRifle", 7000, 4, 30, 45, false));
+  weapons_.push_back(Weapon("minigun", 10000, 10, 50, 75, false));
 
   weapon_indexes_["potatoGun"] = 0;
   weapon_indexes_["duelPistols"] = 1;
@@ -50,8 +43,9 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   weapon_indexes_["assaultRifle"] = 5;
   weapon_indexes_["minigun"] = 6;
 
-  potatoGun.setOwned();
-  curr_weapon_ = potatoGun;
+  // Set potato gun to default
+  weapons_[0].setOwned();
+  curr_weapon_ = weapons_[0];
 
   //This is the setup for the HUD bars
   hpTex.loadFromFile("images/hpbar/hp1.png");
@@ -83,7 +77,21 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   
   ammoBar.setPosition(800, 655);
 
-  animation_handler_ = new AnimationHandler();
+  // Set up animations for every weapon
+
+  sf::IntRect sub_rect;
+  sub_rect.top = 0;
+  sub_rect.height = 103;
+  sub_rect.left = 0;
+  sub_rect.width = 90;
+
+  animation_handler_ = new AnimationHandler(sub_rect);
+  
+  // Add 7 animations representing the 7 guns
+  for (int i = 0; i < 7; i++)
+    animation_handler_->AddAnimation(Animation(0, 2, 150));
+
+  animation_handler_->ChangeAnimation(0);
 }
 
 Player::~Player() {
@@ -91,21 +99,11 @@ Player::~Player() {
 }
 
 void Player::Update(int lag) {
-  /* Commment out until there are some animations
-  // Update animation time if moving or idling
-  if (is_moving_ || animation_handler_->GetAnimationNumber() == 1)
-    animation_handler_->Update(lag);
-  
-  // Change animation to walking if moving
-  if (is_moving_)
-    animation_handler_->ChangeAnimation(0);
-
-  // Reset to idle animation?
-  if (is_moving_ && velocity_x_ == 0) {
-    animation_handler_->ChangeAnimation(1);
+  if (velocity_x_ == 0 && velocity_y_ == 0 && is_moving_)
     is_moving_ = false;
-  }
-  */
+
+  if (is_moving_)
+    animation_handler_->Update(lag);
 
   GetSprite().move(velocity_x_ * lag, velocity_y_ * lag);
 
@@ -116,7 +114,7 @@ void Player::Update(int lag) {
 void Player::Draw(int interp, sf::RenderWindow& window) {
   DrawHUD(window);
 
-  //GetSprite().setTextureRect(animation_handler_->texture_bounds_);
+  GetSprite().setTextureRect(animation_handler_->texture_bounds_);
 
   sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
   sf::Vector2f player_pos = GetSprite().getPosition();
@@ -233,11 +231,13 @@ void Player::Switch(int dir) {
   int curr_weapon_index = weapon_indexes_[curr_weapon_.getName()];
 
   // Using modulo 7 to wrap weapons around so if on weapon 6, and go right, you get weapon 0
-  if (dir == 1) {
-    curr_weapon_ = weapons_[(curr_weapon_index + 1) % 7];
-  } else if (dir == -1) {
-    curr_weapon_ = weapons_[(curr_weapon_index - 1) % 7];
-  }
+  // Looks quite complicated beacuse of dumb as fuck implementation of % which is actually
+  // just a division and not mathemtical modulus
+  int new_index = ((curr_weapon_index + dir) % 7 + 7) % 7;
+
+  curr_weapon_ = weapons_[new_index];
+
+  animation_handler_->ChangeAnimation(new_index);
 }
 
 void Player::Shoot() {
