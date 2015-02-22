@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Mole.h"
+#include "GameObjectManager.h"
 
 Mole::Mole(Player* player){
 	mole_.velocity_x_ = 0;
@@ -65,6 +66,9 @@ void Mole::Damage(int value){
 	else {
 		dead = true;
 		player_->Collect(mole_.coins);
+
+    // Delete this mole
+    GameObjectManager::Remove(GetObjectManagerIndex());
 	}
 }
 
