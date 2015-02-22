@@ -30,16 +30,16 @@ void GameObjectManager::Remove(int index) {
 
 void GameObjectManager::RemoveDeleted() {
   for (int index : marked_for_deletion_) {
+    // Check for a valid index (Objects initialise to -1 when made and haven't beed added to manager)
     if (index >= 0 && index < game_objects_.size()){
-      // Check if index is last in vector
-      if (index == game_objects_.size() - 1) {
-        delete game_objects_.back();
-      } else {
+
+      // If not last in vector then swap the object to be removed to the back of the vector
+      if (index != game_objects_.size() - 1) {
         std::swap(game_objects_[index], game_objects_.back());
-        delete game_objects_.back();
         game_objects_[index]->SetObjectManagerIndex(index);
       }
 
+      delete game_objects_.back();
       game_objects_.pop_back();
     }
   }
