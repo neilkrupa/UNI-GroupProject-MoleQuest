@@ -106,7 +106,7 @@ void Game::GameLoop() {
         f.loadFromFile("fonts/Quest.ttf");        
         fps.setFont(f);
 
-        float ffps = 1.f / lag*1000;
+        float ffps = 1.f / elapsed_time.asSeconds();
         fps.setString("FPS: " + std::to_string(ffps));
         fps.setCharacterSize(24);
         fps.setColor(sf::Color::Red);
@@ -141,10 +141,12 @@ void Game::ProcessInput() {
   if (InputCheck("cycler"))
 	  player_->Switch(1);
 
-    if (InputCheck("shoot")) {
-    // Create new bullet projectile
-    game_object_manager_.Add(new Projectile(player_->GetPosition(), sf::Mouse::getPosition()));
-    player_->Shoot(); //This is a placeholder function that tests the clip value on the HUD
+  if (InputCheck("shoot")) {
+    // Create new bullet projectile if attack speed allows for it
+    if (player_->GetLastFiredTime() > 1 / player_->GetWeapon().GetAttackSpeed()) {
+      game_object_manager_.Add(new Projectile(player_->GetPosition(), sf::Mouse::getPosition()));
+      player_->Shoot();
+    }
   }
 
   if (InputCheck("left"))

@@ -45,6 +45,10 @@ class Player : public GameObject {
   float GetVelocityX();
   float GetVelocityY();
 
+  float GetLastFiredTime() const;
+
+  Weapon GetWeapon() const;
+
  private:
   AnimationHandler* animation_handler_;
 
@@ -96,8 +100,9 @@ class Player : public GameObject {
 
   Weapon curr_weapon_;
 
-  int weapon_switch_timeout = 200;
-  int weapon_switch_elapsed = 0;
+  int weapon_switch_timeout_ = 200;
+  int weapon_switch_elapsed_ = 0;
+  float weapon_last_fired_ = 0;
 };
 
 #endif

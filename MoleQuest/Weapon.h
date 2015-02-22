@@ -12,6 +12,8 @@ class Weapon{
 
 		void setOwned();
 
+    float GetAttackSpeed() const;
+
 		std::string getName();
 
 		int getPrice();

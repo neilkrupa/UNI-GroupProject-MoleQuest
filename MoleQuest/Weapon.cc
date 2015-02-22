@@ -50,3 +50,7 @@ int Weapon::getPrice(){
 std::string Weapon::getName(){
 	return name;
 }
+
+float Weapon::GetAttackSpeed() const {
+  return atkSpe;
+}

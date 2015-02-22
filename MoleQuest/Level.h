@@ -17,7 +17,7 @@ class Level {
  private:
   int curr_level_ = 0;
 
-  int level_move_speed_ = 2;
+  int level_move_speed_ = 1;
   int level_move_top_limit_ = 200;
   int level_move_bottom_limit_ = 600;
 

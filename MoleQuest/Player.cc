@@ -117,7 +117,8 @@ void Player::Update(int lag) {
   velocity_x_ = 0;
   velocity_y_ = 0;
 
-  weapon_switch_elapsed += lag;
+  weapon_switch_elapsed_ += lag;
+  weapon_last_fired_ += lag / 1000.f; // 1000 as lag is measured in millisecs but we want secs
 }
 
 void Player::Draw(int interp, sf::RenderWindow& window) {
@@ -230,7 +231,7 @@ void Player::Collect(int amount) {
 
 void Player::Switch(int dir) {
   // Has enough time passed to allow a weapon switch?
-  if (weapon_switch_elapsed < weapon_switch_timeout)
+  if (weapon_switch_elapsed_ < weapon_switch_timeout_)
     return;
 
   int curr_weapon_index = weapon_indexes_[curr_weapon_.getName()];
@@ -252,12 +253,13 @@ void Player::Switch(int dir) {
   ammoTex.loadFromFile("images/ammobar/" + curr_weapon_.getName() + "Bar.png");
   ammoBar.setTexture(ammoTex);
 
-  weapon_switch_elapsed = 0;
+  weapon_switch_elapsed_ = 0;
 }
 
 void Player::Shoot() {
 	curr_weapon_.fire();
   clipVal.setString(std::to_string(curr_weapon_.getClip()));
+  weapon_last_fired_ = 0;
 }
 
 int Player::getHealthLevel() {
@@ -274,4 +276,12 @@ float Player::GetVelocityX() {
 
 float Player::GetVelocityY() {
   return 0.3f;
+}
+
+float Player::GetLastFiredTime() const {
+  return weapon_last_fired_;
+}
+
+Weapon Player::GetWeapon() const {
+  return curr_weapon_;
 }
