@@ -17,11 +17,11 @@ public:
 	
 private:
   Player *player_;
-
   float velocity_x_;
   float velocity_y_;
-  bool is_moving_;
-	
+  sf::Vector2f mole_pos;
+  sf::Vector2f player_pos;
+  void UpdatePosition();
   AnimationHandler* animation_handler_;
 };
 #endif
