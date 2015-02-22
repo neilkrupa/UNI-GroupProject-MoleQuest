@@ -25,19 +25,26 @@ void GameObjectManager::Add(GameObject* game_object) {
 }
 
 void GameObjectManager::Remove(int index) {
-  // Check for a valid index (game objects initialise to index -1)
-  if (index > 0 && index < game_objects_.size()) {
-    // Put end object in place of the object we are removing, then remove end object
-    // This keeps all the objects together in the vector with no spaces
-    std::swap(game_objects_[index], game_objects_.back());
+  marked_for_deletion_.push_back(index);
+}
 
-    delete game_objects_.back();
+void GameObjectManager::RemoveDeleted() {
+  for (int index : marked_for_deletion_) {
+    if (index >= 0 && index < game_objects_.size()){
+      // Check if index is last in vector
+      if (index == game_objects_.size() - 1) {
+        delete game_objects_.back();
+      } else {
+        std::swap(game_objects_[index], game_objects_.back());
+        delete game_objects_.back();
+        game_objects_[index]->SetObjectManagerIndex(index);
+      }
 
-    game_objects_.pop_back();
-
-    // Set the new index for the object that was moved
-    game_objects_[index]->SetObjectManagerIndex(index);
+      game_objects_.pop_back();
+    }
   }
+
+  marked_for_deletion_.clear();
 }
 
 void GameObjectManager::DrawAll(int interp, sf::RenderWindow& window) {
@@ -46,6 +53,10 @@ void GameObjectManager::DrawAll(int interp, sf::RenderWindow& window) {
 }
 
 void GameObjectManager::UpdateAll(int lag) {
+  RemoveDeleted();
+
   for (auto obj : game_objects_)
     obj->Update(lag);
 }
+
+std::vector<int> GameObjectManager::marked_for_deletion_;

@@ -9,6 +9,10 @@ class Projectile : public GameObject {
   
   void Update(int lag);
   void Draw(int lag, sf::RenderWindow& window);
+
+ private:
+   int elapsed_time_ = 0;
+   int live_time_ = 5000;
 };
 
 #endif

@@ -143,7 +143,7 @@ void Game::ProcessInput() {
 
   if (InputCheck("shoot")) {
     // Create new bullet projectile if attack speed allows for it
-    if (player_->GetLastFiredTime() > 1 / player_->GetWeapon().GetAttackSpeed()) {
+    if (player_->GetLastFiredTime() >= 1 / player_->GetWeapon().GetAttackSpeed()) {
       game_object_manager_.Add(new Projectile(player_->GetPosition(), sf::Mouse::getPosition()));
       player_->Shoot();
     }
