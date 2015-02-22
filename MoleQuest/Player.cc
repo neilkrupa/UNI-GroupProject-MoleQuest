@@ -116,6 +116,8 @@ void Player::Update(int lag) {
 
   velocity_x_ = 0;
   velocity_y_ = 0;
+
+  weapon_switch_elapsed += lag;
 }
 
 void Player::Draw(int interp, sf::RenderWindow& window) {
@@ -209,10 +211,14 @@ void Player::DrawHUD(sf::RenderWindow &main_window_) {
 
 void Player::Damage(int damage) {
   // Makes sure health never goes below 0
-  health_.curr_level = (health_.curr_level - damage) > 0 ? health_.curr_level - damage : 0;
+  health_.curr_value = (health_.curr_value - damage) > 0 ? health_.curr_value - damage : 0;
 
   // Load the new texture
   int health_file = ((health_.max_value - health_.curr_value) / (health_.max_value / 25));
+
+  if (health_file == 0)
+    health_file = 1;
+
   hpTex.loadFromFile("images/hpbar/hp" + std::to_string(health_file) + ".png");
   hpVal.setString(std::to_string(health_.curr_value));
 }
@@ -223,6 +229,10 @@ void Player::Collect(int amount) {
 }
 
 void Player::Switch(int dir) {
+  // Has enough time passed to allow a weapon switch?
+  if (weapon_switch_elapsed < weapon_switch_timeout)
+    return;
+
   int curr_weapon_index = weapon_indexes_[curr_weapon_.getName()];
 
   // Using modulo 7 to wrap weapons around so if on weapon 6, and go right, you get weapon 0
@@ -241,6 +251,8 @@ void Player::Switch(int dir) {
   // Load ammobar texture for new weapon
   ammoTex.loadFromFile("images/ammobar/" + curr_weapon_.getName() + "Bar.png");
   ammoBar.setTexture(ammoTex);
+
+  weapon_switch_elapsed = 0;
 }
 
 void Player::Shoot() {

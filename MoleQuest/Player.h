@@ -95,6 +95,9 @@ class Player : public GameObject {
   Stat speed_;
 
   Weapon curr_weapon_;
+
+  int weapon_switch_timeout = 200;
+  int weapon_switch_elapsed = 0;
 };
 
 #endif
