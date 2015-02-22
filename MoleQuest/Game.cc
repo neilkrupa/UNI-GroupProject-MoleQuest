@@ -15,7 +15,7 @@
 
 Game::Game() {
   main_window_.create(sf::VideoMode(1024, 768, 32), "Mole Quest");
-  main_window_.setFramerateLimit(60);
+  //main_window_.setFramerateLimit(60);
 
   game_state_ = GameState::kShowingMenu;
 
@@ -90,7 +90,7 @@ void Game::GameLoop() {
         main_window_.clear(sf::Color(0, 0, 0));
 
         ProcessInput();
-        
+
         map_.UpdateLevel(player_->GetPosition(), main_window_);
         player_->Update(lag);
         game_object_manager_.UpdateAll(lag);
@@ -98,6 +98,21 @@ void Game::GameLoop() {
         map_.DrawLevel(main_window_);
         player_->Draw(lag, main_window_);
         game_object_manager_.DrawAll(lag, main_window_);
+        
+        // Draw FPS for testing
+        sf::Font f;
+        sf::Text fps;
+
+        f.loadFromFile("fonts/Quest.ttf");        
+        fps.setFont(f);
+
+        float ffps = 1.f / lag*1000;
+        fps.setString("FPS: " + std::to_string(ffps));
+        fps.setCharacterSize(24);
+        fps.setColor(sf::Color::Red);
+        fps.setStyle(sf::Text::Bold);
+
+        main_window_.draw(fps);
 
         main_window_.display();
         break;

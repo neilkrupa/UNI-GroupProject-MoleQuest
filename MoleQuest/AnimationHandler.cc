@@ -12,7 +12,7 @@ void AnimationHandler::AddAnimation(Animation& animation) {
   animations_.push_back(animation);
 }
 
-void AnimationHandler::Update(const float last_time) {
+void AnimationHandler::Update(const int last_time) {
   // Check for a valid animation
   if (current_animation_ == -1)
     return;

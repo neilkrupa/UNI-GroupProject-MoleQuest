@@ -57,6 +57,8 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   hpVal.setString(std::to_string(health_.curr_value));
   hpVal.setPosition(65, 700);
 
+  hpBar.setTexture(hpTex);
+
   coinTex.loadFromFile("images/coinbar.png");
   coinBar.setPosition(30, 730);
   coinVal.setFont(f);
@@ -64,6 +66,8 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   coinVal.setCharacterSize(20);
   coinVal.setString(std::to_string(coins));
   coinVal.setPosition(150, 730);
+
+  coinBar.setTexture(coinTex);
 
   clipVal.setFont(f);
   clipVal.setCharacterSize(20);
@@ -76,6 +80,9 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   maxclipVal.setPosition(840, 730);
   
   ammoBar.setPosition(800, 655);
+
+  ammoTex.loadFromFile("images/ammobar/" + curr_weapon_.getName() + "Bar.png");
+  ammoBar.setTexture(ammoTex);
 
   // Set up animations for every weapon
 
@@ -187,17 +194,6 @@ void Player::Upgrade(std::string upgradeable) {
 }
 
 void Player::DrawHUD(sf::RenderWindow &main_window_) {
-	hpBar.setTexture(hpTex);
-	coinBar.setTexture(coinTex);
-	clipVal.setString(std::to_string(curr_weapon_.getClip()));
-	maxclipVal.setString(std::to_string(curr_weapon_.getFullClip()));
-
-	//Sets up the ammo bar
-	std::stringstream stream;
-	stream << "images/ammobar/" << curr_weapon_.getName() << "Bar.png";
-	ammoTex.loadFromFile(stream.str());
-	ammoBar.setTexture(ammoTex);
-
 	main_window_.draw(hpBar);
 	main_window_.draw(hpVal);
 	main_window_.draw(coinBar);
@@ -216,9 +212,8 @@ void Player::Damage(int damage) {
   health_.curr_level = (health_.curr_level - damage) > 0 ? health_.curr_level - damage : 0;
 
   // Load the new texture
-  std::stringstream stream;
-  stream << "images/hpbar/hp" << ((health_.max_value - health_.curr_value) / (health_.max_value / 25)) << ".png";
-  hpTex.loadFromFile(stream.str());
+  int health_file = ((health_.max_value - health_.curr_value) / (health_.max_value / 25));
+  hpTex.loadFromFile("images/hpbar/hp" + std::to_string(health_file) + ".png");
   hpVal.setString(std::to_string(health_.curr_value));
 }
 
@@ -238,10 +233,19 @@ void Player::Switch(int dir) {
   curr_weapon_ = weapons_[new_index];
 
   animation_handler_->ChangeAnimation(new_index);
+
+  // Set new max clip text 
+  clipVal.setString(std::to_string(curr_weapon_.getClip()));
+  maxclipVal.setString(std::to_string(curr_weapon_.getFullClip()));
+
+  // Load ammobar texture for new weapon
+  ammoTex.loadFromFile("images/ammobar/" + curr_weapon_.getName() + "Bar.png");
+  ammoBar.setTexture(ammoTex);
 }
 
 void Player::Shoot() {
 	curr_weapon_.fire();
+  clipVal.setString(std::to_string(curr_weapon_.getClip()));
 }
 
 int Player::getHealthLevel() {

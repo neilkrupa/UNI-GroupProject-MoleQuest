@@ -15,7 +15,7 @@ class AnimationHandler {
   void AddAnimation(Animation& animation);
 
   // Update animation - checking if it needs to go to the next frame
-  void Update(const float last_time);
+  void Update(const int last_time);
 
   // Change the animation
   void ChangeAnimation(int num);

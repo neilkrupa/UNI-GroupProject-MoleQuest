@@ -13,7 +13,6 @@
 #include <algorithm>
 #include <math.h>
 #include <functional>
-#include <sstream>
 
 #include <SFML/Audio.hpp>
 #include <SFML/Window.hpp>
