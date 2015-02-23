@@ -356,3 +356,8 @@ float Player::GetLastFiredTime() const {
 Weapon Player::GetWeapon() const {
   return curr_weapon_;
 }
+
+sf::IntRect Player::GetTextureRect() {
+  int index = weapon_indexes_[curr_weapon_.getName()];
+  return texture_sizes_[index];
+}

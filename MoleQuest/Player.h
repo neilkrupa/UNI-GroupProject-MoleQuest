@@ -47,6 +47,8 @@ class Player : public GameObject {
 
   float GetLastFiredTime() const;
 
+  sf::IntRect GetTextureRect();
+
   Weapon GetWeapon() const;
 
  private:
