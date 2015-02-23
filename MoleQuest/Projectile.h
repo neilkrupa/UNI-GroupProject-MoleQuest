@@ -5,7 +5,7 @@
 
 class Projectile : public GameObject {
  public:
-  Projectile(sf::Vector2f, sf::Vector2i);
+  Projectile(sf::Vector2f, sf::Vector2i, sf::Vector2f);
   
   void Update(int lag);
   void Draw(int lag, sf::RenderWindow& window);

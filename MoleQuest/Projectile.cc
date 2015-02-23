@@ -2,9 +2,12 @@
 #include "Projectile.h"
 #include "GameObjectManager.h"
 
-Projectile::Projectile(sf::Vector2f player_pos, sf::Vector2i mouse_pos) {
+Projectile::Projectile(sf::Vector2f player_pos, sf::Vector2i mouse_pos, sf::Vector2f player_origin) {
   Load("images/bullet.png");
-  GetSprite().setPosition(player_pos.x, player_pos.y - 45);
+
+  int y = player_pos.y - player_origin.y;
+
+  GetSprite().setPosition(player_pos.x, y);
 }
 
 void Projectile::Update(int lag) {

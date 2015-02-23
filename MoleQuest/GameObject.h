@@ -19,8 +19,7 @@ class GameObject {
   int GetObjectManagerIndex() const;
 
   sf::Vector2f GetPosition() const;
-  
-protected:
+
   sf::Sprite& GetSprite();
 
  private:
