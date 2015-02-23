@@ -3,41 +3,41 @@
 #include "GameObjectManager.h"
 
 Mole::Mole(Player* player){
-	mole_.velocity_x_ = 0;
-	mole_.velocity_y_ = 0;
-	mole_.max_value = 50;
-	mole_.curr_value = mole_.max_value;
-	mole_.coins = 5;
 	dead = false;
-	Load("images/moles/normalMole.png");
 	GetSprite().scale(0.5, 0.5);
   GetSprite().setPosition(1024 / 2, 100);
 	sf::Vector2f mole_pos = GetSprite().getPosition();
-
   // Store the player's memory address for use in AI logic
   player_ = player;
 }
 
 Mole::~Mole() {}
-
+void Mole::SetImage(){
+	if (mole_.type==1){
+		Load("images/moles/tankMole.png");
+	}
+	if (mole_.type==2){
+		Load("images/moles/fastMole.png");
+	}
+}
 void Mole::Update(int lag) {
 	if (!(dead)){
 		sf::Vector2f player_pos = player_->GetPosition();
 		UpdatePosition();
 		if ((player_pos.x - 5 > mole_pos.x) || (player_pos.x + 5 < mole_pos.x)){
 			if (player_pos.x > mole_pos.x){
-				mole_.velocity_x_ += 0.1f;
+				mole_.velocity_x_ += mole_.max_velocity_;
 			}
 			if (player_pos.x < mole_pos.x){
-				mole_.velocity_x_ -= 0.1f;
+				mole_.velocity_x_ -= mole_.max_velocity_;
 			}
 		}
 		if ((player_pos.y - 5 > mole_pos.y) || (player_pos.y + 5 < mole_pos.y)){
 			if (player_pos.y > mole_pos.y){
-				mole_.velocity_y_ += 0.1f;
+				mole_.velocity_y_ += mole_.max_velocity_;
 			}
 			if (player_pos.y < mole_pos.y){
-				mole_.velocity_y_ -= 0.1f;
+				mole_.velocity_y_ -= mole_.max_velocity_;
 			}
 		}
 		DealDamage(player_pos);
@@ -47,19 +47,16 @@ void Mole::Update(int lag) {
 	}
 }
 void Mole::DealDamage(sf::Vector2f player_pos){
-	if ((player_pos.x - 10< mole_pos.x) && (player_pos.x + 10 > mole_pos.x) && (player_pos.y - 10 < mole_pos.y) && (player_pos.y + 10 > mole_pos.y)){
-		player_->Damage(1);
-		Damage(2);
+	if ((player_pos.x - 40< mole_pos.x) && (player_pos.x + 40 > mole_pos.x) && (player_pos.y - 40 < mole_pos.y) && (player_pos.y + 40 > mole_pos.y)){
+		player_->Damage(mole_.damage);
+		Damage(3);
 	}
 }
 
 void Mole::Damage(int value){
 	if (mole_.curr_value!=0){
-		printf("Mole health current = %d\n", mole_.curr_value);
-		printf("Mole damage = %d\n", value);
 		mole_.curr_value = (mole_.curr_value - value) > 0 ? mole_.curr_value - value : 0;
-	}
-	else {
+	}	else {
 		dead = true;
 		player_->Collect(mole_.coins);
 
