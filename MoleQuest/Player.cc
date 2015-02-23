@@ -184,6 +184,11 @@ void Player::Update(int lag) {
   velocity_x_ = 0;
   velocity_y_ = 0;
 
+  if (reload == true){
+	reload_elapsed += lag;
+	Reload();
+  }
+
   weapon_switch_elapsed_ += lag;
   weapon_last_fired_ += lag / 1000.f; // 1000 as lag is measured in millisecs but we want secs
 }
@@ -328,9 +333,23 @@ void Player::Switch(int dir) {
 }
 
 void Player::Shoot() {
-	curr_weapon_.fire();
-  clipVal.setString(std::to_string(curr_weapon_.getClip()));
-  weapon_last_fired_ = 0;
+	if (curr_weapon_.getClip() == 0){
+		reload = true;
+	}
+	else{
+		curr_weapon_.fire();
+		clipVal.setString(std::to_string(curr_weapon_.getClip()));
+		weapon_last_fired_ = 0;
+	}
+}
+
+void Player::Reload(){
+  if (reload_elapsed > reload_time){
+    curr_weapon_.reload();
+    reload_elapsed = 0;
+    reload = false;
+    clipVal.setString(std::to_string(curr_weapon_.getClip()));
+  }
 }
 
 int Player::GetHealthLevel() const {
