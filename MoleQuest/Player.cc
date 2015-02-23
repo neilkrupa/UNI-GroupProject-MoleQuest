@@ -84,15 +84,19 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   ammoTex.loadFromFile("images/ammobar/" + curr_weapon_.getName() + "Bar.png");
   ammoBar.setTexture(ammoTex);
 
-  // Set up texture frames for each animation
+  // Set up texture frames and origins for each animation
 
   sf::IntRect sub_rect;
+  sf::Vector2f origins;
 
   // Potato Gun
   sub_rect.top = 0;
   sub_rect.height = 103;
   sub_rect.left = 0;
   sub_rect.width = 90;
+  origins.x = 45.f;
+  origins.y = 68.f;
+  texture_origins_.push_back(origins);
   texture_sizes_.push_back(sub_rect);
 
   // Duel Pistols
@@ -100,6 +104,9 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   sub_rect.height = 102;
   sub_rect.left = 0;
   sub_rect.width = 90;
+  origins.x = 45.f;
+  origins.y = 94.f;
+  texture_origins_.push_back(origins);
   texture_sizes_.push_back(sub_rect);
 
   // PDW
@@ -107,6 +114,9 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   sub_rect.height = 111;
   sub_rect.left = 0;
   sub_rect.width = 94;
+  origins.x = 46.f;
+  origins.y = 77.f;
+  texture_origins_.push_back(origins);
   texture_sizes_.push_back(sub_rect);
 
   // Shotgun
@@ -114,6 +124,9 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   sub_rect.height = 107;
   sub_rect.left = 0;
   sub_rect.width = 94;
+  origins.x = 46.f;
+  origins.y = 100.f;
+  texture_origins_.push_back(origins);
   texture_sizes_.push_back(sub_rect);
 
   // SMG
@@ -121,6 +134,9 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   sub_rect.height = 134;
   sub_rect.left = 0;
   sub_rect.width = 94;
+  origins.x = 46.f;
+  origins.y = 75.f;
+  texture_origins_.push_back(origins);
   texture_sizes_.push_back(sub_rect);
 
   // Assault Rifle
@@ -128,6 +144,9 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   sub_rect.height = 128;
   sub_rect.left = 0;
   sub_rect.width = 94;
+  origins.x = 46.f;
+  origins.y = 95.f;
+  texture_origins_.push_back(origins);
   texture_sizes_.push_back(sub_rect);
 
   // Minigun
@@ -135,6 +154,9 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   sub_rect.height = 197;
   sub_rect.left = 0;
   sub_rect.width = 90;
+  origins.x = 45.f;
+  origins.y = 157.f;
+  texture_origins_.push_back(origins);
   texture_sizes_.push_back(sub_rect);
 
   animation_handler_ = new AnimationHandler(texture_sizes_);
@@ -288,7 +310,11 @@ void Player::Switch(int dir) {
 
   curr_weapon_ = weapons_[new_index];
 
+  // Set new gun animation
   animation_handler_->ChangeAnimation(new_index);
+  
+  // Set new sprite origin
+  GetSprite().setOrigin(texture_origins_[new_index]);
 
   // Set new max clip text 
   clipVal.setString(std::to_string(curr_weapon_.getClip()));
@@ -307,19 +333,19 @@ void Player::Shoot() {
   weapon_last_fired_ = 0;
 }
 
-int Player::getHealthLevel() {
+int Player::GetHealthLevel() const {
   return health_.curr_level;
 }
 
-int Player::getSpeedLevel() {
+int Player::GetSpeedLevel() const {
   return speed_.curr_level;
 }
 
-float Player::GetVelocityX() {
+float Player::GetVelocityX() const {
   return 0.3f;
 }
 
-float Player::GetVelocityY() {
+float Player::GetVelocityY() const {
   return 0.3f;
 }
 

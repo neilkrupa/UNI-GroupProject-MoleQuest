@@ -39,11 +39,11 @@ class Player : public GameObject {
   void Buy(std::string purchase);
   void Upgrade(std::string upgradable);
 
-  int getHealthLevel();
-  int getSpeedLevel();
+  int GetHealthLevel() const;
+  int GetSpeedLevel() const;
 
-  float GetVelocityX();
-  float GetVelocityY();
+  float GetVelocityX() const;
+  float GetVelocityY() const;
 
   float GetLastFiredTime() const;
 
@@ -107,6 +107,8 @@ class Player : public GameObject {
   // A vector containing all the rect sizes for the different guns
   // to be used in the animation handler 
   std::vector<sf::IntRect> texture_sizes_;
+  // A vector containing all the origins of the different gun textures
+  std::vector<sf::Vector2f> texture_origins_;
 };
 
 #endif

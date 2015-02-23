@@ -20,7 +20,9 @@ Game::Game() {
   game_state_ = GameState::kShowingMenu;
 
   player_ = new Player();
-  game_object_manager_.Add(new Mole(player_));
+  game_object_manager_.Add(player_);
+
+  game_object_manager_.Add(new Mole(player_)); // For testing moles
 
   Input input;
   input.type = InputType::kKey;
@@ -92,11 +94,9 @@ void Game::GameLoop() {
         ProcessInput();
 
         map_.UpdateLevel(player_->GetPosition(), main_window_);
-        player_->Update(lag);
         game_object_manager_.UpdateAll(lag);
 
         map_.DrawLevel(main_window_);
-        player_->Draw(lag, main_window_);
         game_object_manager_.DrawAll(lag, main_window_);
         
         // Draw FPS for testing
@@ -253,7 +253,7 @@ Game::Input Game::Map(Game::Input input){
 
 void Game::ShowShop() {
   Shop shop;
-  shop.UpdateMenu(player_->getHealthLevel(), player_->getSpeedLevel());
+  shop.UpdateMenu(player_->GetHealthLevel(), player_->GetSpeedLevel());
   Shop::Result result = shop.Show(main_window_);
 
   switch (result) {
