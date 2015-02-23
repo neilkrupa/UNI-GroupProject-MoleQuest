@@ -32,7 +32,7 @@ void Projectile::Update(int lag) {
   // Update the projectile's position
   float Dx = mouse_pos_.x - initial_pos_.x;
   float Dy = mouse_pos_.y - initial_pos_.y;
-  float Dlen = (Dx*Dx + Dy*Dy);
+  float Dlen = sqrt(Dx*Dx + Dy*Dy);
   Dx /= Dlen;
   Dy /= Dlen;
 
