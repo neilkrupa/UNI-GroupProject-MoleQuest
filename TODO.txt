@@ -1,11 +1,10 @@
-- Mole AI (Raymond)
-- Mole Spawner (??)
+High Priority List:
+- Projectiles
+- Moles
+- Bosses
+- Settings menu displaying values
 
-- Projectiles (Tony)
-
-- Display set values in the settings menu (Keiran)
-
-- Add animations for the player (Mark)
-- Add bit masked maps (Mark)
-
-- Bit masks touched up (Neil and Matt)
+Low Priority:
+- Bit maps
+- Music
+- Sounds for attacks, firing etc.
