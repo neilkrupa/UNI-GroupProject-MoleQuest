@@ -22,10 +22,11 @@ class Player : public GameObject {
   //Takes an int to indicated direction of the switch then chnages the active weapon to the next owned one
   void Switch(int dir);
  
-  //This is just a placeholder as shooting is subject to change based on projectile code. 
-  //As of now, it calls a fire fucntion in the weapon class
+
+  //These two functions make use of the basic Weapon functions to shoot and reload guns
   void Shoot();
   
+  void Reload();
   //Takes an int as the damage value and reduces player health by the amount. 
   //It uses a algorithm to update the health bar to correspond to the reduced health
   void Damage(int value);
@@ -46,6 +47,8 @@ class Player : public GameObject {
   float GetVelocityY() const;
 
   float GetLastFiredTime() const;
+
+  bool GetReload();
 
   sf::IntRect GetTextureRect();
 
@@ -105,6 +108,10 @@ class Player : public GameObject {
   int weapon_switch_timeout_ = 200;
   int weapon_switch_elapsed_ = 0;
   float weapon_last_fired_ = 0;
+  
+  int reload_elapsed = 0;
+  int reload_time = 1000;
+  bool reload;  
 
   // A vector containing all the rect sizes for the different guns
   // to be used in the animation handler 
