@@ -1,7 +1,9 @@
 High Priority List:
 - Collision Detection for projectiles 
-- Moles
-- Bosses
+- Fix map movement 
+- All Mole classes added
+- Spawning Moles
+- Bosses added
 - Settings menu displaying values
 
 Low Priority:
