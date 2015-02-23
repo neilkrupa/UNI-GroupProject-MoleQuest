@@ -1,5 +1,5 @@
 High Priority List:
-- Projectiles
+- Collision Detection for projectiles 
 - Moles
 - Bosses
 - Settings menu displaying values
