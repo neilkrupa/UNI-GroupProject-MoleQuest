@@ -1,11 +1,9 @@
 #include "stdafx.h"
 #include "AnimationHandler.h"
 
-AnimationHandler::AnimationHandler() : elapsed_time_(0), current_animation_(-1) {}
-
-AnimationHandler::AnimationHandler(const sf::IntRect& frame_size) 
+AnimationHandler::AnimationHandler(const std::vector<sf::IntRect> texture_sizes) 
   : elapsed_time_(0), current_animation_(-1) {
-  frame_size_ = frame_size;
+  texture_sizes_ = texture_sizes;
 }
 
 void AnimationHandler::AddAnimation(Animation& animation) {
@@ -30,14 +28,13 @@ void AnimationHandler::Update(const int last_time) {
     // Set the new sprite for this frame
     // This is subject to change based on how the textures are laid out in the
     // spritesheets
-    sf::IntRect rect = frame_size_;
+    sf::IntRect rect = texture_sizes_[current_animation_];
 
     if (frame == 0)
       rect.left = (rect.width * frame);
     else
       rect.left = frame*5 + (rect.width * frame);
 
-    rect.top = rect.height * current_animation_;
     texture_bounds_ = rect;
   }
 
@@ -55,10 +52,7 @@ void AnimationHandler::ChangeAnimation(int num) {
 
   current_animation_ = num;
 
-  // This is subject to change based on how the textures are laid out in the
-  // spritesheets
-  sf::IntRect rect = frame_size_;
-  rect.top = rect.height * num;
-  texture_bounds_ = rect;
+  texture_bounds_ = texture_sizes_[num];
+
   elapsed_time_ = 0;
 }

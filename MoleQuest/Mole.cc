@@ -16,13 +16,9 @@ Mole::Mole(Player* player){
 
   // Store the player's memory address for use in AI logic
   player_ = player;
-
-	animation_handler_ = new AnimationHandler();
 }
 
-Mole::~Mole() {
-	delete animation_handler_;
-}
+Mole::~Mole() {}
 
 void Mole::Update(int lag) {
 	if (!(dead)){

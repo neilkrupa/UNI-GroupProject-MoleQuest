@@ -84,15 +84,60 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   ammoTex.loadFromFile("images/ammobar/" + curr_weapon_.getName() + "Bar.png");
   ammoBar.setTexture(ammoTex);
 
-  // Set up animations for every weapon
+  // Set up texture frames for each animation
 
   sf::IntRect sub_rect;
+
+  // Potato Gun
   sub_rect.top = 0;
   sub_rect.height = 103;
   sub_rect.left = 0;
   sub_rect.width = 90;
+  texture_sizes_.push_back(sub_rect);
 
-  animation_handler_ = new AnimationHandler(sub_rect);
+  // Duel Pistols
+  sub_rect.top = 105;
+  sub_rect.height = 102;
+  sub_rect.left = 0;
+  sub_rect.width = 90;
+  texture_sizes_.push_back(sub_rect);
+
+  // PDW
+  sub_rect.top = 209;
+  sub_rect.height = 111;
+  sub_rect.left = 0;
+  sub_rect.width = 94;
+  texture_sizes_.push_back(sub_rect);
+
+  // Shotgun
+  sub_rect.top = 322;
+  sub_rect.height = 107;
+  sub_rect.left = 0;
+  sub_rect.width = 94;
+  texture_sizes_.push_back(sub_rect);
+
+  // SMG
+  sub_rect.top = 432;
+  sub_rect.height = 134;
+  sub_rect.left = 0;
+  sub_rect.width = 94;
+  texture_sizes_.push_back(sub_rect);
+
+  // Assault Rifle
+  sub_rect.top = 568;
+  sub_rect.height = 128;
+  sub_rect.left = 0;
+  sub_rect.width = 94;
+  texture_sizes_.push_back(sub_rect);
+
+  // Minigun
+  sub_rect.top = 697;
+  sub_rect.height = 197;
+  sub_rect.left = 0;
+  sub_rect.width = 90;
+  texture_sizes_.push_back(sub_rect);
+
+  animation_handler_ = new AnimationHandler(texture_sizes_);
   
   // Add 7 animations representing the 7 guns
   for (int i = 0; i < 7; i++)

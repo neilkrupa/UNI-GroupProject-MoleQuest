@@ -103,6 +103,10 @@ class Player : public GameObject {
   int weapon_switch_timeout_ = 200;
   int weapon_switch_elapsed_ = 0;
   float weapon_last_fired_ = 0;
+
+  // A vector containing all the rect sizes for the different guns
+  // to be used in the animation handler 
+  std::vector<sf::IntRect> texture_sizes_;
 };
 
 #endif

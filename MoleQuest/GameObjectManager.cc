@@ -5,10 +5,11 @@ GameObjectManager::GameObjectManager() {
   // Reserve contiguous space for 100 objects. This will be more than enough for the entire game
   // Moles and bullets are removed when they are dead / not visible
   game_objects_.reserve(vector_size_);
+  marked_for_deletion_.reserve(vector_size_);
 }
 
 GameObjectManager::~GameObjectManager() {
-  // Delete all game objects - could also use boost pointers instead of doing this
+  // Delete all game objects - could also use std::unique_ptr instead to automatic deletion
   for (auto obj : game_objects_)
     delete obj;
 

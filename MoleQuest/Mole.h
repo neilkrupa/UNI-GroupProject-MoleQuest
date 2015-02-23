@@ -34,6 +34,5 @@ private:
 	bool dead;
 	void UpdatePosition();
 	struct Stat mole_;
-  AnimationHandler* animation_handler_;
 };
 #endif

@@ -11,7 +11,7 @@ class GameObjectManager {
   // Adds object to internal object vector
   void Add(GameObject* game_object);
 
-  // Removes object from the internal object vector using swap-and-pop
+  // Adds index to internal marked_for_deletion vector to be deleted later in RemoveDeleted()
   static void Remove(int index);
 
   void DrawAll(int interp, sf::RenderWindow &window);
@@ -23,6 +23,7 @@ class GameObjectManager {
   std::vector<GameObject*> game_objects_;
   static std::vector<int> marked_for_deletion_;
 
+  // Goes through marked_for_deletion vector deleting all the objects marked for deletion
   void RemoveDeleted();
 };
 
