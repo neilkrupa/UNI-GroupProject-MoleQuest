@@ -13,6 +13,11 @@ class Projectile : public GameObject {
  private:
    int elapsed_time_ = 0;
    int live_time_ = 5000;
+
+   float velocity = 200.f;
+
+   sf::Vector2i mouse_pos_;
+   sf::Vector2f initial_pos_;
 };
 
 #endif

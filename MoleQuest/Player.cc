@@ -27,7 +27,7 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   speed_.cost = 150;
   speed_.cost_increase = 75;
 
-  weapons_.push_back(Weapon("potatoGun", 0, 0.5, 0, 10, false));
+  weapons_.push_back(Weapon("potatoGun", 0, 1, 0, 10, false));
   weapons_.push_back(Weapon("duelPistols", 650, 2, 12, 15, false));
   weapons_.push_back(Weapon("pdw", 1500, 3, 25, 25, false));
   weapons_.push_back(Weapon("shotgun", 2500, 0.5, 5, 50, true));

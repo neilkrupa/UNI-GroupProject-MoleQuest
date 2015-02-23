@@ -15,7 +15,10 @@ Projectile::Projectile(sf::Vector2f player_pos, sf::Vector2i mouse_pos, sf::Vect
 
   // Rotate bullet about player 
   GetSprite().setOrigin(0, sin(bulletDirection) + player_bounds.height - (player_bounds.height - player_origin.y));
-  GetSprite().move(cos(bulletDirection), sin(bulletDirection));
+
+  // Store angle variables for use in Update
+  mouse_pos_ = mouse_pos;
+  initial_pos_ = GetSprite().getPosition();
 }
 
 
@@ -27,6 +30,13 @@ void Projectile::Update(int lag) {
     GameObjectManager::Remove(GetObjectManagerIndex());
 
   // Update the projectile's position
+  float Dx = mouse_pos_.x - initial_pos_.x;
+  float Dy = mouse_pos_.y - initial_pos_.y;
+  float Dlen = (Dx*Dx + Dy*Dy);
+  Dx /= Dlen;
+  Dy /= Dlen;
+
+  GetSprite().move(Dx * velocity * lag, Dy * velocity * lag);
 }
 
 void Projectile::Draw(int lag, sf::RenderWindow& window) {
