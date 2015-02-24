@@ -43,7 +43,7 @@ Game::Game() {
   input.KeyCode = sf::Keyboard::E;
   key_map_["cycler"] = input;
 
-  input.KeyCode = sf::Keyboard::Tab;
+  input.KeyCode = sf::Keyboard::Escape;
   key_map_["pause"] = input;
 
   input.type = InputType::kMouse;
@@ -131,7 +131,7 @@ void Game::ProcessInput() {
   int win_w = main_window_.getSize().x;
   int win_h = main_window_.getSize().y;
 
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+  if (InputCheck("pause"))
     game_state_ = Game::GameState::kPaused;
 
   // This could all be done better using a map where the map key is the button 
@@ -218,6 +218,7 @@ void Game::ShowMenu() {
 
 void Game::ShowSettings(bool paused) {
 	SettingsMenu settings_menu;
+    settings_menu.UpdateMenu(key_map_);
 	SettingsMenu::Result result = settings_menu.Show(main_window_);
 
 	switch (result) {

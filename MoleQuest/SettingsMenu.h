@@ -11,6 +11,8 @@
 #ifndef SETTINGS_MENU_H_
 #define SETTINGS_MENU_H_
 
+#include "Game.h"
+
 class SettingsMenu {
 public:
 	SettingsMenu();
@@ -18,6 +20,8 @@ public:
 	enum class Result { kExit, kMap, kNothing, kBack };
 
 	Result Show(sf::RenderWindow &window);
+	
+	void UpdateMenu(std::map<std::string, Game::Input> key_map_);
 	
 	std::string tomap;
 
@@ -28,6 +32,8 @@ private:
 
 		//This is to identify the control that needs mapping
 		std::string name;
+
+    sf::Text key;
 
 		Result result;
 	};
@@ -47,6 +53,8 @@ private:
 	// For displaying the main menu image
 	sf::Texture texture_;
 	sf::Sprite sprite_;
+
+  
 };
 
 #endif

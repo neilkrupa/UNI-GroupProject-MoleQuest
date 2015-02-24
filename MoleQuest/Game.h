@@ -22,6 +22,19 @@ class Game {
   // The main loop of the game
   void GameLoop();
 
+enum InputType { kKey, kMouse };
+
+  // Struct to manage different types of input
+  struct Input {
+   public:
+    InputType type;
+	  sf::Keyboard::Key KeyCode;
+	  sf::Mouse::Button MouseButton;
+  };
+ 
+  // This is the map that holds the key controls for the game
+  std::map<std::string, Input> key_map_;
+  
  private:
   // Will call the Show() function in MainMenu.cc to display the main menu
   // and proceed to continously listen for mouse clicks on any of the main
@@ -58,18 +71,7 @@ class Game {
   // Object manager to hold all objects and easily manage all of them
   GameObjectManager game_object_manager_;
 
-  enum InputType { kKey, kMouse };
-
-  // Struct to manage different types of input
-  struct Input {
-   public:
-    InputType type;
-	  sf::Keyboard::Key KeyCode;
-	  sf::Mouse::Button MouseButton;
-  };
  
-  // This is the map that holds the key controls for the game
-  std::map<std::string, Input> key_map_;
 
   // This function polls for an input to map a control to and then edits the input struct for that control
   // accordingly. Its in Game.cc to avoid the awkwardness trying to stikc in SettingsMenu.cc

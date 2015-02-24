@@ -4,9 +4,7 @@
 
 Mole::Mole(Player* player){
 	dead = false;
-	GetSprite().scale(0.5, 0.5);
-  GetSprite().setPosition(1024 / 2, 100);
-	sf::Vector2f mole_pos = GetSprite().getPosition();
+  sf::Vector2f mole_pos = GetSprite().getPosition();
   // Store the player's memory address for use in AI logic
   player_ = player;
 
@@ -15,13 +13,18 @@ Mole::Mole(Player* player){
 
 Mole::~Mole() {}
 
-void Mole::SetImage() {
+void Mole::Set(){
 	if (mole_.type==1){
 		Load("images/moles/tankMole.png");
 	}
 	if (mole_.type==2){
 		Load("images/moles/fastMole.png");
 	}
+	if (mole_.type==3){
+		Load("images/moles/rangedMole.png");
+	}
+	GetSprite().scale(0.5, 0.5);
+	GetSprite().setPosition(mole_.position_, -50);
 }
 
 void Mole::Update(int lag) {
@@ -49,6 +52,7 @@ void Mole::Update(int lag) {
 		mole_.velocity_x_ = 0;
 		mole_.velocity_y_ = 0;
 	}
+	
 }
 void Mole::DealDamage(sf::Vector2f player_pos){
 	if ((player_pos.x - 40< mole_pos.x) && (player_pos.x + 40 > mole_pos.x) && (player_pos.y - 40 < mole_pos.y) && (player_pos.y + 40 > mole_pos.y)){
