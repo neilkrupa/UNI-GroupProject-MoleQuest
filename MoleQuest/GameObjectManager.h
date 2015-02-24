@@ -2,6 +2,7 @@
 #define GAME_OBJECT_MANAGER_H_
 
 #include "GameObject.h"
+#include "QuadTree.h"
 
 class GameObjectManager {
  public:

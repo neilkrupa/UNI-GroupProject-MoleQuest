@@ -10,33 +10,31 @@ Projectile::Projectile(sf::Vector2f player_pos, sf::Vector2i mouse_pos, sf::Vect
 
   // Change the angle of the bullet based on mouse position
   float bulletDirection = atan2(mouse_pos.y - GetPosition().y, mouse_pos.x - GetPosition().x);
-  bulletDirection *= (180 / M_PI);
+  bulletDirection *= (float) (180 / M_PI);
   GetSprite().setRotation(90 + bulletDirection);
 
   // Rotate bullet about player 
   GetSprite().setOrigin(0, sin(bulletDirection) + player_bounds.height - (player_bounds.height - player_origin.y));
 
-  // Store angle variables for use in Update
-  mouse_pos_ = mouse_pos;
-  initial_pos_ = GetSprite().getPosition();
+  // Noramlise the vector between initial bullet pos and mouse pos
+  // so the projectile will travel at same speed regardless of actual distance of mouse
+  // from the initial bullet position
+  Dx_ = mouse_pos.x - GetSprite().getPosition().x;
+  Dy_ = mouse_pos.y - GetSprite().getPosition().y;
+  float normal = sqrt(Dx_*Dx_ + Dy_*Dy_);
+  Dx_ /= normal;
+  Dy_ /= normal;
 }
 
 
 void Projectile::Update(int lag) {
   elapsed_time_ += lag;
-  
-  // Remove the projectile if has been alive too long
-  if (elapsed_time_ > live_time_)
+
+  // Remove the projectile if it has been alive too long
+  if (elapsed_time_ >= live_time_)
     GameObjectManager::Remove(GetObjectManagerIndex());
 
-  // Update the projectile's position
-  float Dx = mouse_pos_.x - initial_pos_.x;
-  float Dy = mouse_pos_.y - initial_pos_.y;
-  float Dlen = sqrt(Dx*Dx + Dy*Dy);
-  Dx /= Dlen;
-  Dy /= Dlen;
-
-  GetSprite().move(Dx * velocity * lag, Dy * velocity * lag);
+  GetSprite().move(Dx_ * velocity * lag, Dy_ * velocity * lag);
 }
 
 void Projectile::Draw(int lag, sf::RenderWindow& window) {

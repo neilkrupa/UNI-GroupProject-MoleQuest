@@ -29,6 +29,7 @@ class GameObject {
   sf::Texture texture_;
   std::string filename_;
   bool is_loaded_;
+
 };
 
 #endif

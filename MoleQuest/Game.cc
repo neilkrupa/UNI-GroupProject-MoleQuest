@@ -148,6 +148,7 @@ void Game::ProcessInput() {
                                               sf::Mouse::getPosition(main_window_), 
                                               player_->GetSprite().getOrigin(),
                                               player_->GetTextureRect()));
+
       player_->Shoot();
     }
   }
