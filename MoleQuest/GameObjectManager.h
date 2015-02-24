@@ -26,6 +26,8 @@ class GameObjectManager {
 
   // Goes through marked_for_deletion vector deleting all the objects marked for deletion
   void RemoveDeleted();
+
+  QuadTree quad_tree_ = QuadTree(5, 3, 1024, 768);
 };
 
 #endif 

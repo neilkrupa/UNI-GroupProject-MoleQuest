@@ -8,9 +8,13 @@ QuadTree::QuadTree(int max_depth, int max_objects, int w, int h) {
 
   max_depth_ = max_depth;
   max_objects_ = max_objects;
+  w_ = w;
+  h_ = h;
 }
 
-QuadTree::~QuadTree() {}
+QuadTree::~QuadTree() {
+  root_->Clear();
+}
 
 void QuadTree::AddObject(GameObject* object) {
   root_->Add(object);
@@ -18,6 +22,7 @@ void QuadTree::AddObject(GameObject* object) {
 
 void QuadTree::Clear() {
   root_->Clear();
+  root_ = new QuadTreeNode(max_objects_, max_depth_, 0, 0, 0, w_, h_);
 }
 
 void QuadTree::GetObjectsNear(GameObject* object, std::list<GameObject*>& object_list) {
@@ -36,6 +41,7 @@ QuadTreeNode::QuadTreeNode(int max_objects, int max_depth, int depth, int x, int
   bounds_.height = h;
 
   max_objects_ = max_objects;
+  max_depth_ = max_depth;
 }
 
 QuadTreeNode::~QuadTreeNode() {}
@@ -55,18 +61,14 @@ void QuadTreeNode::GetItems(GameObject* object, std::list<GameObject*>& object_l
 }
 
 void QuadTreeNode::Add(GameObject* object) {
-  // If this node has no chidlren insert the object here
-  if (!this->HasChildren()) {
+  // Attempt to insert node into children
+  if (!InsertIntoChildren(object)) {
     objects_.push_back(object);
-  } else {
-    // Attempt to insert into children nodes. If we cant then add object to this node
-    if (!InsertIntoChildren(object))
-      objects_.push_back(object);
-  }
 
-  // Does this node now need resizing?
-  if (this->objects_.size() > max_objects_ && depth_ < max_depth_)
-    SplitNode();
+    // Does this node need splitting now?
+    if (this->objects_.size() > max_objects_ && depth_ < max_depth_ && !this->HasChildren())
+      SplitNode();
+  }
 }
 
 bool QuadTreeNode::InsertIntoChildren(GameObject* object) {
@@ -107,27 +109,28 @@ void QuadTreeNode::SplitNode() {
 
   // Try to push objects in this node down to new children
   for (auto obj : objects_) {
-    PushDown(obj);
+    if (PushDown(obj)) break;
   }
 }
 
-void QuadTreeNode::PushDown(GameObject* object) {
+bool QuadTreeNode::PushDown(GameObject* object) {
+  std::vector<int> to_be_removed;
+
   for (int i = 0; i < objects_.size(); i++) {
     if (InsertIntoChildren(objects_[i])) {
       // If node was pushed down to child then remove from this node
       std::swap(objects_[i], objects_.back());
-      delete objects_.back();
       objects_.pop_back();
+      return true;
     }
   }
+
+  return false;
 }
 
 void QuadTreeNode::Clear() {
   for (auto child : children_)
     child->Clear();
-
-  for (auto obj : objects_)
-    delete obj;
 
   children_.clear();
   objects_.clear();

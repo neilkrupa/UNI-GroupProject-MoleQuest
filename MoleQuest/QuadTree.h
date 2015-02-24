@@ -38,7 +38,7 @@ class QuadTreeNode {
   void SplitNode();
 
   // Attempts to move objects in this node to its children
-  void PushDown(GameObject*);
+  bool PushDown(GameObject*);
 };
 
 class QuadTree {
@@ -59,6 +59,7 @@ class QuadTree {
   int max_depth_;
   int max_objects_;
   int depth_;
+  int w_, h_;
 
   QuadTreeNode* root_;
 };

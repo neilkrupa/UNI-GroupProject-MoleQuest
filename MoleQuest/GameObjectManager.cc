@@ -23,9 +23,6 @@ void GameObjectManager::Add(GameObject* game_object) {
 
   game_object->SetObjectManagerIndex(game_objects_.size());
   game_objects_.push_back(game_object);
-
-  // Add object to quad tree
-
 }
 
 void GameObjectManager::Remove(int index) {
@@ -59,8 +56,12 @@ void GameObjectManager::DrawAll(int interp, sf::RenderWindow& window) {
 void GameObjectManager::UpdateAll(int lag) {
   RemoveDeleted();
 
-  for (auto obj : game_objects_)
+  for (auto obj : game_objects_) {
     obj->Update(lag);
+    quad_tree_.AddObject(obj);
+  }
+
+  quad_tree_.Clear();
 }
 
 std::vector<int> GameObjectManager::marked_for_deletion_;
