@@ -381,6 +381,10 @@ Weapon Player::GetWeapon() const {
   return curr_weapon_;
 }
 
+bool Player::GetReload(){
+	return reload;
+}
+
 sf::IntRect Player::GetTextureRect() {
   int index = weapon_indexes_[curr_weapon_.getName()];
   return texture_sizes_[index];
