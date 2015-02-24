@@ -72,8 +72,8 @@ void GameObjectManager::CollisionDetection() {
 
       // Check the bounds for intersection
       if (obj->GetSprite().getTextureRect().intersects(obj2->GetSprite().getTextureRect())) {
-        obj->Collision();
-        obj2->Collision();
+        obj->Collision(obj2);
+        obj2->Collision(obj);
       }
     }
   }

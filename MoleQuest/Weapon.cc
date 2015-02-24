@@ -45,6 +45,10 @@ int Weapon::getPrice(){
 	return price;
 }
 
+int Weapon::GetDamage() {
+  return damage;
+}
+
 std::string Weapon::getName(){
 	return name;
 }

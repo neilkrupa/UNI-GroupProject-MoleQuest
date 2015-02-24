@@ -31,6 +31,14 @@ sf::Vector2f GameObject::GetPosition() const {
   return sprite_.getPosition();
 }
 
+GameObject::ObjectType GameObject::GetObjectType() {
+  return type_;
+}
+
+void GameObject::SetObjectType(ObjectType type) {
+  type_ = type;
+}
+
 void GameObject::SetObjectManagerIndex(int n) {
   object_manager_index_ = n;
 }
@@ -39,6 +47,4 @@ int GameObject::GetObjectManagerIndex() const {
   return object_manager_index_;
 }
 
-void GameObject::Collision() {
-
-}
+void GameObject::Collision(GameObject*) {}

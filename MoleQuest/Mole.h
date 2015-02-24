@@ -13,6 +13,7 @@ public:
   void Update(int lag);
 	void Draw(int interp, sf::RenderWindow& window);
 	void DealDamage(sf::Vector2f player_pos);
+  void Collision(GameObject*);
   void Damage(int value);
 	sf::Texture moleImage;
 struct Stat {

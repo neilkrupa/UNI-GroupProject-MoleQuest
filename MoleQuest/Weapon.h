@@ -19,6 +19,8 @@ class Weapon{
 		int getPrice();
 
 		int getClip();
+
+    int GetDamage();
 		
 		int getFullClip();
 

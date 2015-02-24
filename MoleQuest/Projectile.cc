@@ -1,9 +1,13 @@
 #include "stdafx.h"
 #include "Projectile.h"
 #include "GameObjectManager.h"
+#include "Mole.h"
 
-Projectile::Projectile(sf::Vector2f player_pos, sf::Vector2i mouse_pos, sf::Vector2f player_origin, sf::IntRect player_bounds) {
+Projectile::Projectile(int damage, sf::Vector2f player_pos, sf::Vector2i mouse_pos, sf::Vector2f player_origin, sf::IntRect player_bounds) {
   Load("images/bullet.png");
+
+  // Set projectile damage
+  damage_ = damage;
 
   // Set bullet position to just above the gun
   GetSprite().setPosition(player_pos.x, player_pos.y);
@@ -39,4 +43,14 @@ void Projectile::Update(int lag) {
 
 void Projectile::Draw(int lag, sf::RenderWindow& window) {
   window.draw(GetSprite());
+}
+
+void Projectile::Collision(GameObject* other_object) {
+  if (other_object->GetObjectType() == GameObject::kMole) {
+    // Deal damage to mole
+    dynamic_cast<Mole*> (other_object)->Damage(damage_);
+
+    // Remove this projectile
+    GameObjectManager::Remove(GetObjectManagerIndex());
+  }
 }

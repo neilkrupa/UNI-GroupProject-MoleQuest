@@ -20,9 +20,12 @@ Game::Game() {
   game_state_ = GameState::kShowingMenu;
 
   player_ = new Player();
+  player_->SetObjectType(GameObject::kPlayer);
   game_object_manager_.Add(player_);
 
-  game_object_manager_.Add(new Mole(player_)); // For testing moles
+  Mole* mole = new Mole(player_);
+  mole->SetObjectType(GameObject::kMole);
+  game_object_manager_.Add(mole); // For testing moles
 
   Input input;
   input.type = InputType::kKey;
@@ -144,10 +147,16 @@ void Game::ProcessInput() {
   if (InputCheck("shoot")) {
     // Create new bullet projectile if attack speed allows for it
     if (player_->GetLastFiredTime() >= 1 / player_->GetWeapon().GetAttackSpeed() && player_->GetReload() == false) {
-      game_object_manager_.Add(new Projectile(player_->GetPosition(), 
-                                              sf::Mouse::getPosition(main_window_), 
+      
+      Projectile* projectile = new Projectile(player_->GetWeapon().GetDamage(),
+                                              player_->GetPosition(),
+                                              sf::Mouse::getPosition(main_window_),
                                               player_->GetSprite().getOrigin(),
-                                              player_->GetTextureRect()));
+                                              player_->GetTextureRect());
+
+      projectile->SetObjectType(GameObject::kProjectile);
+     
+      game_object_manager_.Add(projectile);
 
       player_->Shoot();
     }

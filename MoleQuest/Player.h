@@ -12,6 +12,7 @@ class Player : public GameObject {
 
   void Update(int lag);
   void Draw(int interp, sf::RenderWindow& window);
+  void Collision(GameObject*);
 
   void MoveUp();
   void MoveDown();

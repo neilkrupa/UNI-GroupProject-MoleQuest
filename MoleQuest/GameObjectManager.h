@@ -29,7 +29,7 @@ class GameObjectManager {
 
   void CollisionDetection();
 
-  QuadTree quad_tree_ = QuadTree(5, 3, 1024, 768);
+  //QuadTree quad_tree_ = QuadTree(5, 3, 1024, 768);
 };
 
 #endif 

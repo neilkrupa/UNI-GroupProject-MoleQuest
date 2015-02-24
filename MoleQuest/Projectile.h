@@ -5,10 +5,11 @@
 
 class Projectile : public GameObject {
  public:
-  Projectile(sf::Vector2f, sf::Vector2i, sf::Vector2f, sf::IntRect);
+  Projectile(int, sf::Vector2f, sf::Vector2i, sf::Vector2f, sf::IntRect);
   
   void Update(int lag);
   void Draw(int lag, sf::RenderWindow& window);
+  void Collision(GameObject*);
 
  private:
    int elapsed_time_ = 0;
@@ -21,6 +22,8 @@ class Projectile : public GameObject {
 
    int win_w_;
    int win_h_;
+
+   int damage_;
 };
 
 #endif

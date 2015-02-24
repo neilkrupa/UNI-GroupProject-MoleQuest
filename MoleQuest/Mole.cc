@@ -9,10 +9,13 @@ Mole::Mole(Player* player){
 	sf::Vector2f mole_pos = GetSprite().getPosition();
   // Store the player's memory address for use in AI logic
   player_ = player;
+
+  Load("images/moles/normalMole.png");
 }
 
 Mole::~Mole() {}
-void Mole::SetImage(){
+
+void Mole::SetImage() {
 	if (mole_.type==1){
 		Load("images/moles/tankMole.png");
 	}
@@ -20,6 +23,7 @@ void Mole::SetImage(){
 		Load("images/moles/fastMole.png");
 	}
 }
+
 void Mole::Update(int lag) {
 	if (!(dead)){
 		sf::Vector2f player_pos = player_->GetPosition();
@@ -78,3 +82,5 @@ void Mole::Draw(int interp, sf::RenderWindow& window) {
 void Mole::UpdatePosition(){
 	mole_pos = GetSprite().getPosition();
 }
+
+void Mole::Collision(GameObject*) {}

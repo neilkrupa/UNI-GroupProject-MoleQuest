@@ -9,6 +9,12 @@ class GameObject {
   virtual void Load(std::string filename);
   virtual void Draw(int interp, sf::RenderWindow &window);
   virtual void Update(int lag);
+  virtual void Collision(GameObject*);
+
+  enum ObjectType { kPlayer, kMole, kProjectile };
+
+  ObjectType GetObjectType();
+  void SetObjectType(ObjectType type);
 
   // When object is added to game object manager, the index it was inserted as
   // is returned. To remove this object from the manager later, store the index
@@ -22,7 +28,7 @@ class GameObject {
 
   sf::Sprite& GetSprite();
 
-  void Collision();
+  
 
  private:
   int object_manager_index_;
@@ -31,6 +37,8 @@ class GameObject {
   sf::Texture texture_;
   std::string filename_;
   bool is_loaded_;
+
+  ObjectType type_;
 };
 
 #endif
