@@ -5,11 +5,10 @@
 
 class QuadTreeNode {
  public:
-  QuadTreeNode(int x, int y, int w, int h);
+  QuadTreeNode(int max_objects, int max_depth, int depth, int x, int y, int w, int h);
   ~QuadTreeNode();
 
   void Add(GameObject*);
-  void Remove(GameObject*);
   void Clear();
 
   sf::IntRect GetBounds() const;
@@ -22,6 +21,23 @@ class QuadTreeNode {
   std::vector<QuadTreeNode*> children_;
 
   sf::IntRect bounds_;
+
+  int max_objects_;
+  int max_depth_;
+  int depth_;
+
+  // Attempts to insert GameObject* into the children nodes
+  // Returns true is an insert was successful
+  bool InsertIntoChildren(GameObject*);
+
+  // Returns true if object fits within the bounds of quad node
+  bool Contains(QuadTreeNode*, GameObject*);
+
+  // Splits the node - Generates 4 children and attempts to PushDown() objects
+  void SplitNode();
+
+  // Attempts to move objects in this node to its children
+  void PushDown(GameObject*);
 };
 
 class QuadTree {
@@ -29,11 +45,8 @@ class QuadTree {
   QuadTree(int max_depth, int max_objects, int w, int h);
   ~QuadTree();
 
-  // Adds object to the quad tree and returns a pointer to the node it was inserted at
-  QuadTreeNode* AddObject(GameObject*);
-
-  // Removes object from the given quad tree
-  void RemoveObject(QuadTreeNode*, GameObject*);
+  // Adds object to the quad tree
+  void AddObject(GameObject*);
 
   // Clears all objects in the entire quad tree
   void Clear();
@@ -47,12 +60,6 @@ class QuadTree {
   int depth_;
 
   QuadTreeNode* root_;
-
-  // Recursive insert for finding node object belongs to
-  QuadTreeNode* Insert(QuadTreeNode*, GameObject*);
-  
-  // Returns true if object is contained within given node
-  bool Contains(QuadTreeNode*, GameObject*);
 };
 
 #endif

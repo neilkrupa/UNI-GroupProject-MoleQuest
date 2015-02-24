@@ -159,6 +159,7 @@
     <ClInclude Include="Pause.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="SettingsMenu.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="SoundCache.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Pause.cc" />
     <ClCompile Include="Player.cc" />
     <ClCompile Include="Projectile.cc" />
+    <ClCompile Include="QuadTree.cc" />
     <ClCompile Include="SettingsMenu.cc" />
     <ClCompile Include="Shop.cc" />
     <ClCompile Include="SoundCache.cc" />
