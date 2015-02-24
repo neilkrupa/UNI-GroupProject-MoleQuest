@@ -334,6 +334,7 @@ void Player::Switch(int dir) {
 		break;
 	  }
   weapon_switch_elapsed_ = 0;
+  }
 }
 
 void Player::Shoot() {
