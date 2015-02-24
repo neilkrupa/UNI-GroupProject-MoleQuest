@@ -49,7 +49,7 @@ void QuadTreeNode::Add(GameObject* object) {
   }
 
   // Does this node now need resizing?
-  if (this->objects_.size() > max_objects_)
+  if (this->objects_.size() > max_objects_ && depth_ < max_depth_)
     SplitNode();
 }
 
