@@ -22,7 +22,6 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   speed_.curr_level = 0;
   speed_.max_level = 4;
   speed_.curr_value = 1;
-  speed_.max_value = 4;
   speed_.level_increase = 1;
   speed_.cost = 150;
   speed_.cost_increase = 75;
@@ -241,21 +240,22 @@ void Player::Upgrade(std::string upgradeable) {
   if (upgradeable == "health") {
     // Does the player have enough money to upgrade and not already max level?
     if (health_.cost <= coins && health_.curr_level < health_.max_level) {
-      health_.max_value += health_.level_increase;
+     health_.max_value += health_.level_increase;
       // Set current health to new max
-      health_.curr_level = health_.max_level;
+	  health_.curr_value = health_.max_value;
 
       coins -= health_.cost;
 
       health_.cost += health_.cost_increase;
 
       health_.curr_level += 1;
+      
+      hpVal.setString(std::to_string(health_.curr_value));
     }
   } else if (upgradeable == "speed") {
     // Does the player have enough money to upgrade and not already max level?
     if (speed_.cost <= coins && speed_.curr_level < speed_.max_level) {
-      speed_.max_level += speed_.level_increase;
-      speed_.curr_level = speed_.max_level;
+      speed_.curr_value += speed_.level_increase;
 
       coins -= speed_.cost;
 
@@ -311,24 +311,26 @@ void Player::Switch(int dir) {
   // Using modulo 7 to wrap weapons around so if on weapon 6, and go right, you get weapon 0
   // Looks quite complicated beacuse of dumb as fuck implementation of % which is actually
   // just a division and not mathemtical modulus
-  int new_index = ((curr_weapon_index + dir) % 7 + 7) % 7;
+  int new_index;
+  for (int i = 1; i <= 7; i++){
+	  new_index = ((curr_weapon_index + dir*i) % 7 + 7) % 7;
+	  if (weapons_[new_index].Owned() == true){
+		curr_weapon_ = weapons_[new_index];
+		// Set new gun animation
+		animation_handler_->ChangeAnimation(new_index);
 
-  curr_weapon_ = weapons_[new_index];
+	    // Set new sprite origin
+		GetSprite().setOrigin(texture_origins_[new_index]);
 
-  // Set new gun animation
-  animation_handler_->ChangeAnimation(new_index);
-  
-  // Set new sprite origin
-  GetSprite().setOrigin(texture_origins_[new_index]);
+		// Set new max clip text 
+		clipVal.setString(std::to_string(curr_weapon_.getClip()));
+		maxclipVal.setString(std::to_string(curr_weapon_.getFullClip()));
 
-  // Set new max clip text 
-  clipVal.setString(std::to_string(curr_weapon_.getClip()));
-  maxclipVal.setString(std::to_string(curr_weapon_.getFullClip()));
-
-  // Load ammobar texture for new weapon
-  ammoTex.loadFromFile("images/ammobar/" + curr_weapon_.getName() + "Bar.png");
-  ammoBar.setTexture(ammoTex);
-
+		// Load ammobar texture for new weapon
+		ammoTex.loadFromFile("images/ammobar/" + curr_weapon_.getName() + "Bar.png");
+		ammoBar.setTexture(ammoTex);
+		break;
+	  }
   weapon_switch_elapsed_ = 0;
 }
 
