@@ -38,3 +38,7 @@ void GameObject::SetObjectManagerIndex(int n) {
 int GameObject::GetObjectManagerIndex() const {
   return object_manager_index_;
 }
+
+void GameObject::Collision() {
+
+}

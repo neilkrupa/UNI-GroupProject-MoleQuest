@@ -9,6 +9,7 @@ class QuadTreeNode {
   ~QuadTreeNode();
 
   void Add(GameObject*);
+  void Remove(GameObject*);
   void Clear();
 
   sf::IntRect GetBounds() const;
@@ -48,6 +49,7 @@ class QuadTree {
 
   // Adds object to the quad tree
   void AddObject(GameObject*);
+  void RemoveObject(GameObject*);
 
   // Clears all objects in the entire quad tree
   void Clear();

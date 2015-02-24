@@ -56,12 +56,27 @@ void GameObjectManager::DrawAll(int interp, sf::RenderWindow& window) {
 void GameObjectManager::UpdateAll(int lag) {
   RemoveDeleted();
 
-  for (auto obj : game_objects_) {
+  for (auto obj : game_objects_)
     obj->Update(lag);
-    quad_tree_.AddObject(obj);
-  }
 
-  quad_tree_.Clear();
+  CollisionDetection();
+}
+
+void GameObjectManager::CollisionDetection() {
+  // Brute force collision detection whilst quad trees are implemented
+  for (auto obj : game_objects_) {
+    for (auto obj2 : game_objects_) {
+      // Dont check for collision against self
+      if (obj == obj2)
+        continue;
+
+      // Check the bounds for intersection
+      if (obj->GetSprite().getTextureRect().intersects(obj2->GetSprite().getTextureRect())) {
+        obj->Collision();
+        obj2->Collision();
+      }
+    }
+  }
 }
 
 std::vector<int> GameObjectManager::marked_for_deletion_;

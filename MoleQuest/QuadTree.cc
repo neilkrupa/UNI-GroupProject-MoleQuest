@@ -20,6 +20,10 @@ void QuadTree::AddObject(GameObject* object) {
   root_->Add(object);
 }
 
+void QuadTree::RemoveObject(GameObject* object) {
+  root_->Remove(object);
+}
+
 void QuadTree::Clear() {
   root_->Clear();
   root_ = new QuadTreeNode(max_objects_, max_depth_, 0, 0, 0, w_, h_);
@@ -69,6 +73,10 @@ void QuadTreeNode::Add(GameObject* object) {
     if (this->objects_.size() > max_objects_ && depth_ < max_depth_ && !this->HasChildren())
       SplitNode();
   }
+}
+
+void QuadTreeNode::Remove(GameObject* object) {
+
 }
 
 bool QuadTreeNode::InsertIntoChildren(GameObject* object) {

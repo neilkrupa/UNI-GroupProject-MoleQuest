@@ -22,6 +22,8 @@ class GameObject {
 
   sf::Sprite& GetSprite();
 
+  void Collision();
+
  private:
   int object_manager_index_;
 
@@ -29,7 +31,6 @@ class GameObject {
   sf::Texture texture_;
   std::string filename_;
   bool is_loaded_;
-
 };
 
 #endif
