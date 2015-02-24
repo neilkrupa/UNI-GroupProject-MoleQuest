@@ -47,18 +47,12 @@ void Mole::Update(int lag) {
 				mole_.velocity_y_ -= mole_.max_velocity_;
 			}
 		}
-		DealDamage(player_pos);
+
 		GetSprite().move(mole_.velocity_x_ * lag, mole_.velocity_y_ * lag);
 		mole_.velocity_x_ = 0;
 		mole_.velocity_y_ = 0;
 	}
 	
-}
-void Mole::DealDamage(sf::Vector2f player_pos){
-	if ((player_pos.x - 40< mole_pos.x) && (player_pos.x + 40 > mole_pos.x) && (player_pos.y - 40 < mole_pos.y) && (player_pos.y + 40 > mole_pos.y)){
-		player_->Damage(mole_.damage);
-		Damage(3);
-	}
 }
 
 void Mole::Damage(int value){
@@ -87,4 +81,9 @@ void Mole::UpdatePosition(){
 	mole_pos = GetSprite().getPosition();
 }
 
-void Mole::Collision(GameObject*) {}
+void Mole::Collision(GameObject* game_object) {
+  if (game_object->GetObjectType() == GameObject::kPlayer) {
+    // Deal damage to player
+    player_->Damage(mole_.damage);
+  }
+}
