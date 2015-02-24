@@ -71,7 +71,10 @@ void GameObjectManager::CollisionDetection() {
         continue;
 
       // Check the bounds for intersection
-      if (obj->GetSprite().getTextureRect().intersects(obj2->GetSprite().getTextureRect())) {
+      sf::FloatRect obj_bounds = obj->GetSprite().getGlobalBounds();
+      sf::FloatRect obj2_bounds = obj2->GetSprite().getGlobalBounds();
+
+      if (obj_bounds.intersects(obj2_bounds)) {
         obj->Collision(obj2);
         obj2->Collision(obj);
       }
