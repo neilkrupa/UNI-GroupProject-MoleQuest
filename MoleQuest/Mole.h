@@ -9,11 +9,12 @@ class Mole : public GameObject {
 public:
 	Mole(Player* Player_);
 	~Mole();
-	void SetImage();
+	void Set();
   void Update(int lag);
 	void Draw(int interp, sf::RenderWindow& window);
 	void DealDamage(sf::Vector2f player_pos);
   void Damage(int value);
+	void UpdatePosition();
 	sf::Texture moleImage;
 struct Stat {
 	public:
@@ -28,15 +29,15 @@ struct Stat {
 		float max_velocity_;
 		int damage;
 		int type;
+		int position_;
 };
+	sf::Vector2f mole_pos;
 	struct Stat mole_;
 	Player *player_;
-private:
-  
-	sf::Vector2f mole_pos;
-	sf::Vector2f player_pos;
 	bool dead;
-	void UpdatePosition();
 	
+private:
+	int randomNumber;
+	sf::Vector2f player_pos;	
 };
 #endif
