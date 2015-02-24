@@ -231,9 +231,11 @@ void Player::MoveRight() {
 
 void Player::Buy(std::string purchase) {
   Weapon* weapon = &weapons_[weapon_indexes_[purchase]];
-  weapon->setOwned();
-  coins -= weapon->getPrice();
-  coinVal.setString(std::to_string(coins));
+  if (weapon->Owned() == false){
+    weapon->setOwned();
+    coins -= weapon->getPrice();
+    coinVal.setString(std::to_string(coins));
+  }
 }
 
 void Player::Upgrade(std::string upgradeable) {
