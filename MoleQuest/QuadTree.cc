@@ -20,7 +20,9 @@ void QuadTree::Clear() {
   root_->Clear();
 }
 
-
+void QuadTree::GetObjectsNear(GameObject* object, std::list<GameObject*>& object_list) {
+  root_->GetItems(object, object_list);
+}
 
 // QuadTreeNode definitions
 
@@ -37,6 +39,20 @@ QuadTreeNode::QuadTreeNode(int max_objects, int max_depth, int depth, int x, int
 }
 
 QuadTreeNode::~QuadTreeNode() {}
+
+void QuadTreeNode::GetItems(GameObject* object, std::list<GameObject*>& object_list) {
+  // Does thide node contain the object
+  if (Contains(this, object)) {
+    for (auto obj : objects_)
+      object_list.push_back(obj);
+
+    // Check children if they exist
+    if (this->HasChildren()) {
+      for (auto child : children_)
+        child->GetItems(object, object_list);
+    }
+  }
+}
 
 void QuadTreeNode::Add(GameObject* object) {
   // If this node has no chidlren insert the object here
@@ -123,8 +139,4 @@ bool QuadTreeNode::HasChildren() {
 
 sf::IntRect QuadTreeNode::GetBounds() const {
   return bounds_;
-}
-
-QuadTreeNode* QuadTreeNode::GetChild(int n) {
-  return children_[n];
 }

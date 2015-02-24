@@ -13,7 +13,8 @@ class QuadTreeNode {
 
   sf::IntRect GetBounds() const;
 
-  QuadTreeNode* GetChild(int);
+  void GetItems(GameObject*, std::list<GameObject*>&);
+
   bool HasChildren();
 
  private:
@@ -51,8 +52,8 @@ class QuadTree {
   // Clears all objects in the entire quad tree
   void Clear();
 
-  // Returns all the objects in the give node
-  std::vector<GameObject*> GetObjectsNear(QuadTreeNode*, GameObject*);
+  // Adds objects near given object to the list passed in by reference
+  void GetObjectsNear(GameObject*, std::list<GameObject*>& object_list);
 
  private:
   int max_depth_;
