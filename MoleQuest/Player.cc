@@ -333,8 +333,8 @@ void Player::Switch(int dir) {
 		ammoBar.setTexture(ammoTex);
 		break;
 	  }
+   }
   weapon_switch_elapsed_ = 0;
-  }
 }
 
 void Player::Shoot() {
