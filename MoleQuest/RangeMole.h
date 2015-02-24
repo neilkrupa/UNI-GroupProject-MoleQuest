@@ -11,6 +11,7 @@ public:
 	~RangeMole();
 	void RangeMole::SetProjectile();
 	void RangeMole::Update(int lag);
+	void DealDamage(sf::Vector2f player_pos);
 	GameObjectManager game_object_manager_;
 private:
 	//Projectile projectile_;
