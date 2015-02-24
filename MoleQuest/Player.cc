@@ -210,22 +210,22 @@ void Player::Draw(int interp, sf::RenderWindow& window) {
 }
 
 void Player::MoveUp() {
-  velocity_y_ -= 0.3f;
+  velocity_y_ -= 0.3f * speed_.curr_value/2;
   is_moving_ = true;
 }
 
 void Player::MoveDown() {
-  velocity_y_ += 0.3f;
+  velocity_y_ += 0.3f * speed_.curr_value/2;
   is_moving_ = true;
 }
 
 void Player::MoveLeft() {
-  velocity_x_ -= 0.3f;
+  velocity_x_ -= 0.3f * speed_.curr_value/2;
   is_moving_ = true;
 }
 
 void Player::MoveRight() {
-  velocity_x_ += 0.3f;
+  velocity_x_ += 0.3f * speed_.curr_value/2;
   is_moving_ = true;
 }
 
@@ -333,6 +333,7 @@ void Player::Switch(int dir) {
 		ammoBar.setTexture(ammoTex);
 		break;
 	  }
+   }
   weapon_switch_elapsed_ = 0;
 }
 
@@ -378,6 +379,10 @@ float Player::GetLastFiredTime() const {
 
 Weapon Player::GetWeapon() const {
   return curr_weapon_;
+}
+
+bool Player::GetReload(){
+	return reload;
 }
 
 sf::IntRect Player::GetTextureRect() {
