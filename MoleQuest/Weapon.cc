@@ -19,8 +19,6 @@ Weapon::Weapon (std::string n, int p, float aS, int c, int d, bool s){
 
 void Weapon::fire(){
 	clip -= 1;
-	if (clip <= 0)
-		reload();
 }
 
 void Weapon::reload(){
