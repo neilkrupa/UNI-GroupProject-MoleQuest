@@ -19,6 +19,8 @@ public:
 
 	Result Show(sf::RenderWindow &window);
 	
+	void UpdateMenu(std::map<std::string, Game::Input> key_map_);
+	
 	std::string tomap;
 
 private:
