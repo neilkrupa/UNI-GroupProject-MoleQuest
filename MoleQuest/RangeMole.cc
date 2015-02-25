@@ -7,7 +7,7 @@ RangeMole::RangeMole(Player* p, int xpos) :Mole(p, xpos) {
 	mole_.velocity_x_ = 0;
 	mole_.velocity_y_ = 0;
 	mole_.max_velocity_ = 0.1;
-	mole_.max_value = 50;
+	mole_.max_value = 30;
 	mole_.curr_value = mole_.max_value;
 	mole_.coins = rand() % 30;
 	mole_.type = 3;

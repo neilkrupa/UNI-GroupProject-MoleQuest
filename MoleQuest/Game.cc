@@ -127,6 +127,8 @@ void Game::GameLoop() {
 
         // Is boss was spawned but now dead, change level and remove boss
         if (boss_spawned && boss_->IsDead()) {
+
+
           // If on last menu go to main menu
           if (map_.CurrentLevel() == 6) {
             game_state_ = GameState::kShowingMenu;
@@ -159,8 +161,9 @@ void Game::GameLoop() {
         fps.setCharacterSize(24);
         fps.setColor(sf::Color::Red);
         fps.setStyle(sf::Text::Bold);
-
+        
         main_window_.draw(fps);
+        
 
         main_window_.display();
         break;
@@ -252,8 +255,10 @@ void Game::ShowMenu() {
       sound_engine_.StopSong();
 
       // Display the intro animation
-      //Intro intro;
-      //intro.Show(main_window_);
+      Intro intro;
+      intro.Show(main_window_);
+
+      sound_engine_.PlaySong("gamemusic.wav", true);
 
       // Start the game
       map_.ChangeLevel(main_window_, 1);
@@ -320,7 +325,7 @@ Game::Input Game::Map(Game::Input input){
 
 void Game::ShowShop() {
   Shop shop;
-  shop.UpdateMenu(player_->GetHealthLevel(), player_->GetSpeedLevel(),player_->GetCoin());
+  shop.UpdateMenu(player_->GetHealthLevel(), player_->GetSpeedLevel(), player_->GetCoin());
   Shop::Result result = shop.Show(main_window_);
 
   switch (result) {

@@ -23,6 +23,7 @@ class Player : public GameObject {
   //Takes an int to indicated direction of the switch then chnages the active weapon to the next owned one
   void Switch(int dir);
  
+  int GetCoin();
 
   //These two functions make use of the basic Weapon functions to shoot and reload guns
   void Shoot();
@@ -46,8 +47,6 @@ class Player : public GameObject {
 
   float GetVelocityX() const;
   float GetVelocityY() const;
-  
-  int GetCoin();
 
   float GetLastFiredTime() const;
 

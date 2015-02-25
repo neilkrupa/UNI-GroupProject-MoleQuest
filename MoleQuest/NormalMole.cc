@@ -8,7 +8,7 @@ NormalMole::NormalMole(Player* p, int xpos) : Mole(p, xpos) {
   mole_.max_velocity_ = 0.03;
   mole_.max_value = 10;
   mole_.curr_value = mole_.max_value;
-  mole_.coins = rand() % 30;
+  mole_.coins = rand() % 30 + 10;
   mole_.type = 0;
   mole_.damage = 1;
   mole_.position_ = rand() % 1024;

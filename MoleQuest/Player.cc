@@ -10,7 +10,7 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   GetSprite().scale(0.75, 0.75);
   GetSprite().setOrigin(91 / 2, 103 / 2);
   
-  coins = 0;
+  coins = 700;
 
   // Initialise the stats
   health_.curr_level = 0;
@@ -48,29 +48,25 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   weapons_[0].setOwned();
   curr_weapon_ = weapons_[0];
 
-  // For testing
-  weapons_[6].setOwned();
-  // end testing
-
   //This is the setup for the HUD bars
   hpTex.loadFromFile("images/hpbar/hp1.png");
-  hpBar.setPosition(30, 700);
+  hpBar.setPosition(30, 670);
   f.loadFromFile("fonts/quest.ttf");
   hpVal.setFont(f);
   hpVal.setCharacterSize(20);
   hpVal.setColor(sf::Color::Black);
   hpVal.setString(std::to_string(health_.curr_value));
-  hpVal.setPosition(65, 700);
+  hpVal.setPosition(65, 670);
 
   hpBar.setTexture(hpTex);
 
   coinTex.loadFromFile("images/coinbar.png");
-  coinBar.setPosition(30, 730);
+  coinBar.setPosition(30, 700);
   coinVal.setFont(f);
   coinVal.setColor(sf::Color::Black);
   coinVal.setCharacterSize(20);
   coinVal.setString(std::to_string(coins));
-  coinVal.setPosition(150, 730);
+  coinVal.setPosition(150, 700);
 
   coinBar.setTexture(coinTex);
 
@@ -414,7 +410,7 @@ void Player::Collision(GameObject* other_object) {
   }
 }
 
-int Player::GetCoin(){
+int Player::GetCoin() {
   return coins;
 }
 

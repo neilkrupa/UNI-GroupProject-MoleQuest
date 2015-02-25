@@ -9,12 +9,13 @@ Shop::Shop() {
 	sprite_.setTexture(texture_);
 
 	sf::Font f;
-	f.loadFromFile("font/quest.ttf");
+	f.loadFromFile("fonts/Quest.ttf");
 	
 	coins.setFont(f);
 	coins.setCharacterSize(20);
-	coins.setPosition(484,110);
-	coinds.setString("0");
+	coins.setPosition(484, 105);
+	coins.setString("0");
+  coins.setColor(sf::Color::Red);
 
 	ShopItem cont;
 	cont.rect.top = 686;
@@ -108,7 +109,11 @@ Shop::Result Shop::Show(sf::RenderWindow &window) {
 	if (health_sprite_.getTexture() != nullptr)
 		window.draw(health_sprite_);
 	
-	window.draw(coins)
+  sf::Font font;
+  font.loadFromFile("fonts/Quest.ttf");
+  coins.setFont(font);
+
+  window.draw(coins);
 	window.display();
 
 	// Now drop into an event loop waiting for the user to click
