@@ -12,8 +12,6 @@ NormalMole::NormalMole(Player* p) : Mole(p) {
   mole_.type = 0;
   mole_.damage = 1;
   mole_.position_ = rand() % 1024;
-  printf("position = %d\n", mole_.position_);
-  printf("coins = %d\n", mole_.coins);
   Set();
 }
 

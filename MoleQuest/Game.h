@@ -85,7 +85,7 @@ enum InputType { kKey, kMouse };
 
   bool boss_spawned = false;
 
-  MoleSpawner mole_spawner_;
+  MoleSpawner* mole_spawner_;
 
   SoundEngine sound_engine_;
 };

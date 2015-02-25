@@ -6,7 +6,9 @@
 #include "RangeMole.h"
 #include "GameObjectManager.h"
 
-MoleSpawner::MoleSpawner() {
+MoleSpawner::MoleSpawner(Player* player) {
+  player_ = player;
+
   // Set up how many types of mole per level there should be
 
   srand(time(NULL));
@@ -59,6 +61,62 @@ MoleSpawner::~MoleSpawner() {
 
 }
 
-void MoleSpawner::Update(int lag) {
+void MoleSpawner::Update(int lag, int level) {
+  time_passed += lag / 1000.f;
 
+  // -1 to take in to account for vectors being 0 based but levels start at 1
+  level--;
+
+  int amount = 0;
+
+  // Work out amount of moles to spawn this update
+  if (time_passed > 10) {
+    amount = 5;
+    time_passed = 0;
+  }
+
+  // Spawn moles
+  if (amount > 0) {
+    SpawnNormal(amount, level);
+    SpawnHeavy(amount, level);
+    SpawnFast(amount, level);
+    SpawnRanged(amount, level);
+  }
+}
+
+void MoleSpawner::SpawnFast(int amount, int level) {
+  // Check amount is a valid number of moles this level has left to spawn
+  amount = amount > levels_[level].fast ? levels_[level].fast : amount;
+
+  for (int i = 0; i < amount; i++)
+    GameObjectManager::Add(new FastMole(player_));
+
+  levels_[level].fast -= amount;
+}
+
+void MoleSpawner::SpawnNormal(int amount, int level) {
+  amount = amount > levels_[level].normal ? levels_[level].normal : amount;
+
+  for (int i = 0; i < amount; i++)
+    GameObjectManager::Add(new NormalMole(player_));
+
+  levels_[level].normal -= amount;
+}
+
+void MoleSpawner::SpawnHeavy(int amount, int level) {
+  amount = amount > levels_[level].heavy ? levels_[level].heavy : amount;
+
+  for (int i = 0; i < amount; i++)
+    GameObjectManager::Add(new HeavyMole(player_));
+
+  levels_[level].heavy -= amount;
+}
+
+void MoleSpawner::SpawnRanged(int amount, int level) {
+  amount = amount > levels_[level].ranged ? levels_[level].ranged : amount;
+
+  for (int i = 0; i < amount; i++)
+    GameObjectManager::Add(new RangeMole(player_));
+
+  levels_[level].ranged -= amount;
 }
