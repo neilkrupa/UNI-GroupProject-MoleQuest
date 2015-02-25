@@ -10,6 +10,8 @@ class Projectile : public GameObject {
   void Update(int lag);
   void Draw(int lag, sf::RenderWindow& window);
   void Collision(GameObject*);
+  
+  int GetDamage() const;
 
  private:
    int elapsed_time_ = 0;

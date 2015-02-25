@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "Projectile.h"
 
 Player::Player() : velocity_x_(0), velocity_y_(0) {
   Load("images/spritesheet.png");
@@ -392,6 +393,8 @@ sf::IntRect Player::GetTextureRect() {
 
 void Player::Collision(GameObject* other_object) {
   if (other_object->GetObjectType() == GameObject::kMoleProjectile) {
-
+    // Damage the player
+    int damage = dynamic_cast<Projectile*> (other_object)->GetDamage();
+    Damage(damage);
   }
 }

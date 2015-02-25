@@ -54,3 +54,7 @@ void Projectile::Collision(GameObject* other_object) {
     GameObjectManager::Remove(GetObjectManagerIndex());
   }
 }
+
+int Projectile::GetDamage() const {
+  return damage_;
+}
