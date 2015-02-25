@@ -320,7 +320,7 @@ Game::Input Game::Map(Game::Input input){
 
 void Game::ShowShop() {
   Shop shop;
-  shop.UpdateMenu(player_->GetHealthLevel(), player_->GetSpeedLevel());
+  shop.UpdateMenu(player_->GetHealthLevel(), player_->GetSpeedLevel(),player_->GetCoin());
   Shop::Result result = shop.Show(main_window_);
 
   switch (result) {
