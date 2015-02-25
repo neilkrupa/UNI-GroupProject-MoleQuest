@@ -61,6 +61,13 @@ void Game::GameLoop() {
   sf::Clock clock;
 
   while (!IsExiting()) {
+    // Poll window events
+    sf::Event event;
+    while (main_window_.pollEvent(event)) {
+      if (event.type == sf::Event::Closed)
+        main_window_.close();
+    }
+
     sf::Time elapsed_time = clock.restart();
     int lag = elapsed_time.asMilliseconds();
 
@@ -178,10 +185,10 @@ void Game::GameLoop() {
         fps.setColor(sf::Color::Red);
         fps.setStyle(sf::Text::Bold);
         
-        main_window_.draw(fps);
-        
+        main_window_.draw(fps);     
 
         main_window_.display();
+
         break;
       }
     }
