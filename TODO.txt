@@ -1,6 +1,7 @@
 HIGHEST PRIORITY:-
 - Spawning Moles
 - Add a way to change projectile speed
+- Go throuhg each mole making sure its speed, size and health are all fun to play against
 
 
 MED PRIORITY:-
