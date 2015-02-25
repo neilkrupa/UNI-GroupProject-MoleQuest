@@ -10,7 +10,7 @@ class GameObjectManager {
   ~GameObjectManager();
 
   // Adds object to internal object vector
-  void Add(GameObject* game_object);
+  static void Add(GameObject* game_object);
 
   // Adds index to internal marked_for_deletion vector to be deleted later in RemoveDeleted()
   static void Remove(int index);
@@ -22,7 +22,11 @@ class GameObjectManager {
   int vector_size_ = 100;
 
   std::vector<GameObject*> game_objects_;
+
   static std::vector<int> marked_for_deletion_;
+  static std::vector<GameObject*> marked_for_insertion_;
+
+  void Insert();
 
   // Goes through marked_for_deletion vector deleting all the objects marked for deletion
   void RemoveDeleted();

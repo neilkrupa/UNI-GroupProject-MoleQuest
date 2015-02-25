@@ -390,4 +390,8 @@ sf::IntRect Player::GetTextureRect() {
   return texture_sizes_[index];
 }
 
-void Player::Collision(GameObject*) {}
+void Player::Collision(GameObject* other_object) {
+  if (other_object->GetObjectType() == GameObject::kMoleProjectile) {
+
+  }
+}

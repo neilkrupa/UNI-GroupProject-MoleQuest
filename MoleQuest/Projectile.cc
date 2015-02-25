@@ -46,7 +46,7 @@ void Projectile::Draw(int lag, sf::RenderWindow& window) {
 }
 
 void Projectile::Collision(GameObject* other_object) {
-  if (other_object->GetObjectType() == GameObject::kMole) {
+  if (other_object->GetObjectType() == GameObject::kMole && GetObjectType() != GameObject::kMoleProjectile) {
     // Deal damage to mole
     dynamic_cast<Mole*> (other_object)->Damage(damage_);
 

@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "RangeMole.h"
+#include "GameObjectManager.h"
+#include "Projectile.h"
 
-RangeMole::RangeMole(Player* p) :Mole(p){
+RangeMole::RangeMole(Player* p) :Mole(p) {
 	mole_.velocity_x_ = 0;
 	mole_.velocity_y_ = 0;
 	mole_.max_velocity_ = 0.1;
@@ -12,10 +14,12 @@ RangeMole::RangeMole(Player* p) :Mole(p){
 	mole_.damage = 30;
 	mole_.position_ = rand() % 1024;
 	Set();
-
 }
-void RangeMole::Update(int lag){
-	if (!(dead)){
+
+RangeMole::~RangeMole() {}
+
+void RangeMole::Update(int lag) {
+	if (!(dead)) {
 		sf::Vector2f player_pos = player_->GetPosition();
 		UpdatePosition();
 		if ((player_pos.x - 250 > mole_pos.x) || (player_pos.x + 250 < mole_pos.x)){
@@ -43,20 +47,20 @@ void RangeMole::Update(int lag){
 
 }
 
-void RangeMole::SetProjectile(){
-	
-	
-	
-}
-void RangeMole::DealDamage(sf::Vector2f player_pos){
-	
-	if ((player_pos.x - 550 < mole_pos.x) && (player_pos.x + 550 > mole_pos.x) && (player_pos.y - 550 < mole_pos.y) && (player_pos.y + 550 > mole_pos.y)){
-    game_object_manager_.Add(new Projectile(player_->GetWeapon().GetDamage(),
-      mole_pos = GetSprite().getPosition(),
-			(sf::Vector2i) player_->GetPosition(),
-			GetSprite().getOrigin(),
-			GetSprite().getTextureRect()));
+void RangeMole::SetProjectile(){} 
 
+void RangeMole::DealDamage(sf::Vector2f player_pos) {
+	
+	if ((player_pos.x - 550 < mole_pos.x) && (player_pos.x + 550 > mole_pos.x) && (player_pos.y - 550 < mole_pos.y) && (player_pos.y + 550 > mole_pos.y)) {
+    Projectile* projectile = new Projectile(player_->GetWeapon().GetDamage(),
+      mole_pos = GetSprite().getPosition(),
+      (sf::Vector2i) player_->GetPosition(),
+      GetSprite().getOrigin(),
+      GetSprite().getTextureRect());
+
+    projectile->SetObjectType(GameObject::kMoleProjectile);
+
+    GameObjectManager::Add(projectile);
 	}
 }
-RangeMole::~RangeMole() {}
+

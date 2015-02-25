@@ -17,12 +17,20 @@ GameObjectManager::~GameObjectManager() {
 }
 
 void GameObjectManager::Add(GameObject* game_object) {
+  marked_for_insertion_.push_back(game_object);
+}
+
+void GameObjectManager::Insert() {
   /* If vector is nearly full, add vector_size_ more spaces */
   if (game_objects_.size() >= game_objects_.capacity() - 1)
     game_objects_.reserve(game_objects_.capacity() + vector_size_);
 
-  game_object->SetObjectManagerIndex(game_objects_.size());
-  game_objects_.push_back(game_object);
+  for (auto obj : marked_for_insertion_) {
+    obj->SetObjectManagerIndex(game_objects_.size());
+    game_objects_.push_back(obj);
+  }
+
+  marked_for_insertion_.clear();
 }
 
 void GameObjectManager::Remove(int index) {
@@ -60,6 +68,8 @@ void GameObjectManager::UpdateAll(int lag) {
     obj->Update(lag);
 
   CollisionDetection();
+
+  Insert();
 }
 
 void GameObjectManager::CollisionDetection() {
@@ -83,3 +93,4 @@ void GameObjectManager::CollisionDetection() {
 }
 
 std::vector<int> GameObjectManager::marked_for_deletion_;
+std::vector<GameObject*> GameObjectManager::marked_for_insertion_;
