@@ -8,7 +8,7 @@
 #include "Player.h"
 #include "Projectile.h"
 
-Boss::Boss(Player* Player_){
+Boss::Boss(Player* Player_) {
   Load("images/boss_body.png");
   GetSprite().setPosition(500, 50);
   GetSprite().setScale(0.3, 0.3);

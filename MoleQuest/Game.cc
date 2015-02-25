@@ -13,7 +13,7 @@
 #include "Projectile.h"
 #include "Boss.h"
 #include "Intro.h"
-#include "NormalMole.h"
+#include "RangeMole.h"
 
 Game::Game() {
   main_window_.create(sf::VideoMode(1024, 768, 32), "Mole Quest");
@@ -25,7 +25,7 @@ Game::Game() {
   player_->SetObjectType(GameObject::kPlayer);
   game_object_manager_.Add(player_);
 
-  NormalMole* mole = new NormalMole(player_);
+  RangeMole* mole = new RangeMole(player_);
   mole->SetObjectType(GameObject::kMole);
   game_object_manager_.Add(mole); // For testing moles
 
