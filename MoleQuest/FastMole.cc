@@ -12,5 +12,6 @@ FastMole::FastMole(Player* p) :Mole(p){
 	mole_.damage = 30;
 	mole_.position_ = rand() % 1024;
 	Set();
+  GetSprite().setScale(1, 1);
 }
 FastMole::~FastMole() {}

@@ -23,7 +23,7 @@ void Mole::Set(){
     
 
 	GetSprite().scale(0.5, 0.5);
-	GetSprite().setPosition(mole_.position_, -50);
+	GetSprite().setPosition(mole_.position_, -5);
 }
 
 void Mole::Update(int lag) {

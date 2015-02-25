@@ -413,3 +413,7 @@ void Player::Collision(GameObject* other_object) {
     GameObjectManager::Remove(other_object->GetObjectManagerIndex());
   }
 }
+
+bool Player::IsDead() {
+  return health_.curr_value == 0;
+}

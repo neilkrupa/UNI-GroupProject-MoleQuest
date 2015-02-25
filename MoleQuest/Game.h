@@ -74,8 +74,6 @@ enum InputType { kKey, kMouse };
   // Object manager to hold all objects and easily manage all of them
   GameObjectManager game_object_manager_;
 
- 
-
   // This function polls for an input to map a control to and then edits the input struct for that control
   // accordingly. Its in Game.cc to avoid the awkwardness trying to stikc in SettingsMenu.cc
   Game::Input Map(Game::Input);

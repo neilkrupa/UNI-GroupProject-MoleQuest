@@ -91,6 +91,12 @@ void Game::GameLoop() {
       case GameState::kPlaying: {
         main_window_.clear(sf::Color(0, 0, 0));
 
+        // Check if player is dead
+        if (player_->IsDead()) {
+          game_state_ = GameState::kShowingMenu;
+          break;
+        }
+
         ProcessInput();
 
         map_.UpdateLevel(player_->GetPosition(), main_window_);

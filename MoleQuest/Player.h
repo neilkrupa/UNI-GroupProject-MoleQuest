@@ -49,6 +49,8 @@ class Player : public GameObject {
 
   float GetLastFiredTime() const;
 
+  bool IsDead();
+
   bool GetReload();
 
   sf::IntRect GetTextureRect();

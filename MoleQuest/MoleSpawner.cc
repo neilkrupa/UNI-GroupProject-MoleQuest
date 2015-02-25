@@ -64,23 +64,21 @@ MoleSpawner::~MoleSpawner() {
 void MoleSpawner::Update(int lag, int level) {
   time_passed += lag / 1000.f;
 
-  // -1 to take in to account for vectors being 0 based but levels start at 1
-  level--;
-
   int amount = 0;
 
   // Work out amount of moles to spawn this update
-  if (time_passed > 10) {
-    amount = 3 * (level+1);
+  if (time_passed > 4) {
+    amount = 3 * (level);
     time_passed = 0;
   }
 
   // Spawn moles
   if (amount > 0) {
-    SpawnNormal(amount, level);
-    SpawnHeavy(amount, level);
-    SpawnFast(amount, level);
-    SpawnRanged(amount, level);
+    level--; // To account for vectors being 0 based but levels start at 1
+    SpawnNormal(amount + (level*2), level);
+    SpawnHeavy(amount/2, level);
+    SpawnFast(amount/2, level);
+    SpawnRanged(amount/2, level);
   }
 }
 
