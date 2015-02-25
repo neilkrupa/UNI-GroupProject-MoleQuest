@@ -11,6 +11,10 @@ void Level::ChangeLevel(sf::RenderWindow& window, int level) {
   LoadLevel(window);
 }
 
+int Level::CurrentLevel() const {
+  return curr_level_;
+}
+
 void Level::LoadLevel(sf::RenderWindow& window) {
   // Load the level texture
   std::string level_name = "images/map" + std::to_string(curr_level_) + ".png";

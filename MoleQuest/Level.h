@@ -16,12 +16,14 @@ class Level {
 
   bool AtTopOfMap();
 
+  int CurrentLevel() const;
+
  private:
   int curr_level_ = 0;
 
   int level_move_speed_ = 1;
-  int level_move_top_limit_ = 400;
-  int level_move_bottom_limit_ = 500;
+  int level_move_top_limit_ = 500;
+  int level_move_bottom_limit_ = 600;
 
   sf::Texture level_texture_;
   sf::Sprite level_sprite_;

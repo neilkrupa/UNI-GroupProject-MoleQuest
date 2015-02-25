@@ -110,7 +110,13 @@ void Game::GameLoop() {
 
         // Is boss was spawned but now dead, change level and remove boss
         if (boss_spawned && boss_->IsDead()) {
-          map_.ChangeLevel(main_window_);
+          // If on last menu go to main menu
+          if (map_.CurrentLevel() == 6) {
+            game_state_ = GameState::kShowingMenu;
+            break;
+          }
+
+          game_state_ = GameState::kShopping;
           boss_spawned = false;
           game_object_manager_.Remove(boss_->GetObjectManagerIndex());
         }
@@ -300,6 +306,7 @@ void Game::ShowShop() {
     }
 
     case Shop::Result::kContinue: {
+      map_.ChangeLevel(main_window_);
       game_state_ = GameState::kPlaying;
       break;
 	  }

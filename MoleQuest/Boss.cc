@@ -10,14 +10,14 @@
 
 Boss::Boss(Player* Player_){
   Load("images/boss_body.png");
-  GetSprite().setPosition(500, 100);
-  GetSprite().setScale(0.5, 0.5);
+  GetSprite().setPosition(500, 50);
+  GetSprite().setScale(0.3, 0.3);
   GetSprite().setOrigin(500, 500);
 
   texture_H_.loadFromFile("images/boss_head.png");
   sprite_H_.setTexture(texture_H_);
-  sprite_H_.setPosition(500, 100);
-  sprite_H_.setScale(0.5, 0.5);
+  sprite_H_.setPosition(500, 50);
+  sprite_H_.setScale(0.3, 0.3);
   sprite_H_.setOrigin(207, 280);
   
   player_ = Player_;
