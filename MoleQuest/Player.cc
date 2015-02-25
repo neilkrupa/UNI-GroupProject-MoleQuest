@@ -251,7 +251,7 @@ void Player::Upgrade(std::string upgradeable) {
     if (health_.cost <= coins && health_.curr_level < health_.max_level) {
      health_.max_value += health_.level_increase;
       // Set current health to new max
-	  health_.curr_value = health_.max_value;
+	    health_.curr_value = health_.max_value;
 
       coins -= health_.cost;
 
@@ -259,7 +259,12 @@ void Player::Upgrade(std::string upgradeable) {
 
       health_.curr_level += 1;
       
+      // Set new health value
       hpVal.setString(std::to_string(health_.curr_value));
+
+      // Load new health texture
+      int health_file = ((health_.max_value - health_.curr_value) / (health_.max_value / 25));
+      hpTex.loadFromFile("images/hpbar/hp" + std::to_string(health_file) + ".png");
     }
   } else if (upgradeable == "speed") {
     // Does the player have enough money to upgrade and not already max level?

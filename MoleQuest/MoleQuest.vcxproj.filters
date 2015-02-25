@@ -90,6 +90,12 @@
     <ClInclude Include="Intro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MoleSpawner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalMole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cc">
@@ -162,6 +168,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Intro.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MoleSpawner.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalMole.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

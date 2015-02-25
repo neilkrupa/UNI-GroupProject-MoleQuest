@@ -160,6 +160,8 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Mole.h" />
+    <ClInclude Include="MoleSpawner.h" />
+    <ClInclude Include="NormalMole.h" />
     <ClInclude Include="Pause.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projectile.h" />
@@ -187,6 +189,8 @@
     <ClCompile Include="MainMenu.cc" />
     <ClCompile Include="Mole.cc" />
     <ClCompile Include="MoleQuest.cc" />
+    <ClCompile Include="MoleSpawner.cc" />
+    <ClCompile Include="NormalMole.cc" />
     <ClCompile Include="Pause.cc" />
     <ClCompile Include="Player.cc" />
     <ClCompile Include="Projectile.cc" />

@@ -10,7 +10,7 @@
 #include "Player.h"
 
 class Boss : public GameObject {
-public:
+ public:
 	Boss(Player* Player_);
 	~Boss();
 
@@ -28,11 +28,11 @@ public:
 
   void Collision(GameObject*);
 
-private:
+ private:
 	Player *player_;
 
 	struct Stat {
-	public:
+	 public:
 		//Max and current health
 		int curr_value;
 		int max_value;

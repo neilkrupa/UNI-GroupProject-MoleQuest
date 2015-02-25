@@ -53,10 +53,7 @@ void Boss::Damage(int value){
 		dead = true;
 		player_->Collect(stats_.coins);
 
-    
-
-		// Delete this mole
-		//GameObjectManager::Remove(GetObjectManagerIndex());
+    // Boss deletion is handled in Game.cc 
 	}
 }
 

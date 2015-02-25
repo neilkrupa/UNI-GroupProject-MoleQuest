@@ -7,22 +7,21 @@ Mole::Mole(Player* player){
   sf::Vector2f mole_pos = GetSprite().getPosition();
   // Store the player's memory address for use in AI logic
   player_ = player;
-
-  Load("images/moles/normalMole.png");
 }
 
 Mole::~Mole() {}
 
 void Mole::Set(){
-	if (mole_.type==1){
-		Load("images/moles/tankMole.png");
-	}
-	if (mole_.type==2){
-		Load("images/moles/fastMole.png");
-	}
-	if (mole_.type==3){
-		Load("images/moles/rangedMole.png");
-	}
+  if (mole_.type == 0)
+    Load("images/moles/normalMole.png");
+  else if (mole_.type == 1)
+    Load("images/moles/tankMole.png");
+  else if (mole_.type == 2)
+    Load("images/moles/fastMole.png");
+  else if (mole_.type == 3)
+    Load("images/moles/rangedMole.png");
+    
+
 	GetSprite().scale(0.5, 0.5);
 	GetSprite().setPosition(mole_.position_, -50);
 }
