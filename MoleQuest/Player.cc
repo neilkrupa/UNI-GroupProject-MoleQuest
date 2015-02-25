@@ -414,6 +414,10 @@ void Player::Collision(GameObject* other_object) {
   }
 }
 
+int Player::GetCoin(){
+  return coins;
+}
+
 bool Player::IsDead() {
   return health_.curr_value == 0;
 }
