@@ -36,6 +36,8 @@ private:
 		Result result;
 	};
 
+
+	sf::Text coin;
 	// Continously polls for window events to see what the user clicks on on 
 	// the main menu. Returns the result of HandleClick()
 	Result GetMenuResponse(sf::RenderWindow &window);
