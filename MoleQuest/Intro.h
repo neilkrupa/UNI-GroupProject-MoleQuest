@@ -12,7 +12,7 @@ class Intro {
 
     enum class Result {kNothing};
     
-   Result Show(sf::RenderWindow &window);
+   void Show(sf::RenderWindow &window);
 
 	//For the loading of Background, Midground and Foreground layers.
     sf::Texture texture_B_;

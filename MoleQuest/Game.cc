@@ -11,6 +11,7 @@
 #include "Pause.h"
 #include "SoundEngine.h"
 #include "Projectile.h"
+#include "Intro.h"
 #include "RangeMole.h"
 
 Game::Game() {
@@ -203,6 +204,11 @@ void Game::ShowMenu() {
     }
 
     case MainMenu::Result::kPlay: {
+      // Display the intro animation
+      Intro intro;
+      intro.Show(main_window_);
+
+      // Start the game
       map_.ChangeLevel(main_window_, 1);
       game_state_ = GameState::kPlaying;
       break;

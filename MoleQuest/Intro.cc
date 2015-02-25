@@ -20,7 +20,7 @@ Intro::Intro() {
   sprite_F_.scale(0.40, 0.40);
 }
 
-Intro::Result Intro::Show(sf::RenderWindow &window) {
+void Intro::Show(sf::RenderWindow &window) {
   //Animate first scene.
   float yAxis = 300;
   float xAxis = 600;
@@ -75,5 +75,4 @@ Intro::Result Intro::Show(sf::RenderWindow &window) {
     sprite_F2_.scale(xAxis, yAxis);
     Sleep(100);
   }
-  return Result::kNothing;
 }
