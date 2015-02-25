@@ -187,7 +187,7 @@ void SettingsMenu::UpdateMenu(std::map<std::string, Game::Input> key_map_){
 				if (mapCurr->second.type == Game::InputType::kKey)
 					curr->key.setString(GetKey(mapCurr->second.KeyCode));
 				else
-					curr->key.setString(std::to_string(mapCurr->second.MouseButton));
+					curr->key.setString(GetMouse(mapCurr->second.MouseButton));
 				break;
 			}
 		}
