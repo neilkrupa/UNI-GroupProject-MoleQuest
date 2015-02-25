@@ -11,7 +11,8 @@ public:
 	
   RangeMole(Player* p);
 	~RangeMole();
-
+	float atkSpe;
+	float last_fired;
 	void RangeMole::SetProjectile();
 	void RangeMole::Update(int lag);
 	void DealDamage(sf::Vector2f player_pos);
