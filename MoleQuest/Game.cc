@@ -102,10 +102,17 @@ void Game::GameLoop() {
 
         // If at top of map, spawn a boss
         if (map_.AtTopOfMap() && !boss_spawned) {
-          Boss* boss = new Boss(player_);
-          boss->SetObjectType(GameObject::kMole);
-          game_object_manager_.Add(boss);
+          boss_= new Boss(player_);
+          boss_->SetObjectType(GameObject::kBoss);
+          game_object_manager_.Add(boss_);
           boss_spawned = true;
+        }
+
+        // Is boss was spawned but now dead, change level and remove boss
+        if (boss_spawned && boss_->IsDead()) {
+          map_.ChangeLevel(main_window_);
+          boss_spawned = false;
+          game_object_manager_.Remove(boss_->GetObjectManagerIndex());
         }
 
         game_object_manager_.UpdateAll(lag);

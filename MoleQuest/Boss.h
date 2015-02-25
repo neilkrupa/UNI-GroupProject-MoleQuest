@@ -21,12 +21,12 @@ public:
 	sf::Texture texture_H_;
 	sf::Sprite sprite_H_;
 
-	sf::Texture texture_B_;
-	sf::Sprite sprite_B_;
-
 	void Damage(int value);
 	void DealDamage(sf::Vector2f player_pos);
-	bool dead;
+	
+  bool IsDead();
+
+  void Collision(GameObject*);
 
 private:
 	Player *player_;
@@ -51,8 +51,8 @@ private:
 	};
 
 	Stat stats_;
-	sf::Vector2f boss_pos;
-	sf::Vector2f player_pos;
+
+  bool dead;
 };
 
 #endif

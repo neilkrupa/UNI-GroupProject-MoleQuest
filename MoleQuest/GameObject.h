@@ -11,7 +11,7 @@ class GameObject {
   virtual void Update(int lag);
   virtual void Collision(GameObject*);
 
-  enum ObjectType { kPlayer, kMole, kProjectile, kMoleProjectile };
+  enum ObjectType { kPlayer, kMole, kProjectile, kMoleProjectile, kBoss };
 
   ObjectType GetObjectType();
   void SetObjectType(ObjectType type);

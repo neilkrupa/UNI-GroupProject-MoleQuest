@@ -12,6 +12,7 @@
 #include "GameObjectManager.h"
 #include "Player.h"
 #include "Level.h"
+#include "Boss.h"
 #include "Mole.h"
 
 class Game {
@@ -78,6 +79,7 @@ enum InputType { kKey, kMouse };
   Game::Input Map(Game::Input);
 
   Player* player_;
+  Boss* boss_;
 
   bool boss_spawned = false;
 };

@@ -56,7 +56,7 @@ void Mole::Update(int lag) {
 }
 
 void Mole::Damage(int value){
-	if (mole_.curr_value!=0){
+if (mole_.curr_value!=0){
 		mole_.curr_value = (mole_.curr_value - value) > 0 ? mole_.curr_value - value : 0;
 	}	else {
 		dead = true;

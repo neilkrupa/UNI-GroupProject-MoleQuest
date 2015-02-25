@@ -47,6 +47,10 @@ Player::Player() : velocity_x_(0), velocity_y_(0) {
   weapons_[0].setOwned();
   curr_weapon_ = weapons_[0];
 
+  // For testing
+  weapons_[6].setOwned();
+  // end testing
+
   //This is the setup for the HUD bars
   hpTex.loadFromFile("images/hpbar/hp1.png");
   hpBar.setPosition(30, 700);
