@@ -90,7 +90,7 @@ enum InputType { kKey, kMouse };
 
   sf::Texture game_over_texture;
   sf::Sprite game_over_sprite;
-  float game_over_timer_ = 2.f;
+  float game_over_timer_ = 20.f;
   float game_over_elapsed = 0.f;
 };
 

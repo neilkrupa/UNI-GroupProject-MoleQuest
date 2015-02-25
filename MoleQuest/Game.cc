@@ -77,10 +77,26 @@ void Game::GameLoop() {
       }
  
       case GameState::kGameOver: {
-        game_over_elapsed += lag / 1000.f;
+        game_over_elapsed += lag;
 
         if (game_over_elapsed >= game_over_timer_) {
           game_state_ = GameState::kShowingMenu;
+          game_over_elapsed = 0;
+
+          // Generate a new player
+          delete player_;
+          player_ = new Player();
+          player_->SetObjectType(GameObject::kPlayer);
+
+          // Reset game object manager
+          game_object_manager_ = GameObjectManager();
+          game_object_manager_.Add(player_);
+
+          // Generate new mole spawner
+          delete mole_spawner_;
+          mole_spawner_ = new MoleSpawner(player_);
+
+
           break;
         }
 
