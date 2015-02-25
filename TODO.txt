@@ -1,7 +1,7 @@
 HIGHEST PRIORITY:-
-- Spawning Moles
+- Fix moles random spawning position
 - Add a way to change projectile speed
-- Go throuhg each mole making sure its speed, size and health are all fun to play against
+- Add player death 
 
 
 MED PRIORITY:-
