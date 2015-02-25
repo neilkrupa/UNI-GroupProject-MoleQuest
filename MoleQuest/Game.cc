@@ -18,6 +18,9 @@ Game::Game() {
   main_window_.create(sf::VideoMode(1024, 768, 32), "Mole Quest");
   //main_window_.setFramerateLimit(60);
 
+  game_over_texture.loadFromFile("images/gameover.png");
+  game_over_sprite.setTexture(game_over_texture);
+
   game_state_ = GameState::kShowingMenu;
 
   player_ = new Player();
@@ -73,6 +76,19 @@ void Game::GameLoop() {
         break;
       }
  
+      case GameState::kGameOver: {
+        game_over_elapsed += lag / 1000.f;
+
+        if (game_over_elapsed >= game_over_timer_) {
+          game_state_ = GameState::kShowingMenu;
+          break;
+        }
+
+        main_window_.draw(game_over_sprite);
+        main_window_.display();
+        break;
+      }
+
       case GameState::kShowingSettingsPaused: {
         ShowSettings(true);
         break;
@@ -93,7 +109,7 @@ void Game::GameLoop() {
 
         // Check if player is dead
         if (player_->IsDead()) {
-          game_state_ = GameState::kShowingMenu;
+          game_state_ = GameState::kGameOver;
           break;
         }
 

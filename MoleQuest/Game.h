@@ -61,7 +61,8 @@ enum InputType { kKey, kMouse };
 
   // An enumeration to hold all possible states the game can be in
   enum class GameState { kPaused, kShowingMenu, kPlaying, kExiting, 
-                         kShowingSettings, kShowingSettingsPaused, kShopping };
+                         kShowingSettings, kShowingSettingsPaused, kShopping,
+                          kGameOver};
 
   // Hold the current state of the game
   GameState game_state_;
@@ -86,6 +87,11 @@ enum InputType { kKey, kMouse };
   MoleSpawner* mole_spawner_;
 
   SoundEngine sound_engine_;
+
+  sf::Texture game_over_texture;
+  sf::Sprite game_over_sprite;
+  float game_over_timer_ = 2.f;
+  float game_over_elapsed = 0.f;
 };
 
 #endif
