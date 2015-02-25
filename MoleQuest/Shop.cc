@@ -8,6 +8,14 @@ Shop::Shop() {
 	texture_.loadFromFile("images/shop.png");
 	sprite_.setTexture(texture_);
 
+	sf::Font f;
+	f.loadFromFile("font/quest.ttf");
+	
+	coins.setFont(f);
+	coins.setCharacterSize(20);
+	coins.setPosition(484,110);
+	coinds.setString("0");
+
 	ShopItem cont;
 	cont.rect.top = 686;
 	cont.rect.left = 732;
@@ -100,6 +108,7 @@ Shop::Result Shop::Show(sf::RenderWindow &window) {
 	if (health_sprite_.getTexture() != nullptr)
 		window.draw(health_sprite_);
 	
+	window.draw(coins)
 	window.display();
 
 	// Now drop into an event loop waiting for the user to click
@@ -144,7 +153,7 @@ Shop::Result Shop::GetMenuResponse(sf::RenderWindow &window) {
 	}
 }
 
-void Shop::UpdateMenu(int hL, int sL){
+void Shop::UpdateMenu(int hL, int sL, int coin){
 	
 	if (sL > 0){
 		if (sL == 1)
@@ -173,4 +182,6 @@ void Shop::UpdateMenu(int hL, int sL){
 		health_sprite_.setTexture(health_tex_);
 		health_sprite_.setPosition(110, 553);	
 	}
+	
+	coins.setString(std::to_string(coin));
 }
