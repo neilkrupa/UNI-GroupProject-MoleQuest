@@ -11,6 +11,7 @@ class SoundEngine {
   void PlaySong(std::string filename, bool loop);
   
   void StopAllSounds();
+  void StopSong();
 
   bool IsSoundPlaying();
   bool IsSongPlaying();

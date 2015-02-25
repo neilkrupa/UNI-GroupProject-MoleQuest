@@ -51,6 +51,10 @@ void SoundEngine::StopAllSounds() {
   }
 }
 
+void SoundEngine::StopSong() {
+  sound_cache_.GetSong(current_song_name_)->stop();
+}
+
 bool SoundEngine::IsSoundPlaying() {
   for (int i = 0; i < kMaxSoundChannels; i++)
     if (current_sounds_[i].getStatus() == sf::Sound::Playing)

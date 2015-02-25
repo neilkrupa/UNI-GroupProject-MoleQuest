@@ -230,6 +230,9 @@ void Game::ShowMenu() {
     }
 
     case MainMenu::Result::kPlay: {
+      // Stop menu music
+      sound_engine_.StopSong();
+
       // Display the intro animation
       //Intro intro;
       //intro.Show(main_window_);
