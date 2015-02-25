@@ -7,8 +7,15 @@ Mole::Mole(Player* player){
   sf::Vector2f mole_pos = GetSprite().getPosition();
   // Store the player's memory address for use in AI logic
   player_ = player;
-
-  Load("images/moles/normalMole.png");
+	mole_.velocity_x_ = 0;
+	mole_.velocity_y_ = 0;
+	mole_.max_velocity_ = 0.15;
+	mole_.max_value = 100;
+	mole_.curr_value = mole_.max_value;
+	mole_.coins = rand() % 30;
+	mole_.type = NULL;
+	mole_.damage = 1;
+	mole_.position_ = rand() % 1024;
 }
 
 Mole::~Mole() {}
