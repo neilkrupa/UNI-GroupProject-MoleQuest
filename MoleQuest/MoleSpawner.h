@@ -10,10 +10,10 @@ public:
 
 private:
   struct MolesPerLevel {
-    int normal = 0;
-    int ranged = 0;
-    int heavy = 0;
-    int fast = 0;
+    int normal;
+    int ranged;
+    int heavy;
+    int fast;
   };
 
   std::vector<MolesPerLevel> levels_;

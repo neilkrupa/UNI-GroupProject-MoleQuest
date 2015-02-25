@@ -1,5 +1,10 @@
 #include "stdafx.h"
 #include "MoleSpawner.h"
+#include "NormalMole.h"
+#include "FastMole.h"
+#include "HeavyMole.h"
+#include "RangeMole.h"
+#include "GameObjectManager.h"
 
 MoleSpawner::MoleSpawner() {
   // Set up how many types of mole per level there should be

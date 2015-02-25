@@ -64,15 +64,13 @@ Game::~Game() {
 void Game::GameLoop() {
   sf::Clock clock;
 
-  //SoundEngine sound_engine;
-  //sound_engine.PlaySong("mainmenu.wav", true);
-
   while (!IsExiting()) {
     sf::Time elapsed_time = clock.restart();
     int lag = elapsed_time.asMilliseconds();
 
     switch (game_state_) {
       case GameState::kShowingMenu: {
+        sound_engine_.PlaySong("mainmenu.wav", true);
         ShowMenu();
         break;
       }
