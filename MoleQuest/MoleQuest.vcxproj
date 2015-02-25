@@ -150,9 +150,13 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationHandler.h" />
+    <ClInclude Include="Boss.h" />
+    <ClInclude Include="FastMole.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="HeavyMole.h" />
+    <ClInclude Include="Intro.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Mole.h" />
@@ -160,6 +164,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="QuadTree.h" />
+    <ClInclude Include="RangeMole.h" />
     <ClInclude Include="SettingsMenu.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="SoundCache.h" />
@@ -171,9 +176,13 @@
   <ItemGroup>
     <ClCompile Include="Animation.cc" />
     <ClCompile Include="AnimationHandler.cc" />
+    <ClCompile Include="Boss.cc" />
+    <ClCompile Include="FastMole.cc" />
     <ClCompile Include="Game.cc" />
     <ClCompile Include="GameObject.cc" />
     <ClCompile Include="GameObjectManager.cc" />
+    <ClCompile Include="HeavyMole.cc" />
+    <ClCompile Include="Intro.cc" />
     <ClCompile Include="Level.cc" />
     <ClCompile Include="MainMenu.cc" />
     <ClCompile Include="Mole.cc" />
@@ -182,6 +191,7 @@
     <ClCompile Include="Player.cc" />
     <ClCompile Include="Projectile.cc" />
     <ClCompile Include="QuadTree.cc" />
+    <ClCompile Include="RangeMole.cc" />
     <ClCompile Include="SettingsMenu.cc" />
     <ClCompile Include="Shop.cc" />
     <ClCompile Include="SoundCache.cc" />
