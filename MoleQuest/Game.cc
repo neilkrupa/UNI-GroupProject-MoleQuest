@@ -13,7 +13,6 @@
 #include "Projectile.h"
 #include "Boss.h"
 #include "Intro.h"
-#include "RangeMole.h"
 
 Game::Game() {
   main_window_.create(sf::VideoMode(1024, 768, 32), "Mole Quest");

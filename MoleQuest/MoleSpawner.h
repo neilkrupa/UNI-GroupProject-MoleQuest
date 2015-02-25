@@ -25,7 +25,7 @@ private:
   void SpawnFast(int, int);
   void SpawnRanged(int, int);
 
-  float time_passed = 5.0f;
+  float time_passed = 0.0f;
 
   Player* player_;
 };

@@ -71,7 +71,7 @@ void MoleSpawner::Update(int lag, int level) {
 
   // Work out amount of moles to spawn this update
   if (time_passed > 10) {
-    amount = 5;
+    amount = 3 * (level+1);
     time_passed = 0;
   }
 
@@ -88,8 +88,11 @@ void MoleSpawner::SpawnFast(int amount, int level) {
   // Check amount is a valid number of moles this level has left to spawn
   amount = amount > levels_[level].fast ? levels_[level].fast : amount;
 
-  for (int i = 0; i < amount; i++)
-    GameObjectManager::Add(new FastMole(player_));
+  for (int i = 0; i < amount; i++) {
+    FastMole* mole = new FastMole(player_);
+    mole->SetObjectType(GameObject::kMole);
+    GameObjectManager::Add(mole);
+  }
 
   levels_[level].fast -= amount;
 }
@@ -97,8 +100,11 @@ void MoleSpawner::SpawnFast(int amount, int level) {
 void MoleSpawner::SpawnNormal(int amount, int level) {
   amount = amount > levels_[level].normal ? levels_[level].normal : amount;
 
-  for (int i = 0; i < amount; i++)
-    GameObjectManager::Add(new NormalMole(player_));
+  for (int i = 0; i < amount; i++) {
+    NormalMole* mole = new NormalMole(player_);
+    mole->SetObjectType(GameObject::kMole);
+    GameObjectManager::Add(mole);
+  }
 
   levels_[level].normal -= amount;
 }
@@ -106,8 +112,11 @@ void MoleSpawner::SpawnNormal(int amount, int level) {
 void MoleSpawner::SpawnHeavy(int amount, int level) {
   amount = amount > levels_[level].heavy ? levels_[level].heavy : amount;
 
-  for (int i = 0; i < amount; i++)
-    GameObjectManager::Add(new HeavyMole(player_));
+  for (int i = 0; i < amount; i++) {
+    HeavyMole* mole = new HeavyMole(player_);
+    mole->SetObjectType(GameObject::kMole);
+    GameObjectManager::Add(mole);
+  }
 
   levels_[level].heavy -= amount;
 }
@@ -115,8 +124,11 @@ void MoleSpawner::SpawnHeavy(int amount, int level) {
 void MoleSpawner::SpawnRanged(int amount, int level) {
   amount = amount > levels_[level].ranged ? levels_[level].ranged : amount;
 
-  for (int i = 0; i < amount; i++)
-    GameObjectManager::Add(new RangeMole(player_));
+  for (int i = 0; i < amount; i++) {
+    RangeMole* mole = new RangeMole(player_);
+    mole->SetObjectType(GameObject::kMole);
+    GameObjectManager::Add(mole);
+  }
 
   levels_[level].ranged -= amount;
 }
