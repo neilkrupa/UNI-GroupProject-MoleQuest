@@ -11,8 +11,10 @@ RangeMole::RangeMole(Player* p) :Mole(p) {
 	mole_.curr_value = mole_.max_value;
 	mole_.coins = rand() % 30;
 	mole_.type = 3;
-	mole_.damage = 30;
+	mole_.damage = 5;
 	mole_.position_ = rand() % 1024;
+	atkSpe = 1;
+	last_fired = 0;
 	Set();
 }
 
@@ -43,8 +45,9 @@ void RangeMole::Update(int lag) {
 		GetSprite().move(mole_.velocity_x_ * lag, mole_.velocity_y_ * lag);
 		mole_.velocity_x_ = 0;
 		mole_.velocity_y_ = 0;
+		
 	}
-
+	last_fired += lag / 1000.f;
 }
 
 void RangeMole::SetProjectile(){} 
@@ -52,15 +55,20 @@ void RangeMole::SetProjectile(){}
 void RangeMole::DealDamage(sf::Vector2f player_pos) {
 	
 	if ((player_pos.x - 550 < mole_pos.x) && (player_pos.x + 550 > mole_pos.x) && (player_pos.y - 550 < mole_pos.y) && (player_pos.y + 550 > mole_pos.y)) {
-    Projectile* projectile = new Projectile(mole_.damage,
-      mole_pos = GetSprite().getPosition(),
-      (sf::Vector2i) player_->GetPosition(),
-      GetSprite().getOrigin(),
-      GetSprite().getTextureRect());
+		if (last_fired >= 1 / atkSpe){
+			Projectile* projectile = new Projectile(mole_.damage,
+				mole_pos = GetSprite().getPosition(),
+				(sf::Vector2i) player_->GetPosition(),
+				GetSprite().getOrigin(),
+				GetSprite().getTextureRect());
 
-    projectile->SetObjectType(GameObject::kMoleProjectile);
+			projectile->SetObjectType(GameObject::kMoleProjectile);
 
-    GameObjectManager::Add(projectile);
+			GameObjectManager::Add(projectile);
+			last_fired = 0;
+			
+		}
 	}
+
 }
 
