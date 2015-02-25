@@ -51,6 +51,9 @@ private:
 	//Keyboard switch/case
 	std::string GetKey(sf::Keyboard::Key key);
 	
+	//Mouse switch/case
+	std::string GetMouse(sf::Mouse::Button button);
+	
 	// A list of all the menu item structs to be used in HandleClick()
 	std::list<SettingsItem> settings_items_;
 
