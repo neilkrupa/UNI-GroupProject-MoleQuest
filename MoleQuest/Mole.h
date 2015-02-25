@@ -7,7 +7,7 @@
 
 class Mole : public GameObject {
 public:
-	Mole(Player* Player_);
+	Mole(Player* Player_, int xpos);
 	~Mole();
 	void Set();
   void Update(int lag);
@@ -36,6 +36,7 @@ struct Stat {
 	struct Stat mole_;
 	Player *player_;
 	bool dead;
+  int xpos_;
 	
 private:
 	int randomNumber;

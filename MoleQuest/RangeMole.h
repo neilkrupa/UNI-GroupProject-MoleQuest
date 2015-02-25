@@ -9,7 +9,7 @@ class RangeMole : public Mole {
 public:
 	int randomNumber;
 	
-  RangeMole(Player* p);
+  RangeMole(Player* p, int);
 	~RangeMole();
 	float atkSpe;
 	float last_fired;

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "HeavyMole.h"
 
-HeavyMole::HeavyMole(Player* p):Mole(p){
+HeavyMole::HeavyMole(Player* p, int xpos):Mole(p, xpos){
 	srand(time(NULL));
 	mole_.velocity_x_ = 0;
 	mole_.velocity_y_ = 0;

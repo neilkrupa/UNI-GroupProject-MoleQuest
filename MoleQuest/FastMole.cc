@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FastMole.h"
 
-FastMole::FastMole(Player* p) :Mole(p){
+FastMole::FastMole(Player* p, int xpos) :Mole(p, xpos){
 	mole_.velocity_x_ = 0;
 	mole_.velocity_y_ = 0;
 	mole_.max_velocity_ = 0.25;

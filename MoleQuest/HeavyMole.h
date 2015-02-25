@@ -6,7 +6,7 @@
 
 class HeavyMole :public Mole{
 public:
-	HeavyMole(Player* p);
+	HeavyMole(Player* p, int xpos);
 	~HeavyMole();
 private:
 

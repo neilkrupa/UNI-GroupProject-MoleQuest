@@ -22,7 +22,7 @@ Boss::Boss(Player* Player_, int level) {
   
   player_ = Player_;
 
-  stats_.max_value = 200 * level;
+  stats_.max_value = 100 * level;
   stats_.curr_value = stats_.max_value;
   stats_.coins = 200 * level;
   stats_.damage = 3 * level;

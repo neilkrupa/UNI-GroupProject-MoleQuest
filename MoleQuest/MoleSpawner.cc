@@ -67,7 +67,7 @@ void MoleSpawner::Update(int lag, int level) {
   int amount = 0;
 
   // Work out amount of moles to spawn this update
-  if (time_passed > 4) {
+  if (time_passed > spawn_time) {
     amount = 3 * (level);
     time_passed = 0;
   }
@@ -87,7 +87,7 @@ void MoleSpawner::SpawnFast(int amount, int level) {
   amount = amount > levels_[level].fast ? levels_[level].fast : amount;
 
   for (int i = 0; i < amount; i++) {
-    FastMole* mole = new FastMole(player_);
+    FastMole* mole = new FastMole(player_, (1024 / amount) * (i));
     mole->SetObjectType(GameObject::kMole);
     GameObjectManager::Add(mole);
   }
@@ -99,7 +99,7 @@ void MoleSpawner::SpawnNormal(int amount, int level) {
   amount = amount > levels_[level].normal ? levels_[level].normal : amount;
 
   for (int i = 0; i < amount; i++) {
-    NormalMole* mole = new NormalMole(player_);
+    NormalMole* mole = new NormalMole(player_, (1024 / amount) * (i));
     mole->SetObjectType(GameObject::kMole);
     GameObjectManager::Add(mole);
   }
@@ -111,7 +111,7 @@ void MoleSpawner::SpawnHeavy(int amount, int level) {
   amount = amount > levels_[level].heavy ? levels_[level].heavy : amount;
 
   for (int i = 0; i < amount; i++) {
-    HeavyMole* mole = new HeavyMole(player_);
+    HeavyMole* mole = new HeavyMole(player_, (1024 / amount) * (i));
     mole->SetObjectType(GameObject::kMole);
     GameObjectManager::Add(mole);
   }
@@ -123,7 +123,7 @@ void MoleSpawner::SpawnRanged(int amount, int level) {
   amount = amount > levels_[level].ranged ? levels_[level].ranged : amount;
 
   for (int i = 0; i < amount; i++) {
-    RangeMole* mole = new RangeMole(player_);
+    RangeMole* mole = new RangeMole(player_, (1024 / amount) * (i));
     mole->SetObjectType(GameObject::kMole);
     GameObjectManager::Add(mole);
   }

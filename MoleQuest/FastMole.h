@@ -4,7 +4,7 @@
 #include "Mole.h"
 class FastMole :public Mole{
 public:
-	FastMole(Player* p);
+	FastMole(Player* p, int);
 	~FastMole();
 private:
 

@@ -3,7 +3,7 @@
 #include "GameObjectManager.h"
 #include "Projectile.h"
 
-RangeMole::RangeMole(Player* p) :Mole(p) {
+RangeMole::RangeMole(Player* p, int xpos) :Mole(p, xpos) {
 	mole_.velocity_x_ = 0;
 	mole_.velocity_y_ = 0;
 	mole_.max_velocity_ = 0.1;

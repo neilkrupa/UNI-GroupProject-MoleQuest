@@ -6,7 +6,7 @@
 
 class NormalMole : public Mole {
 public:
-  NormalMole(Player* p);
+  NormalMole(Player* p, int);
   ~NormalMole();
 private:
 };
