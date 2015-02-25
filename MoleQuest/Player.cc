@@ -235,11 +235,13 @@ void Player::MoveRight() {
 }
 
 void Player::Buy(std::string purchase) {
-  Weapon* weapon = &weapons_[weapon_indexes_[purchase]];
+   Weapon* weapon = &weapons_[weapon_indexes_[purchase]];
   if (weapon->Owned() == false){
-    weapon->setOwned();
-    coins -= weapon->getPrice();
-    coinVal.setString(std::to_string(coins));
+    if ((coins - weapon->getPrice()) > 0){
+  	  weapon->setOwned();
+	  coins -= weapon->getPrice();
+  	  coinVal.setString(std::to_string(coins));
+	}
   }
 }
 
