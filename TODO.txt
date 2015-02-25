@@ -13,3 +13,4 @@ LOW PRIORITY:-
 - Varying projectile speed
 - Bit maps
 - Properly fix map movement
+- Fix pause/settings overlap bug
