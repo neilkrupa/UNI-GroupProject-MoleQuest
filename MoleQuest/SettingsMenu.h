@@ -47,6 +47,10 @@ private:
 	// will return the 'result' of the button clicked. See MenuItem struct.
 	Result HandleClick(int x, int y);
 	
+	
+	//Keyboard switch/case
+	std::string GetKey(sf::Keyboard::Key key);
+	
 	// A list of all the menu item structs to be used in HandleClick()
 	std::list<SettingsItem> settings_items_;
 

@@ -52,6 +52,11 @@ void Projectile::Collision(GameObject* other_object) {
 
     // Remove this projectile
     GameObjectManager::Remove(GetObjectManagerIndex());
+  }else if (other_object->GetObjectType() == GameObject::kPlayer){
+	dynamic_cast<Player*> (other_object)->Damage(damage_);
+
+	// Remove this projectile
+	GameObjectManager::Remove(GetObjectManagerIndex());
   }
 }
 
