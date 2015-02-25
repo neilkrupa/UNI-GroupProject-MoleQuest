@@ -1,14 +1,15 @@
 HIGHEST PRIORITY:-
 - Spawning Moles
-- Add shooting delay to mole boss
+- Add a way to change projectile speed
 
 
+MED PRIORITY:-
+- Add some confirmation/rejection when you attempt to buy in the shop
+- Music
+- Sounds for attacks, firing etc.
 
 
 LOW PRIORITY:-
 - Varying projectile speed
 - Bit maps
-- Add some confirmation/rejection when you attempt to buy in the shop
-- Music
-- Sounds for attacks, firing etc.
 - Properly fix map movement
