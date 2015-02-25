@@ -18,7 +18,7 @@ public:
 	Result Show(sf::RenderWindow &window);
 
 	//This function updates the shop menu when an upgrade is made 
-	void UpdateMenu(int hL, int sL);
+	void UpdateMenu(int hL, int sL, int coin);
 
 	std::string toBuy;
 
