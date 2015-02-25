@@ -51,8 +51,9 @@ void RangeMole::SetProjectile(){
 void RangeMole::DealDamage(sf::Vector2f player_pos){
 	
 	if ((player_pos.x - 550 < mole_pos.x) && (player_pos.x + 550 > mole_pos.x) && (player_pos.y - 550 < mole_pos.y) && (player_pos.y + 550 > mole_pos.y)){
-		game_object_manager_.Add(new Projectile(mole_pos = GetSprite().getPosition(),
-			player_->GetPosition(),
+    game_object_manager_.Add(new Projectile(player_->GetWeapon().GetDamage(),
+      mole_pos = GetSprite().getPosition(),
+			(sf::Vector2i) player_->GetPosition(),
 			GetSprite().getOrigin(),
 			GetSprite().getTextureRect()));
 
