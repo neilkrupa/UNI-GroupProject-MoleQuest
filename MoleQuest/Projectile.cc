@@ -22,7 +22,7 @@ Projectile::Projectile(int damage, sf::Vector2f player_pos, sf::Vector2i mouse_p
 
   // Noramlise the vector between initial bullet pos and mouse pos
   // so the projectile will travel at same speed regardless of actual distance of mouse
-  // from the initial bullet position
+  // fro  m the initial bullet position
   Dx_ = mouse_pos.x - GetSprite().getPosition().x;
   Dy_ = mouse_pos.y - GetSprite().getPosition().y;
   float normal = sqrt(Dx_*Dx_ + Dy_*Dy_);
@@ -38,7 +38,7 @@ void Projectile::Update(int lag) {
   if (elapsed_time_ >= live_time_)
     GameObjectManager::Remove(GetObjectManagerIndex());
 
-  GetSprite().move(Dx_ * velocity * lag, Dy_ * velocity * lag);
+  GetSprite().move(Dx_ * velocity_ * lag, Dy_ * velocity_ * lag);
 }
 
 void Projectile::Draw(int lag, sf::RenderWindow& window) {

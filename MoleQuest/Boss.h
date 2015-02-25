@@ -11,7 +11,7 @@
 
 class Boss : public GameObject {
  public:
-	Boss(Player* Player_);
+	Boss(Player* Player_, int);
 	~Boss();
 
 	void Update(int lag);
@@ -37,22 +37,24 @@ class Boss : public GameObject {
 		int curr_value;
 		int max_value;
 
-		//Max and current health
+		// Coins boss gives on death
 		int coins;
 
-		//Max and current level
-		int curr_level;
-
-		// Amount each level will increase the value
-		int level_increase;
-
-		//Damage
+		// Damage
 		int damage;
+
+    // Attack speed for projectiles
+    float attack_speed;
 	};
 
 	Stat stats_;
 
   bool dead;
+
+  float last_attacked_ = 0.f;
+
+  float spawning_delay = 3.f;
+  float time_since_spawned = 0.f;
 };
 
 #endif

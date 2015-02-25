@@ -21,13 +21,17 @@ Game::Game() {
 
   game_state_ = GameState::kShowingMenu;
 
+  mole_spawner_ = MoleSpawner();
+
   player_ = new Player();
   player_->SetObjectType(GameObject::kPlayer);
   game_object_manager_.Add(player_);
 
+  // FOR TESTING
   RangeMole* mole = new RangeMole(player_);
   mole->SetObjectType(GameObject::kMole);
-  game_object_manager_.Add(mole); // For testing moles
+  game_object_manager_.Add(mole);
+  // END TESTING
 
   Input input;
   input.type = InputType::kKey;
@@ -102,7 +106,7 @@ void Game::GameLoop() {
 
         // If at top of map, spawn a boss
         if (map_.AtTopOfMap() && !boss_spawned) {
-          boss_= new Boss(player_);
+          boss_= new Boss(player_, map_.CurrentLevel());
           boss_->SetObjectType(GameObject::kBoss);
           game_object_manager_.Add(boss_);
           boss_spawned = true;
@@ -121,6 +125,7 @@ void Game::GameLoop() {
           game_object_manager_.Remove(boss_->GetObjectManagerIndex());
         }
 
+        mole_spawner_.Update(lag);
         game_object_manager_.UpdateAll(lag);
 
         map_.DrawLevel(main_window_);

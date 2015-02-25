@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "Level.h"
 #include "Boss.h"
+#include "MoleSpawner.h"
 #include "Mole.h"
 
 class Game {
@@ -82,6 +83,8 @@ enum InputType { kKey, kMouse };
   Boss* boss_;
 
   bool boss_spawned = false;
+
+  MoleSpawner mole_spawner_;
 };
 
 #endif

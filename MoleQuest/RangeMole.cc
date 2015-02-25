@@ -56,7 +56,7 @@ void RangeMole::DealDamage(sf::Vector2f player_pos) {
 	
 	if ((player_pos.x - 550 < mole_pos.x) && (player_pos.x + 550 > mole_pos.x) && (player_pos.y - 550 < mole_pos.y) && (player_pos.y + 550 > mole_pos.y)) {
 		if (last_fired >= 1 / atkSpe){
-			Projectile* projectile = new Projectile(mole_.damage,
+      Projectile* projectile = new Projectile(mole_.damage,
 				mole_pos = GetSprite().getPosition(),
 				(sf::Vector2i) player_->GetPosition(),
 				GetSprite().getOrigin(),

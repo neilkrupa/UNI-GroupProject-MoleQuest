@@ -17,7 +17,7 @@ class Projectile : public GameObject {
    int elapsed_time_ = 0;
    int live_time_ = 3000;
 
-   float velocity = 1.f;
+   float velocity_ = 1.f;
 
    float Dx_ = 0.f;
    float Dy_ = 0.f;
