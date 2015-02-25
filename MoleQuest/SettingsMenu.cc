@@ -101,7 +101,7 @@ SettingsMenu::SettingsMenu() {
 	pause.name = "pause";
 	pause.key.setCharacterSize(20);
 	pause.key.setPosition(475, 603);
-	pause.key.setString("ESC");
+	pause.key.setString("Escape");
 	pause.key.setColor(sf::Color::Black);
 
 
@@ -185,7 +185,7 @@ void SettingsMenu::UpdateMenu(std::map<std::string, Game::Input> key_map_){
 		for (curr = settings_items_.begin(); curr != settings_items_.end(); ++curr){
 			if (curr->name.compare(mapCurr->first) == 0){
 				if (mapCurr->second.type == Game::InputType::kKey)
-					curr->key.setString(std::to_string(mapCurr->second.KeyCode));
+					curr->key.setString(GetKey(mapCurr->second.KeyCode));
 				else
 					curr->key.setString(std::to_string(mapCurr->second.MouseButton));
 				break;
@@ -194,7 +194,111 @@ void SettingsMenu::UpdateMenu(std::map<std::string, Game::Input> key_map_){
 	}
 }
 
-
+std::string SettingsMenu::GetKey(sf::Keyboard::Key key){
+  switch (keycode) {
+    case sf::Key::Escape: return "Escape"; break;
+    case sf::Key::LControl: return "LControl"; break;
+    case sf::Key::LShift: return "LShift"; break;
+    case sf::Key::LAlt: return "LAlt"; break;
+    case sf::Key::LSystem: return "LSystem"; break;
+    case sf::Key::RControl: return "RControl"; break;
+    case sf::Key::RShift: return "RShift"; break;
+    case sf::Key::RAlt: return "RAlt"; break;
+    case sf::Key::RSystem: return "RSystem"; break;
+    case sf::Key::Menu: return "Menu"; break;
+    case sf::Key::LBracket: return "LBracket"; break;
+    case sf::Key::RBracket: return "RBracket"; break;
+    case sf::Key::SemiColon: return ";"; break;
+    case sf::Key::Comma: return ","; break;
+    case sf::Key::Period: return "."; break;
+    case sf::Key::Quote: return "'"; break;
+    case sf::Key::Slash: return  "/"; break;
+    case sf::Key::BackSlash: return "\\"; break;
+    case sf::Key::Tilde: return "~"; break;
+    case sf::Key::Equal: return "="; break;
+    case sf::Key::Dash: return "-"; break;
+    case sf::Key::Space: return "Space"; break;
+    case sf::Key::Return: return "Return"; break;
+    case sf::Key::Back: return "Back"; break;
+    case sf::Key::Tab: return "Tab"; break;
+    case sf::Key::PageUp: return"Page Up"; break;
+    case sf::Key::PageDown: return"Page Down"; break;
+    case sf::Key::End: return"End"; break;
+    case sf::Key::Home: return"Home"; break;
+    case sf::Key::Insert: return"Insert"; break;
+    case sf::Key::Delete: return"Delete"; break;
+    case sf::Key::Add: return"+"; break;
+    case sf::Key::Subtract: return"-"; break;
+    case sf::Key::Multiply: return"*"; break;
+    case sf::Key::Divide: return"/"; break;
+    case sf::Key::Left: return"Left"; break;
+    case sf::Key::Right: return"Right"; break;
+    case sf::Key::Up: return"Up"; break;
+    case sf::Key::Down: return"Down"; break;
+    case sf::Key::Numpad0: return"NP 0"; break;
+    case sf::Key::Numpad1: return"NP 1"; break;
+    case sf::Key::Numpad2: return"NP 2"; break;
+    case sf::Key::Numpad3: return"NP 3"; break;
+    case sf::Key::Numpad4: return"NP 4"; break;
+    case sf::Key::Numpad5: return"NP 5"; break;
+    case sf::Key::Numpad6: return"NP 6"; break;
+    case sf::Key::Numpad7: return"NP 7"; break;
+    case sf::Key::Numpad8: return"NP 8"; break;
+    case sf::Key::Numpad9: return"NP 9"; break;
+    case sf::Key::F1: return"F1"; break;
+    case sf::Key::F2: return"F2"; break;
+    case sf::Key::F3: return"F3"; break;
+    case sf::Key::F4: return"F4"; break;
+    case sf::Key::F5: return"F5"; break;
+    case sf::Key::F6: return"F6"; break;
+    case sf::Key::F7: return"F7"; break;
+    case sf::Key::F8: return"F8"; break;
+    case sf::Key::F9: return"F9"; break;
+    case sf::Key::F10: return"F10"; break;
+    case sf::Key::F11: return"F11"; break;
+    case sf::Key::F12: return"F12"; break;
+    case sf::Key::F13: return"F13"; break;
+    case sf::Key::F14: return"F14"; break;
+    case sf::Key::F15: return"F15"; break;
+    case sf::Key::Pause: return"Pause"; break;
+	case sf::Key::A: return"A"; break;
+	case sf::Key::B: return"B"; break;
+	case sf::Key::C: return"C"; break;
+	case sf::Key::D: return"D"; break;
+	case sf::Key:E: return"E"; break;
+	case sf::Key::F: return"F"; break;
+	case sf::Key::G: return"G"; break;		
+	case sf::Key::H: return"H"; break;
+	case sf::Key::I: return"I"; break;
+	case sf::Key::J: return"J"; break;
+	case sf::Key::K: return"K"; break;
+	case sf::Key::L: return"L"; break;
+	case sf::Key::M: return"M"; break;
+	case sf::Key::N: return"N"; break;
+	case sf::Key::O: return"O"; break;
+	case sf::Key::P: return"P"; break;
+	case sf::Key::Q: return"Q"; break;
+	case sf::Key::R: return"R"; break;
+	case sf::Key::S: return"S"; break;
+	case sf::Key::T: return"T"; break;
+	case sf::Key::U: return"U"; break;
+	case sf::Key::V: return"V"; break;
+	case sf::Key::W: return"W"; break;
+	case sf::Key::X: return"X"; break;
+	case sf::Key::Y: return"Y"; break;
+	case sf::Key::Z: return"Z"; break;
+	case sf::Key::Num1: return"1"; break;
+	case sf::Key::Num2: return"2"; break;
+	case sf::Key::Num3: return"3"; break;
+	case sf::Key::Num4: return"4"; break;
+	case sf::Key::Num5: return"5"; break;
+	case sf::Key::Num6: return"6"; break;
+	case sf::Key::Num7: return"7"; break;
+	case sf::Key::Num8: return"8"; break;
+	case sf::Key::Num9: return"9"; break;
+	case sf::Key::Num0: return"0"; break;
+	}					
+}
 
 
 
