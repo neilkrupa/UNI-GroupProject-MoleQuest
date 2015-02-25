@@ -46,6 +46,8 @@ class Player : public GameObject {
 
   float GetVelocityX() const;
   float GetVelocityY() const;
+  
+  int GetCoin();
 
   float GetLastFiredTime() const;
 
