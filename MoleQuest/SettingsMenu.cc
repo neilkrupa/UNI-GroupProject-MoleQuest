@@ -302,6 +302,18 @@ std::string SettingsMenu::GetKey(sf::Keyboard::Key key){
 }
 
 
+std::string SettingsMenu::GetMouse(sf::Mouse::Button button){
+	switch(button){
+		case sf::Mouse::Left: return "Left Mouse";
+		case sf::Mouse::Right: return "Right Mouse";
+		case sf::Mouse::Middle: return "Middle Mouse";
+		case sf::Mouse::XButton1: return "Extra Button 1";
+		case sf::Mouse::XButton2: return "Extra Button 2";
+	default: return "n/a";
+	}
+}
+}
+
 
 
 
