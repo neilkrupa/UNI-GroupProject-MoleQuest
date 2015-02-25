@@ -1,12 +1,23 @@
-High Priority List:
-- Collision Detection for projectiles 
-- Fix map movement 
-- All Mole classes added
-- Spawning Moles
-- Bosses added
+HIGHEST PRIORITY:-
+
+- Fix shop buying
+
+- Set all the boss values for each level
+
 - Settings menu displaying values
 
-Low Priority:
+- Fix normal moles
+- Fix heavy mole sprite
+- Adjust all mole sprite sizes
+- Spawning Moles
+
+
+
+
+
+LOW PRIORITY:-
 - Bit maps
+- Add some confirmation/rejection when you attempt to buy in the shop
 - Music
 - Sounds for attacks, firing etc.
+- Properly fix map movement
