@@ -78,6 +78,8 @@ enum InputType { kKey, kMouse };
   Game::Input Map(Game::Input);
 
   Player* player_;
+
+  bool boss_spawned = false;
 };
 
 #endif

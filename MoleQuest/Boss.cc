@@ -12,7 +12,7 @@ Boss::Boss(Player* Player_){
   // Load the introduction animation
   texture_H_.loadFromFile("images/boss_head.png");
   sprite_H_.setTexture(texture_H_);
-  sprite_H_.setPosition(500, 300);
+  sprite_H_.setPosition(500, 100);
   sprite_H_.setScale(0.5, 0.5);
   sprite_H_.setOrigin(207, 280);
 
@@ -20,7 +20,7 @@ Boss::Boss(Player* Player_){
   texture_B_.loadFromFile("images/boss_body.png");
   sprite_B_.setTexture(texture_B_);
   sprite_B_.setOrigin(500, 500);
-  sprite_B_.setPosition(500, 300);
+  sprite_B_.setPosition(500, 100);
   sprite_B_.setScale(0.5, 0.5);
 
   // Store the player's memory address for use in AI logic

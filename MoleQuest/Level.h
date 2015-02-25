@@ -14,12 +14,14 @@ class Level {
 
   void DrawLevel(sf::RenderWindow&);
 
+  bool AtTopOfMap();
+
  private:
   int curr_level_ = 0;
 
   int level_move_speed_ = 1;
-  int level_move_top_limit_ = 200;
-  int level_move_bottom_limit_ = 600;
+  int level_move_top_limit_ = 768 / 2;
+  int level_move_bottom_limit_ = 500;
 
   sf::Texture level_texture_;
   sf::Sprite level_sprite_;

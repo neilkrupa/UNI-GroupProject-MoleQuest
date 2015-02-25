@@ -11,6 +11,7 @@
 #include "Pause.h"
 #include "SoundEngine.h"
 #include "Projectile.h"
+#include "Boss.h"
 #include "Intro.h"
 #include "RangeMole.h"
 
@@ -98,6 +99,15 @@ void Game::GameLoop() {
         ProcessInput();
 
         map_.UpdateLevel(player_->GetPosition(), main_window_);
+
+        // If at top of map, spawn a boss
+        if (map_.AtTopOfMap() && !boss_spawned) {
+          Boss* boss = new Boss(player_);
+          boss->SetObjectType(GameObject::kMole);
+          game_object_manager_.Add(boss);
+          boss_spawned = true;
+        }
+
         game_object_manager_.UpdateAll(lag);
 
         map_.DrawLevel(main_window_);
@@ -205,8 +215,8 @@ void Game::ShowMenu() {
 
     case MainMenu::Result::kPlay: {
       // Display the intro animation
-      Intro intro;
-      intro.Show(main_window_);
+      //Intro intro;
+      //intro.Show(main_window_);
 
       // Start the game
       map_.ChangeLevel(main_window_, 1);
