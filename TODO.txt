@@ -1,21 +1,12 @@
 HIGHEST PRIORITY:-
-
-- Fix shop buying
-
-- Set all the boss values for each level
-
-- Settings menu displaying values
-
-- Fix normal moles
-- Fix heavy mole sprite
-- Adjust all mole sprite sizes
 - Spawning Moles
-
+- Add shooting delay to mole boss
 
 
 
 
 LOW PRIORITY:-
+- Varying projectile speed
 - Bit maps
 - Add some confirmation/rejection when you attempt to buy in the shop
 - Music
